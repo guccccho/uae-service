@@ -480,15 +480,6 @@ export default function Home() {
           </div>
         </section>
       </main>
-
-      {/* Footer */}
-      <footer className="border-t border-[#f0ece5]">
-        <div className="mx-auto flex max-w-6xl flex-col items-center gap-3 px-6 py-10 text-center text-sm text-slate-500 sm:px-10 lg:px-12 sm:py-12">
-          <div className="text-slate-700">{t.footer.name}</div>
-          <div>{t.footer.location}</div>
-          <div className="text-slate-400">{t.footer.email}</div>
-        </div>
-      </footer>
     </div>
   );
 }

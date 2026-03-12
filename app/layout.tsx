@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { LangProvider } from "./lang-context";
+import { SiteFooter } from "./components/Footer";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -15,7 +16,8 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: "UAE Business Consulting | Strategic Guidance for the Emirates",
-  description: "Expert UAE business consulting: company setup, compliance, market entry, and growth across the Gulf region.",
+  description:
+    "Expert UAE business consulting: company setup, compliance, market entry, and growth across the Gulf region.",
 };
 
 export default function RootLayout({
@@ -28,8 +30,12 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <LangProvider>{children}</LangProvider>
+        <LangProvider>
+          {children}
+          <SiteFooter />
+        </LangProvider>
       </body>
     </html>
   );
 }
+
