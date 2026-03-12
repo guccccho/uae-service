@@ -12,7 +12,7 @@ export function SiteFooter() {
       <div className="mx-auto flex max-w-6xl flex-col gap-8 px-6 py-10 text-sm text-slate-500 sm:flex-row sm:items-start sm:justify-between sm:px-10 lg:px-12 sm:py-12">
         <div className="space-y-3 text-center sm:text-left">
           <div className="text-xs font-semibold uppercase tracking-[0.26em] text-slate-800">
-            UAE Business Consulting
+            OMO GROUP
           </div>
           <p className="text-slate-600">
             {isJP
@@ -72,7 +72,7 @@ export function SiteFooter() {
           </div>
 
           <div className="text-[11px] text-slate-400">
-            <div>© {new Date().getFullYear()} UAE Business Consulting</div>
+            <div>© {new Date().getFullYear()} OMO GROUP</div>
             <div className="mt-1">
               {isJP
                 ? "本ページの内容は一般的な情報提供を目的としたものであり、個別の法的・税務アドバイスではありません。"
