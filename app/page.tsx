@@ -268,7 +268,7 @@ export default function Home() {
             <div
               className="h-full w-full bg-cover bg-center"
               style={{
-                backgroundImage: "url('/hero-omo-fuji.png')",
+                backgroundImage: "url('/fuji.avif')",
               }}
             />
             <div className="absolute inset-0 bg-slate-900/30" />
