@@ -215,6 +215,7 @@ const content = {
 export default function Home() {
   const { lang, setLang } = useLang();
   const t = content[lang];
+  const isJP = lang === "jp";
 
   return (
     <div className="min-h-screen bg-white text-slate-900 antialiased">
@@ -267,18 +268,17 @@ export default function Home() {
             <div
               className="h-full w-full bg-cover bg-center"
               style={{
-                backgroundImage:
-                  "url('https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&w=1600&q=80')",
+                backgroundImage: "url('/hero-omo-fuji.png')",
               }}
             />
-            <div className="absolute inset-0 bg-white/80" />
+            <div className="absolute inset-0 bg-slate-900/30" />
           </div>
-          <div className="relative mx-auto max-w-6xl px-6 sm:px-10 lg:px-12 py-24 sm:py-32 lg:py-40">
-            <div className="flex flex-col items-center text-center gap-10">
+          <div className="relative mx-auto flex max-w-6xl flex-col justify-between px-6 py-20 sm:px-10 sm:py-24 lg:px-12 lg:py-28 min-h-[70vh] sm:min-h-[80vh]">
+            <div className="max-w-xl text-white">
               <h1
-                className="max-w-4xl text-4xl font-light leading-[1.05] tracking-[-0.04em] text-slate-900 sm:text-6xl lg:text-7xl"
+                className="text-4xl font-light leading-[1.15] tracking-[0.08em] sm:text-5xl lg:text-6xl"
                 style={
-                  lang === "jp"
+                  isJP
                     ? {
                         fontFamily:
                           '"Hiragino Mincho ProN", "Yu Mincho", "MS PMincho", "Noto Serif JP", serif',
@@ -286,32 +286,55 @@ export default function Home() {
                     : undefined
                 }
               >
-                {t.hero.title}
+                {isJP ? (
+                  <>
+                    届け世界へ
+                    <br />
+                    日本の誇り
+                  </>
+                ) : (
+                  <>
+                    Taking Japan&apos;s
+                    <br />
+                    excellence to the world
+                  </>
+                )}
               </h1>
-              <p className="max-w-2xl text-base leading-[1.9] text-slate-600 sm:text-lg">
-                <span>{t.hero.subtitleLine1}</span>
-                <br className="hidden sm:block" />
-                <span>{t.hero.subtitleLine2}</span>
+              <p className="mt-8 text-sm leading-[2] text-slate-100/90 sm:text-base">
+                {isJP ? (
+                  <>
+                    私たちOMO GROUPは、
+                    <br />
+                    日本が誇る伝統と品質を世界へ届けるために
+                    <br />
+                    誕生しました。
+                  </>
+                ) : (
+                  <>
+                    OMO GROUP exists to bring Japan&apos;s craftsmanship and
+                    quality to customers around the world.
+                    <br />
+                    From brands rooted in tradition to new innovations, we
+                    connect Japan and the global market.
+                  </>
+                )}
               </p>
-              <div className="mt-4 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-center">
-                <a
-                  href="#contact"
-                  className="inline-flex items-center justify-center rounded-full bg-[#c9a86c] px-10 py-3.5 text-xs font-semibold uppercase tracking-[0.2em] text-white shadow-[0_18px_45px_rgba(15,23,42,0.18)] transition-colors hover:bg-[#b89455]"
+            </div>
+            <div className="mt-10 sm:mt-0">
+              <div className="inline-flex items-center rounded-full bg-white/90 px-4 py-2 text-xs font-medium tracking-[0.16em] text-slate-700 shadow-sm backdrop-blur">
+                <span className="mr-3 text-slate-500">
+                  {isJP ? "言語" : "Language"}
+                </span>
+                <select
+                  value={lang}
+                  onChange={(e) =>
+                    setLang(e.target.value === "jp" ? "jp" : "en")
+                  }
+                  className="bg-transparent text-xs font-semibold tracking-[0.16em] text-slate-900 outline-none"
                 >
-                  {t.hero.primaryCta}
-                </a>
-                <a
-                  href="#services"
-                  className="inline-flex items-center justify-center rounded-full border border-slate-200 bg-white/80 px-10 py-3.5 text-xs font-semibold uppercase tracking-[0.2em] text-slate-700 transition-colors hover:bg-slate-50"
-                >
-                  {t.hero.secondaryCta}
-                </a>
-                <a
-                  href="/simulator"
-                  className="inline-flex items-center justify-center rounded-full border border-slate-200 bg-white/80 px-10 py-3.5 text-xs font-semibold uppercase tracking-[0.2em] text-slate-700 transition-colors hover:bg-slate-50"
-                >
-                  {t.hero.simulatorCta}
-                </a>
+                  <option value="jp">JA</option>
+                  <option value="en">EN</option>
+                </select>
               </div>
             </div>
           </div>
