@@ -293,9 +293,12 @@ export default function SimulatorPage() {
     <main className="min-h-screen bg-white text-slate-900 antialiased">
       <header className="border-b border-[#f0ece5] bg-white">
         <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-6 sm:px-10 lg:px-12">
-          <p className="text-xs font-semibold uppercase tracking-[0.26em] text-slate-800">
+          <a
+            href="/"
+            className="text-xs font-semibold uppercase tracking-[0.26em] text-slate-800 transition-colors hover:text-slate-900"
+          >
             UAE Consulting
-          </p>
+          </a>
           <div className="flex items-center gap-5">
             <p className="hidden text-xs font-medium tracking-[0.18em] text-slate-500 sm:block">
               1 AED = {AED_TO_JPY} JPY
