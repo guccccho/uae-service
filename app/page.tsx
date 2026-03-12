@@ -221,8 +221,16 @@ export default function Home() {
       {/* Header */}
       <header className="border-b border-[#f0ece5]">
         <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-6 sm:px-10 lg:px-12">
-          <div className="text-xs font-semibold uppercase tracking-[0.26em] text-slate-800">
-            {t.logo}
+          <div className="flex items-center gap-8">
+            <div className="text-xs font-semibold uppercase tracking-[0.26em] text-slate-800">
+              {t.logo}
+            </div>
+            <a
+              href="/media"
+              className="hidden text-[11px] font-semibold tracking-[0.18em] text-slate-500 transition-colors hover:text-slate-800 sm:inline"
+            >
+              {lang === "jp" ? "登記企業のプロダクト" : "Client Products & Media"}
+            </a>
           </div>
           <div className="flex items-center gap-2 text-[11px] font-semibold tracking-[0.18em]">
             <button
