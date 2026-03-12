@@ -1,11 +1,10 @@
-"use client";
+\"use client\";
 
-import React, { useState } from "react";
-
-type Lang = "jp" | "en";
+import React from "react";
+import { useLang } from "../lang-context";
 
 export default function CaseStudiesPage() {
-  const [lang, setLang] = useState<Lang>("jp");
+  const { lang, setLang } = useLang();
   const isJP = lang === "jp";
 
   const title = isJP ? "支援事例" : "Selected Case Studies";
