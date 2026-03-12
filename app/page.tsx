@@ -1,6 +1,7 @@
-"use client";
+\"use client\";
 
-import React, { useState } from "react";
+import React from "react";
+import { useLang } from "./lang-context";
 
 const content = {
   jp: {
@@ -211,10 +212,8 @@ const content = {
   },
 } as const;
 
-type Lang = keyof typeof content;
-
 export default function Home() {
-  const [lang, setLang] = useState<Lang>("jp");
+  const { lang, setLang } = useLang();
   const t = content[lang];
 
   return (
