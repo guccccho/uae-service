@@ -103,8 +103,8 @@ const content = {
     },
     footer: {
       name: "UAE Business Consulting",
-      location: "Dubai / Abu Dhabi",
-      email: "contact@example.com",
+      location: "IFZA Business Park, Dubai Silicon Oasis, Dubai, United Arab Emirates",
+      email: "contact@omogroup.com",
     },
   },
   en: {
@@ -206,8 +206,8 @@ const content = {
     },
     footer: {
       name: "UAE Business Consulting",
-      location: "Dubai / Abu Dhabi",
-      email: "contact@example.com",
+      location: "IFZA Business Park, Dubai Silicon Oasis, Dubai, United Arab Emirates",
+      email: "contact@omogroup.com",
     },
   },
 } as const;

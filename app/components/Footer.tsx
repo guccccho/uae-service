@@ -19,15 +19,22 @@ export function SiteFooter() {
               ? "UAE進出に関する戦略立案から法人設立、現地パートナーシップ構築まで、日本企業の拠点づくりを一貫して支援します。"
               : "From strategy to setup and partnerships, we support organizations using the UAE as a regional base for growth."}
           </p>
-          <div className="text-slate-400">
-            <span>Dubai / Abu Dhabi</span>
-            <span className="mx-2">・</span>
-            <a
-              href="mailto:contact@example.com"
-              className="underline-offset-4 hover:text-slate-600 hover:underline"
-            >
-              contact@example.com
-            </a>
+          <div className="text-slate-400 space-y-1">
+            <div>
+              IFZA Business Park
+              <br />
+              Dubai Silicon Oasis
+              <br />
+              Dubai, United Arab Emirates
+            </div>
+            <div>
+              <a
+                href="mailto:contact@omogroup.com"
+                className="underline-offset-4 hover:text-slate-600 hover:underline"
+              >
+                contact@omogroup.com
+              </a>
+            </div>
           </div>
         </div>
 
