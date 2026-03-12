@@ -224,7 +224,17 @@ export default function Home() {
         <section className="border-b border-[#f0ece5]">
           <div className="mx-auto max-w-6xl px-6 sm:px-10 lg:px-12 py-24 sm:py-32 lg:py-40">
             <div className="flex flex-col items-center text-center gap-10">
-              <h1 className="max-w-4xl text-4xl font-light leading-[1.05] tracking-[-0.04em] text-slate-900 sm:text-6xl lg:text-7xl">
+              <h1
+                className="max-w-4xl text-4xl font-light leading-[1.05] tracking-[-0.04em] text-slate-900 sm:text-6xl lg:text-7xl"
+                style={
+                  lang === "jp"
+                    ? {
+                        fontFamily:
+                          '"Hiragino Mincho ProN", "Yu Mincho", "MS PMincho", "Noto Serif JP", serif',
+                      }
+                    : undefined
+                }
+              >
                 {t.hero.title}
               </h1>
               <p className="max-w-2xl text-base leading-[1.9] text-slate-600 sm:text-lg">
