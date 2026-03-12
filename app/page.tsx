@@ -77,6 +77,23 @@ const content = {
         },
       ],
     },
+    faq: {
+      title: "よくあるご質問",
+      items: [
+        {
+          q: "相談までの流れを教えてください。",
+          a: "まずはオンラインで30〜45分程度のヒアリングを行い、貴社の状況とご検討のタイミングを伺います。その上で、必要に応じて簡易の進出シナリオや次のステップをご提案します。",
+        },
+        {
+          q: "どのタイミングで相談するのが最適ですか？",
+          a: "具体的な進出時期が決まっていない段階でも問題ありません。情報収集フェーズからご相談いただくことで、エリア選定や社内稟議に必要な材料を早めに整理することができます。",
+        },
+        {
+          q: "どのような規模・業種の企業が対象ですか？",
+          a: "日本の中堅〜大企業を中心に、製造業、商社、テクノロジー企業など、BtoBビジネスを展開されている企業様からのご相談が多いです。その他の業種についても、お気軽にご相談ください。",
+        },
+      ],
+    },
     cta: {
       label: "コンサルティングのご相談",
       heading: "UAE進出を検討されていますか？",
@@ -163,6 +180,23 @@ const content = {
         },
       ],
     },
+    faq: {
+      title: "FAQ",
+      items: [
+        {
+          q: "What does the initial consultation look like?",
+          a: "We typically start with a 30–45 minute online discussion to understand your business, timing, and objectives. Based on that, we outline potential entry scenarios and clarify what information you would need internally.",
+        },
+        {
+          q: "When is the right timing to speak with you?",
+          a: "It is perfectly fine to speak with us while you are still exploring options. Engaging early helps you compare jurisdictions, anticipate regulatory points, and prepare internal decision-making.",
+        },
+        {
+          q: "What types of companies do you usually work with?",
+          a: "We primarily work with mid-sized and large Japanese and global companies in manufacturing, trading, and technology. If you are unsure whether your case fits, feel free to reach out and we can discuss it.",
+        },
+      ],
+    },
     cta: {
       label: "Next step",
       heading: "Ready to expand into the UAE?",
@@ -221,8 +255,18 @@ export default function Home() {
 
       <main>
         {/* Hero */}
-        <section className="border-b border-[#f0ece5]">
-          <div className="mx-auto max-w-6xl px-6 sm:px-10 lg:px-12 py-24 sm:py-32 lg:py-40">
+        <section className="relative border-b border-[#f0ece5] overflow-hidden">
+          <div className="absolute inset-0">
+            <div
+              className="h-full w-full bg-cover bg-center"
+              style={{
+                backgroundImage:
+                  "url('https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&w=1600&q=80')",
+              }}
+            />
+            <div className="absolute inset-0 bg-white/80" />
+          </div>
+          <div className="relative mx-auto max-w-6xl px-6 sm:px-10 lg:px-12 py-24 sm:py-32 lg:py-40">
             <div className="flex flex-col items-center text-center gap-10">
               <h1
                 className="max-w-4xl text-4xl font-light leading-[1.05] tracking-[-0.04em] text-slate-900 sm:text-6xl lg:text-7xl"
@@ -373,6 +417,32 @@ export default function Home() {
                   </h3>
                   <p className="mt-3 text-sm leading-[1.8] text-slate-600">
                     {card.body}
+                  </p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* FAQ */}
+        <section className="border-b border-[#f0ece5] bg-slate-50/40">
+          <div className="mx-auto max-w-5xl px-6 sm:px-10 lg:px-12 py-20 sm:py-24 lg:py-28">
+            <div className="mx-auto max-w-3xl text-center">
+              <p className="text-xs font-medium uppercase tracking-[0.3em] text-[#c9a86c]">
+                {t.faq.title}
+              </p>
+            </div>
+            <div className="mt-10 space-y-6">
+              {t.faq.items.map((item) => (
+                <div
+                  key={item.q}
+                  className="rounded-2xl bg-white/90 p-6 sm:p-7 shadow-[0_18px_45px_rgba(15,23,42,0.04)] ring-1 ring-slate-100/70 text-left"
+                >
+                  <h3 className="text-sm font-semibold tracking-[-0.01em] text-slate-900">
+                    {item.q}
+                  </h3>
+                  <p className="mt-3 text-sm leading-[1.9] text-slate-600">
+                    {item.a}
                   </p>
                 </div>
               ))}
