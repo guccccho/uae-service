@@ -297,7 +297,7 @@ export default function SimulatorPage() {
             href="/"
             className="text-xs font-semibold uppercase tracking-[0.26em] text-slate-800 transition-colors hover:text-slate-900"
           >
-            UAE Consulting
+            OMO GROUP UAE Consulting
           </a>
           <div className="flex items-center gap-5">
             <p className="hidden text-xs font-medium tracking-[0.18em] text-slate-500 sm:block">
