@@ -21,7 +21,7 @@ const content = {
     },
     expertise: {
       title: "サービス内容",
-      subtitle: "UAE進出を支える、実務と戦略の両面からのアドバイザリー。",
+      subtitle: "UAE進出に必要な実務支援と戦略立案をまとめてサポートします。",
       cards: [
         {
           code: "ME",
