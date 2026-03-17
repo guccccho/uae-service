@@ -22,9 +22,12 @@ export default function MediaIndexPage() {
       {/* Header */}
       <header className="border-b border-[#f0ece5]">
         <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-6 sm:px-10 lg:px-12">
-          <div className="text-xs font-semibold uppercase tracking-[0.26em] text-slate-800">
+          <a
+            href="/"
+            className="text-xs font-semibold uppercase tracking-[0.26em] text-slate-800 transition-colors hover:text-slate-900"
+          >
             UAE Business Consulting
-          </div>
+          </a>
           <div className="flex items-center gap-2 text-[11px] font-semibold tracking-[0.18em]">
             <button
               type="button"

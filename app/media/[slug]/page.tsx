@@ -29,7 +29,7 @@ export default function MediaDetailPage() {
         <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-6 sm:px-10 lg:px-12">
           <div className="flex items-center gap-6">
             <Link
-              href="/media"
+              href="/"
               className="text-xs font-semibold uppercase tracking-[0.26em] text-slate-800 hover:text-slate-900"
             >
               UAE Business Consulting
