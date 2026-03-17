@@ -320,7 +320,13 @@ export default function Home() {
                 )}
               </p>
             </div>
-            <div className="mt-10 sm:mt-0">
+            <div className="mt-10 flex flex-col gap-4 sm:mt-0 sm:flex-row sm:items-center sm:justify-between">
+              <a
+                href="/simulator"
+                className="inline-flex items-center justify-center rounded-full bg-[#c9a86c] px-10 py-3.5 text-xs font-semibold uppercase tracking-[0.2em] text-white shadow-[0_18px_45px_rgba(15,23,42,0.18)] transition-colors hover:bg-[#b89455]"
+              >
+                {t.hero.simulatorCta}
+              </a>
               <div className="inline-flex items-center rounded-full bg-white/90 px-4 py-2 text-xs font-medium tracking-[0.16em] text-slate-700 shadow-sm backdrop-blur">
                 <span className="mr-3 text-slate-500">
                   {isJP ? "言語" : "Language"}
