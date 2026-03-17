@@ -11,11 +11,11 @@ export default function MediaIndexPage() {
   const items = getMediaItemsForLang(lang);
 
   const title = isJP
-    ? "UAEから生まれたプロダクト・サービス"
-    : "Products and Services from the UAE";
+    ? "支援先プロダクト・サービス"
+    : "Supported Products and Services";
   const description = isJP
-    ? "当社が登記・設立を支援した企業のプロダクトやサービスの一部をご紹介します。UAEを拠点とした新しいビジネスのかたちを、具体的な事例からイメージしていただけます。"
-    : "A selection of products and services launched by companies we have supported in the UAE, illustrating what new business models can look like from a UAE hub.";
+    ? "当社がUAE展開を支援した企業のプロダクトやサービスをご紹介します。現在は紹介ページですが、今後は各詳細ページからECや販売代理店向けページへ接続できる構成を想定しています。"
+    : "A selection of products and services from companies we supported for UAE expansion. Today these pages serve as showcases, with a structure that can later connect each product to e-commerce or distributor-facing pages.";
 
   return (
     <div className="min-h-screen bg-white text-slate-900 antialiased">

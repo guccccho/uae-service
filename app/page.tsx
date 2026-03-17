@@ -466,17 +466,17 @@ export default function Home() {
             <div className="mt-20">
               <div className="mx-auto max-w-3xl text-center">
                 <p className="text-xs font-medium uppercase tracking-[0.3em] text-[#c9a86c]">
-                  {isJP ? "登記企業のプロダクト" : "Client Products"}
+                  {isJP ? "支援先プロダクト" : "Supported Products"}
                 </p>
                 <h2 className="mt-6 text-2xl font-light tracking-[-0.03em] text-slate-900 sm:text-3xl">
                   {isJP
-                    ? "UAEで生まれたプロダクト・サービス"
-                    : "Products and services launched in the UAE"}
+                    ? "UAE展開を支援したプロダクト・サービス"
+                    : "Products and services we supported for UAE expansion"}
                 </h2>
                 <p className="mt-6 text-base leading-[1.9] text-slate-600 sm:text-lg">
                   {isJP
-                    ? "当社が登記・設立を支援した企業の取り組みから、代表的なプロダクトを一部ご紹介します。"
-                    : "A small selection of products from companies we have supported for incorporation and setup."}
+                    ? "支援先企業がUAEを拠点に展開する代表的なプロダクトをご紹介します。将来的には各詳細ページからECや販売代理店向けの導線へ広げられる構成を想定しています。"
+                    : "A selection of products launched by companies we supported in the UAE. The structure is designed so each detail page can later connect to e-commerce or distributor-facing destinations."}
                 </p>
               </div>
 

@@ -35,7 +35,7 @@ export default function MediaDetailPage() {
               UAE Business Consulting
             </Link>
             <span className="hidden text-[11px] uppercase tracking-[0.18em] text-slate-400 sm:inline">
-              {isJP ? "メディア" : "Media"}
+              {isJP ? "支援先プロダクト" : "Supported Product"}
             </span>
           </div>
           <div className="flex items-center gap-2 text-[11px] font-semibold tracking-[0.18em]">
@@ -161,12 +161,12 @@ export default function MediaDetailPage() {
           <div className="mx-auto max-w-3xl px-6 sm:px-10 lg:px-12 py-16 sm:py-20 lg:py-24">
             <div className="flex flex-col items-center text-center gap-5">
               <p className="text-xs font-medium uppercase tracking-[0.3em] text-[#c9a86c]">
-                {isJP ? "同様のケースをご検討の方へ" : "Considering a Similar Move?"}
+                {isJP ? "今後の導線拡張にも対応" : "Built for Future Commerce Paths"}
               </p>
               <p className="text-base leading-[1.9] text-slate-600">
                 {isJP
-                  ? "ここでご紹介した内容は、公開可能な範囲に限定したものです。貴社の状況や検討タイミングを共有いただければ、近い類型のケースを踏まえて、もう少し具体的な示唆をお伝えできます。"
-                  : "This overview is limited to what we can share publicly. If you share your situation and timing, we can draw on relevant cases and provide more specific guidance."}
+                  ? "現在は公開可能な範囲での紹介ページですが、今後はこの詳細ページからECや販売代理店向けページへ接続できる形にも拡張可能です。貴社の展開方針に合わせた構成もご相談いただけます。"
+                  : "This page currently serves as a public-facing showcase, but it is structured so it can later connect to e-commerce or distributor-facing destinations. We can also discuss how a similar setup could support your own go-to-market model."}
               </p>
               <a
                 href="mailto:contact@example.com"
