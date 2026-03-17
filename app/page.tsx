@@ -226,12 +226,6 @@ export default function Home() {
             <div className="text-xs font-semibold uppercase tracking-[0.26em] text-slate-800">
               {t.logo}
             </div>
-            <a
-              href="/media"
-              className="text-[11px] font-semibold tracking-[0.18em] text-slate-500 transition-colors hover:text-slate-800"
-            >
-              {lang === "jp" ? "登記企業のプロダクト" : "Client Products & Media"}
-            </a>
           </div>
           <div className="flex items-center gap-2 text-[11px] font-semibold tracking-[0.18em]">
             <button
@@ -408,7 +402,7 @@ export default function Home() {
             </div>
             <a
               href="/simulator"
-              className="inline-flex items-center justify-center rounded-full bg-white px-8 py-3 text-[11px] font-semibold uppercase tracking-[0.2em] text-slate-800 ring-1 ring-slate-200 shadow-sm transition-colors hover:bg-slate-50"
+              className="inline-flex items-center justify-center rounded-full bg-[#c9a86c] px-8 py-3 text-[11px] font-semibold uppercase tracking-[0.2em] text-white shadow-[0_18px_45px_rgba(15,23,42,0.18)] transition-colors hover:bg-[#b89455]"
             >
               {t.hero.simulatorCta}
             </a>
@@ -472,6 +466,14 @@ export default function Home() {
                   </p>
                 </div>
               ))}
+            </div>
+            <div className="mt-12 flex justify-center">
+              <a
+                href="/media"
+                className="inline-flex items-center justify-center rounded-full border border-slate-200 bg-white/80 px-10 py-3.5 text-xs font-semibold uppercase tracking-[0.2em] text-slate-700 transition-colors hover:bg-slate-50"
+              >
+                {lang === "jp" ? "登記企業のプロダクトを見る" : "View Client Products & Media"}
+              </a>
             </div>
           </div>
         </section>
