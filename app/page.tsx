@@ -2,6 +2,7 @@
 
 import React from "react";
 import { useLang } from "./lang-context";
+import { mediaItems } from "./media/data";
 
 const content = {
   jp: {
@@ -216,6 +217,13 @@ export default function Home() {
   const { lang, setLang } = useLang();
   const t = content[lang];
   const isJP = lang === "jp";
+  const mediaTeasers = mediaItems.slice(0, 3).map((item) => ({
+    slug: item.slug,
+    sectorLabel: item.sector[lang],
+    titleLabel: item.title[lang],
+    summaryLabel: item.summary[lang],
+    imageUrl: item.imageUrl,
+  }));
 
   return (
     <div className="min-h-screen bg-white text-slate-900 antialiased">
@@ -467,13 +475,59 @@ export default function Home() {
                 </div>
               ))}
             </div>
-            <div className="mt-12 flex justify-center">
-              <a
-                href="/media"
-                className="inline-flex items-center justify-center rounded-full border border-slate-200 bg-white/80 px-10 py-3.5 text-xs font-semibold uppercase tracking-[0.2em] text-slate-700 transition-colors hover:bg-slate-50"
-              >
-                {lang === "jp" ? "登記企業のプロダクトを見る" : "View Client Products & Media"}
-              </a>
+            <div className="mt-20">
+              <div className="mx-auto max-w-3xl text-center">
+                <p className="text-xs font-medium uppercase tracking-[0.3em] text-[#c9a86c]">
+                  {isJP ? "登記企業のプロダクト" : "Client Products"}
+                </p>
+                <h2 className="mt-6 text-2xl font-light tracking-[-0.03em] text-slate-900 sm:text-3xl">
+                  {isJP
+                    ? "UAEで生まれたプロダクト・サービス"
+                    : "Products and services launched in the UAE"}
+                </h2>
+                <p className="mt-6 text-base leading-[1.9] text-slate-600 sm:text-lg">
+                  {isJP
+                    ? "当社が登記・設立を支援した企業の取り組みから、代表的なプロダクトを一部ご紹介します。"
+                    : "A small selection of products from companies we have supported for incorporation and setup."}
+                </p>
+              </div>
+
+              <div className="mt-14 grid gap-10 lg:grid-cols-3">
+                {mediaTeasers.map((item) => (
+                  <a
+                    key={item.slug}
+                    href={`/media/${item.slug}`}
+                    className="group flex flex-col overflow-hidden rounded-2xl bg-white/90 shadow-[0_18px_45px_rgba(15,23,42,0.06)] ring-1 ring-slate-100/70 transition-transform hover:-translate-y-1 hover:shadow-[0_24px_60px_rgba(15,23,42,0.10)]"
+                  >
+                    <div className="relative h-40 w-full overflow-hidden bg-slate-100 sm:h-44">
+                      <div
+                        className="h-full w-full bg-cover bg-center transition-transform duration-500 group-hover:scale-[1.03]"
+                        style={{ backgroundImage: `url(${item.imageUrl})` }}
+                      />
+                    </div>
+                    <div className="flex flex-1 flex-col p-6">
+                      <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-slate-500">
+                        {item.sectorLabel}
+                      </p>
+                      <h3 className="mt-3 text-base font-semibold tracking-[-0.01em] text-slate-900">
+                        {item.titleLabel}
+                      </h3>
+                      <p className="mt-3 line-clamp-3 text-sm leading-[1.8] text-slate-600">
+                        {item.summaryLabel}
+                      </p>
+                    </div>
+                  </a>
+                ))}
+              </div>
+
+              <div className="mt-12 flex justify-center">
+                <a
+                  href="/media"
+                  className="inline-flex items-center justify-center rounded-full border border-slate-200 bg-white/80 px-10 py-3.5 text-xs font-semibold uppercase tracking-[0.2em] text-slate-700 transition-colors hover:bg-slate-50"
+                >
+                  {isJP ? "もっと見る" : "View more"}
+                </a>
+              </div>
             </div>
           </div>
         </section>
