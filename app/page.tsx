@@ -21,7 +21,7 @@ const content = {
     },
     expertise: {
       title: "サービス内容",
-      subtitle: "UAE進出の戦略と実務を支援します。",
+      subtitle: "UAEでの設立・移住・不動産・事業展開を一括サポートします。",
       cards: [
         {
           code: "ME",
