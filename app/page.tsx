@@ -21,7 +21,7 @@ const content = {
     },
     expertise: {
       title: "サービス内容",
-      subtitle: "UAE進出に必要な実務支援と戦略立案をまとめてサポートします。",
+      subtitle: "UAE進出の戦略と実務を支援します。",
       cards: [
         {
           code: "ME",
