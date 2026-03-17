@@ -277,8 +277,8 @@ export default function Home() {
             <div
               className="h-full w-full bg-cover bg-center"
               style={{
-                backgroundImage: "url('/fuji-hq.png')",
-                backgroundPosition: "center 35%",
+                backgroundImage: "url('/fuji-hero-topdown.png')",
+                backgroundPosition: "center center",
                 filter: "saturate(1.08) contrast(1.06) brightness(0.92)",
               }}
             />
