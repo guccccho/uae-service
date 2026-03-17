@@ -523,7 +523,7 @@ export default function Home() {
               <div className="mt-12 flex justify-center">
                 <a
                   href="/media"
-                  className="inline-flex items-center justify-center rounded-full border border-slate-200 bg-white/80 px-10 py-3.5 text-xs font-semibold uppercase tracking-[0.2em] text-slate-700 transition-colors hover:bg-slate-50"
+                  className="inline-flex items-center justify-center rounded-full bg-[#c9a86c] px-10 py-3.5 text-xs font-semibold uppercase tracking-[0.2em] text-white shadow-[0_18px_45px_rgba(15,23,42,0.18)] transition-colors hover:bg-[#b89455]"
                 >
                   {isJP ? "もっと見る" : "View more"}
                 </a>
