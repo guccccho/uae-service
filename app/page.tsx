@@ -6,7 +6,8 @@ import { mediaItems } from "./media/data";
 
 const content = {
   jp: {
-    logo: "OMO GROUP UAE Business Consulting",
+    logo: "OMO GROUP",
+    logoSub: "UAE Business Consulting",
     hero: {
       title: "UAE進出を、戦略から実行まで",
       subtitleLine1: "法人設立、パートナーシップ構築、市場参入戦略まで、",
@@ -109,7 +110,8 @@ const content = {
     },
   },
   en: {
-    logo: "OMO GROUP UAE Business Consulting",
+    logo: "OMO GROUP",
+    logoSub: "UAE Business Consulting",
     hero: {
       title: "Strategic UAE Market Entry",
       subtitleLine1: "End-to-end advisory for companies expanding into the UAE,",
@@ -231,8 +233,13 @@ export default function Home() {
       <header className="border-b border-[#f0ece5]">
         <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-6 sm:px-10 lg:px-12">
           <div className="flex items-center gap-6 sm:gap-8">
-            <div className="text-xs font-semibold uppercase tracking-[0.26em] text-slate-800">
-              {t.logo}
+            <div className="leading-none">
+              <div className="text-xs font-semibold uppercase tracking-[0.26em] text-slate-900">
+                {t.logo}
+              </div>
+              <div className="mt-1 text-[10px] font-medium uppercase tracking-[0.24em] text-slate-400">
+                {t.logoSub}
+              </div>
             </div>
           </div>
           <div className="flex items-center gap-2 text-[11px] font-semibold tracking-[0.18em]">
