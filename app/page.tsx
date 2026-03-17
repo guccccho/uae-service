@@ -6,7 +6,7 @@ import { mediaItems } from "./media/data";
 
 const content = {
   jp: {
-    logo: "UAE Business Consulting",
+    logo: "OMO GROUP UAE Business Consulting",
     hero: {
       title: "UAE進出を、戦略から実行まで",
       subtitleLine1: "法人設立、パートナーシップ構築、市場参入戦略まで、",
@@ -109,7 +109,7 @@ const content = {
     },
   },
   en: {
-    logo: "UAE Business Consulting",
+    logo: "OMO GROUP UAE Business Consulting",
     hero: {
       title: "Strategic UAE Market Entry",
       subtitleLine1: "End-to-end advisory for companies expanding into the UAE,",
