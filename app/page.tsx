@@ -531,9 +531,19 @@ export default function Home() {
                 {t.trusted.logos.map((name) => (
                   <div
                     key={name}
-                    className="rounded-full border border-slate-100 bg-slate-50/80 px-5 py-2 text-xs font-semibold uppercase tracking-[0.18em] text-slate-400 transition-colors hover:border-[#c9a86c]/50 hover:text-slate-700"
+                    className={`flex items-center justify-center rounded-full border border-slate-100 bg-slate-50/80 text-xs font-semibold uppercase tracking-[0.18em] text-slate-400 transition-colors hover:border-[#c9a86c]/50 hover:text-slate-700 ${
+                      name === "DMCC" ? "px-6 py-3" : "px-5 py-2"
+                    }`}
                   >
-                    {name}
+                    {name === "DMCC" ? (
+                      <img
+                        src="/dmcc-logo.svg"
+                        alt="DMCC"
+                        className="h-5 w-auto opacity-80"
+                      />
+                    ) : (
+                      name
+                    )}
                   </div>
                 ))}
               </div>
