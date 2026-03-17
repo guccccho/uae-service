@@ -18,7 +18,7 @@ const content = {
     },
     trusted: {
       title: "提携パートナー / 実績",
-      logos: ["DMCC", "Abu Dhabi Global Market", "UAE Free Zones", "International Partners"],
+      logos: ["DMCC", "Abu Dhabi Global Market", "RAKEZ", "International Partners"],
     },
     expertise: {
       title: "サービス内容",
@@ -122,7 +122,7 @@ const content = {
     },
     trusted: {
       title: "Trusted by",
-      logos: ["DMCC", "Abu Dhabi Global Market", "UAE Free Zones", "International Partners"],
+      logos: ["DMCC", "Abu Dhabi Global Market", "RAKEZ", "International Partners"],
     },
     expertise: {
       title: "Our Expertise",
@@ -532,7 +532,7 @@ export default function Home() {
                   <div
                     key={name}
                     className={`flex items-center justify-center rounded-full border border-slate-100 bg-slate-50/80 text-xs font-semibold uppercase tracking-[0.18em] text-slate-400 transition-colors hover:border-[#c9a86c]/50 hover:text-slate-700 ${
-                      name === "DMCC" ? "px-6 py-3" : "px-5 py-2"
+                      name === "DMCC" || name === "RAKEZ" ? "px-6 py-3" : "px-5 py-2"
                     }`}
                   >
                     {name === "DMCC" ? (
@@ -540,6 +540,12 @@ export default function Home() {
                         src="/dmcc-logo.svg"
                         alt="DMCC"
                         className="h-5 w-auto opacity-80"
+                      />
+                    ) : name === "RAKEZ" ? (
+                      <img
+                        src="/rakez-logo.png"
+                        alt="RAKEZ"
+                        className="h-8 w-auto opacity-90"
                       />
                     ) : (
                       name
