@@ -320,13 +320,7 @@ export default function Home() {
                 )}
               </p>
             </div>
-            <div className="mt-10 flex flex-col gap-4 sm:mt-0 sm:flex-row sm:items-center sm:justify-between">
-              <a
-                href="/simulator"
-                className="inline-flex items-center justify-center rounded-full bg-[#c9a86c] px-10 py-3.5 text-xs font-semibold uppercase tracking-[0.2em] text-white shadow-[0_18px_45px_rgba(15,23,42,0.18)] transition-colors hover:bg-[#b89455]"
-              >
-                {t.hero.simulatorCta}
-              </a>
+            <div className="mt-10 sm:mt-0">
               <div className="inline-flex items-center rounded-full bg-white/90 px-4 py-2 text-xs font-medium tracking-[0.16em] text-slate-700 shadow-sm backdrop-blur">
                 <span className="mr-3 text-slate-500">
                   {isJP ? "言語" : "Language"}
@@ -396,6 +390,28 @@ export default function Home() {
                 </div>
               ))}
             </div>
+          </div>
+        </section>
+
+        {/* Simulator teaser */}
+        <section className="border-b border-[#f0ece5] bg-slate-50/40">
+          <div className="mx-auto flex max-w-6xl flex-col items-start gap-6 px-6 py-10 sm:flex-row sm:items-center sm:justify-between sm:px-10 lg:px-12">
+            <div className="max-w-xl">
+              <p className="text-xs font-medium uppercase tracking-[0.3em] text-[#c9a86c]">
+                {isJP ? "コストの目安" : "Cost Baseline"}
+              </p>
+              <p className="mt-3 text-sm leading-[1.9] text-slate-600 sm:text-base">
+                {isJP
+                  ? "具体的なご相談の前に、フリーゾーンや法人形態ごとの設立コスト感を知りたい方向けの簡易シミュレーターです。あくまで概算の目安としてご活用ください。"
+                  : "If you would like a rough sense of setup costs across different free zones and entity types before speaking with us, you can use our simple simulator as an initial benchmark."}
+              </p>
+            </div>
+            <a
+              href="/simulator"
+              className="inline-flex items-center justify-center rounded-full bg-white px-8 py-3 text-[11px] font-semibold uppercase tracking-[0.2em] text-slate-800 ring-1 ring-slate-200 shadow-sm transition-colors hover:bg-slate-50"
+            >
+              {t.hero.simulatorCta}
+            </a>
           </div>
         </section>
 
