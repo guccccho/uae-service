@@ -278,9 +278,11 @@ export default function Home() {
               className="h-full w-full bg-cover bg-center"
               style={{
                 backgroundImage: "url('/fuji.avif')",
+                backgroundPosition: "center 35%",
+                filter: "saturate(1.08) contrast(1.06) brightness(0.92)",
               }}
             />
-            <div className="absolute inset-0 bg-slate-900/30" />
+            <div className="absolute inset-0 bg-gradient-to-b from-slate-900/35 via-slate-900/25 to-slate-900/45" />
           </div>
           <div className="relative mx-auto flex max-w-6xl flex-col justify-between px-6 py-20 sm:px-10 sm:py-24 lg:px-12 lg:py-28 min-h-[70vh] sm:min-h-[80vh]">
             <div className="max-w-xl text-white">
