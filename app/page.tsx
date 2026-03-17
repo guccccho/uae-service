@@ -351,27 +351,6 @@ export default function Home() {
           </div>
         </section>
 
-        {/* Trusted by */}
-        <section className="border-b border-[#f0ece5]">
-          <div className="mx-auto max-w-6xl px-6 sm:px-10 lg:px-12 py-14 sm:py-16 lg:py-20">
-            <div className="flex flex-col gap-8">
-              <p className="text-center text-xs font-medium uppercase tracking-[0.25em] text-slate-400">
-                {t.trusted.title}
-              </p>
-              <div className="flex flex-wrap items-center justify-center gap-6 sm:gap-10 lg:gap-14">
-                {t.trusted.logos.map((name) => (
-                  <div
-                    key={name}
-                    className="rounded-full border border-slate-100 bg-slate-50/80 px-5 py-2 text-xs font-semibold uppercase tracking-[0.18em] text-slate-400 transition-colors hover:border-[#c9a86c]/50 hover:text-slate-700"
-                  >
-                    {name}
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-        </section>
-
         {/* Our Expertise */}
         <section id="services" className="border-b border-[#f0ece5]">
           <div className="mx-auto max-w-6xl px-6 sm:px-10 lg:px-12 py-24 sm:py-32 lg:py-40">
@@ -536,6 +515,27 @@ export default function Home() {
                 >
                   {isJP ? "もっと見る" : "View more"}
                 </a>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Trusted by */}
+        <section className="border-b border-[#f0ece5]">
+          <div className="mx-auto max-w-6xl px-6 sm:px-10 lg:px-12 py-14 sm:py-16 lg:py-20">
+            <div className="flex flex-col gap-8">
+              <p className="text-center text-xs font-medium uppercase tracking-[0.25em] text-slate-400">
+                {t.trusted.title}
+              </p>
+              <div className="flex flex-wrap items-center justify-center gap-6 sm:gap-10 lg:gap-14">
+                {t.trusted.logos.map((name) => (
+                  <div
+                    key={name}
+                    className="rounded-full border border-slate-100 bg-slate-50/80 px-5 py-2 text-xs font-semibold uppercase tracking-[0.18em] text-slate-400 transition-colors hover:border-[#c9a86c]/50 hover:text-slate-700"
+                  >
+                    {name}
+                  </div>
+                ))}
               </div>
             </div>
           </div>
