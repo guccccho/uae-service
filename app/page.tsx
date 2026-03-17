@@ -397,7 +397,7 @@ export default function Home() {
 
         {/* Simulator teaser */}
         <section className="border-b border-[#f0ece5] bg-slate-50/40">
-          <div className="mx-auto flex max-w-6xl flex-col items-start gap-6 px-6 py-10 sm:flex-row sm:items-center sm:justify-between sm:px-10 lg:px-12">
+          <div className="mx-auto flex max-w-6xl flex-col items-center gap-6 px-6 py-10 text-center sm:flex-row sm:items-center sm:justify-between sm:px-10 sm:text-left lg:px-12">
             <div className="max-w-xl">
               <p className="text-xs font-medium uppercase tracking-[0.3em] text-[#c9a86c]">
                 {isJP ? "コストの目安" : "Cost Baseline"}
