@@ -1039,6 +1039,14 @@ export const RELOCATION_COST = { yes: 9000, no: 0 } as const;
 export const BANK_ACCOUNT_CORPORATE_COST = 6000;
 export const BANK_ACCOUNT_PERSONAL_COST = 5000;
 
+/** Flat markup on free-zone package costs (≈ ¥500,000 at prevailing AED/JPY). */
+export const PACKAGE_MARKUP_JPY = 500_000;
+export const DEFAULT_AED_JPY = 40;
+
+export function getPackageMarkupAed(aedToJpy = DEFAULT_AED_JPY): number {
+  return Math.ceil(PACKAGE_MARKUP_JPY / aedToJpy / 100) * 100;
+}
+
 export type BankAccountSupportType = "corporate" | "personal";
 
 export type BankAccountSelection = {
@@ -1208,6 +1216,7 @@ export type CostBreakdown = {
   visaSpeedCost: number;
   bankAccountCost: number;
   bankAccountLines: { type: BankAccountSupportType; cost: number }[];
+  packageMarkup: number;
   hinodeyaServiceFee: number;
   /** Zone and government fees before HINODEYA service fee */
   directCost: number;
@@ -1273,6 +1282,7 @@ export function calculateHinodeyaServiceFee(
 export function calculateZoneCost(
   zoneId: FreeZone,
   selections: SimulatorSelections,
+  aedToJpy = DEFAULT_AED_JPY,
 ): CostBreakdown {
   const zone = FREE_ZONE_CONFIGS[zoneId];
   const licenseType =
@@ -1293,6 +1303,7 @@ export function calculateZoneCost(
 
   const license =
     visaPkg.licensePackageFee + licenseType.licenseAdj + activityAdj;
+  const packageMarkup = getPackageMarkupAed(aedToJpy);
   const registration = zone.registrationFee + licenseType.registrationAdj;
 
   const billableVisas =
@@ -1325,6 +1336,7 @@ export function calculateZoneCost(
 
   const directCost =
     license +
+    packageMarkup +
     registration +
     visas +
     officeFee +
@@ -1347,6 +1359,7 @@ export function calculateZoneCost(
     visaSpeedCost,
     bankAccountCost,
     bankAccountLines,
+    packageMarkup,
     hinodeyaServiceFee,
     directCost,
     visaProcessingDays,
@@ -1356,6 +1369,7 @@ export function calculateZoneCost(
 
 export function rankZonesByActivity(
   selections: SimulatorSelections,
+  aedToJpy = DEFAULT_AED_JPY,
 ): ZoneRecommendation[] {
   const sub = getSubActivity(selections.majorActivity, selections.subActivity);
   const allowed = getAllowedZones(
@@ -1370,7 +1384,7 @@ export function rankZonesByActivity(
   const ranked = allowed
     .map((zone) => ({
       zone,
-      total: calculateZoneCost(zone, selections).total,
+      total: calculateZoneCost(zone, selections, aedToJpy).total,
       recIndex: priority.indexOf(zone),
     }))
     .sort((a, b) => a.recIndex - b.recIndex || a.total - b.total);
@@ -1390,12 +1404,13 @@ export function rankZonesByActivity(
 /** @deprecated Use rankZonesByActivity for activity-aware ranking */
 export function rankZonesByCost(
   selections: SimulatorSelections,
+  aedToJpy = DEFAULT_AED_JPY,
 ): { zone: FreeZone; total: number }[] {
   const allowed = getAllowedZones(selections.majorActivity, selections.subActivity);
   return allowed
     .map((zone) => ({
       zone,
-      total: calculateZoneCost(zone, selections).total,
+      total: calculateZoneCost(zone, selections, aedToJpy).total,
     }))
     .sort((a, b) => a.total - b.total);
 }
