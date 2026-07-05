@@ -2,6 +2,7 @@
 
 import React from "react";
 import { useLang } from "../lang-context";
+import { CONTACT_EMAIL_DISPLAY, contactMailto } from "../lib/contact-email";
 import { pickLang, type LangCopy } from "../i18n";
 
 const footerCopy = {
@@ -65,10 +66,10 @@ export function SiteFooter() {
             </div>
             <div>
               <a
-                href="mailto:contact@hinodeya.ae"
+                href={contactMailto()}
                 className="underline-offset-4 hover:text-slate-600 hover:underline"
               >
-                contact@hinodeya.ae
+                {CONTACT_EMAIL_DISPLAY}
               </a>
             </div>
           </div>

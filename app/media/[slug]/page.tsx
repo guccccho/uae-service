@@ -4,6 +4,7 @@ import React from "react";
 import { notFound, useParams } from "next/navigation";
 import { useLang } from "../../lang-context";
 import { LangSwitch } from "../../components/LangSwitch";
+import { contactMailto } from "../../lib/contact-email";
 import { mediaItems } from "../data";
 import Link from "next/link";
 import { MediaCardPreview } from "../../components/MediaCardPreview";
@@ -208,7 +209,7 @@ export default function MediaDetailPage() {
                 {t.ctaBody}
               </p>
               <a
-                href="mailto:contact@hinodeya.ae"
+                href={contactMailto()}
                 className="mt-2 inline-flex items-center justify-center rounded-full bg-brand px-10 py-3 text-xs font-semibold uppercase tracking-[0.2em] text-white shadow-[0_18px_45px_rgba(15,23,42,0.18)] transition-colors hover:bg-brand-hover"
               >
                 {t.ctaLabel}

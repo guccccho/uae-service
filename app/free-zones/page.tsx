@@ -3,6 +3,7 @@
 import React from "react";
 import { useLang } from "../lang-context";
 import { LangSwitch } from "../components/LangSwitch";
+import { contactMailto } from "../lib/contact-email";
 import type { Lang } from "../i18n";
 
 type TableRow = {
@@ -483,7 +484,7 @@ export default function FreeZonesPage() {
                   {t.ctaSimulator}
                 </a>
                 <a
-                  href="mailto:contact@hinodeya.ae"
+                  href={contactMailto()}
                   className="inline-flex items-center justify-center rounded-full bg-brand px-10 py-3.5 text-xs font-semibold uppercase tracking-[0.2em] text-white shadow-[0_18px_45px_rgba(15,23,42,0.18)] transition-colors hover:bg-brand-hover"
                 >
                   {t.ctaConsult}
