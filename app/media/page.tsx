@@ -7,21 +7,46 @@ import { getMediaItemsForLang } from "./data";
 import Link from "next/link";
 import type { Lang } from "../i18n";
 
-const content: Record<Lang, { title: string; description: string }> = {
+const content: Record<
+  Lang,
+  {
+    title: string;
+    description: string;
+    matchingEyebrow: string;
+    matchingBody: string;
+    matchingCta: string;
+    productsCta: string;
+  }
+> = {
   jp: {
-    title: "支援先プロダクト・サービス",
+    title: "相談企業のプロダクト",
     description:
-      "当社がUAE展開を支援した企業のプロダクトやサービスをご紹介します。現在は紹介ページですが、今後は各詳細ページからECや販売代理店向けページへ接続できる構成を想定しています。",
+      "ご相談いただいた企業のプロダクト・サービスをご紹介します。チームHINODEYAとしてまとめ、それぞれの強みが活きるビジネスマッチングの機会を創出しています。",
+    matchingEyebrow: "Team HINODEYA",
+    matchingBody:
+      "あなたのビジネスも、チームHINODEYAの一員として新たなパートナーと出会えます。",
+    matchingCta: "チームHINODEYAでビジネスマッチングに参加する",
+    productsCta: "プロダクト一覧を見る",
   },
   en: {
-    title: "Supported Products and Services",
+    title: "Consulting Clients' Products",
     description:
-      "A selection of products and services from companies we supported for UAE expansion. Today these pages serve as showcases, with a structure that can later connect each product to e-commerce or distributor-facing pages.",
+      "Products and services from companies that have consulted with us. As Team HINODEYA, we create business matching opportunities where each company's strengths can shine.",
+    matchingEyebrow: "Team HINODEYA",
+    matchingBody:
+      "Your business can also meet new partners as a member of Team HINODEYA.",
+    matchingCta: "Join Team HINODEYA for Business Matching",
+    productsCta: "Browse all products",
   },
   ar: {
-    title: "المنتجات والخدمات المدعومة",
+    title: "منتجات الشركات المستشارة",
     description:
-      "مجموعة من المنتجات والخدمات لشركات دعمناها في التوسع في الإمارات. تعمل هذه الصفحات حالياً كعروض تعريفية، بهيكل يمكن لاحقاً ربط كل منتج بصفحات التجارة الإلكترونية أو صفحات الموزعين.",
+      "منتجات وخدمات الشركات التي استشارتنا. كفريق HINODEYA، نخلق فرص مطابقة أعمال تبرز فيها نقاط قوة كل شركة.",
+    matchingEyebrow: "فريق HINODEYA",
+    matchingBody:
+      "يمكن لأعمالك أيضاً أن تلتقي بشركاء جدد كعضو في فريق HINODEYA.",
+    matchingCta: "انضم إلى فريق HINODEYA للمطابقة",
+    productsCta: "تصفح جميع المنتجات",
   },
 };
 
@@ -54,6 +79,20 @@ export default function MediaIndexPage() {
               <p className="mt-6 text-base leading-[1.9] text-slate-600 sm:text-lg">
                 {t.description}
               </p>
+              <div className="mx-auto mt-10 max-w-2xl rounded-2xl bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 px-8 py-10 shadow-[0_24px_60px_rgba(15,23,42,0.18)] sm:px-12 sm:py-12">
+                <p className="text-[11px] font-semibold uppercase tracking-[0.22em] text-[#c9a86c]">
+                  {t.matchingEyebrow}
+                </p>
+                <p className="mt-4 text-base leading-[1.9] text-slate-200 sm:text-lg">
+                  {t.matchingBody}
+                </p>
+                <Link
+                  href="/contact"
+                  className="mt-8 inline-flex items-center justify-center rounded-full bg-[#c9a86c] px-12 py-4 text-xs font-semibold uppercase tracking-[0.2em] text-white shadow-[0_18px_45px_rgba(201,168,108,0.35)] transition-all hover:bg-[#d4b87a] hover:shadow-[0_22px_55px_rgba(201,168,108,0.45)]"
+                >
+                  {t.matchingCta}
+                </Link>
+              </div>
             </div>
           </div>
         </section>
@@ -92,6 +131,15 @@ export default function MediaIndexPage() {
                   </div>
                 </Link>
               ))}
+            </div>
+
+            <div className="mt-16 flex flex-col items-center justify-center gap-4 sm:flex-row">
+              <Link
+                href="/contact"
+                className="inline-flex items-center justify-center rounded-full bg-[#c9a86c] px-12 py-4 text-xs font-semibold uppercase tracking-[0.2em] text-white shadow-[0_18px_45px_rgba(15,23,42,0.18)] transition-colors hover:bg-[#b89455]"
+              >
+                {t.matchingCta}
+              </Link>
             </div>
           </div>
         </section>

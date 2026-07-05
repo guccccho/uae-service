@@ -26,9 +26,9 @@ const footerCopy = {
     ar: "دراسات الحالة",
   },
   media: {
-    jp: "登記企業のプロダクト",
-    en: "Client Products & Media",
-    ar: "منتجات العملاء والإعلام",
+    jp: "相談企業のプロダクト",
+    en: "Consulting Clients' Products",
+    ar: "منتجات الشركات المستشارة",
   },
   contact: {
     jp: "お問い合わせ",

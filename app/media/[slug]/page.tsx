@@ -19,7 +19,7 @@ const content: Record<
   }
 > = {
   jp: {
-    breadcrumb: "支援先プロダクト",
+    breadcrumb: "相談企業のプロダクト",
     sections: [
       {
         title: "クライアント企業について",
@@ -44,7 +44,7 @@ const content: Record<
     ctaLabel: "相談を予約する",
   },
   en: {
-    breadcrumb: "Supported Product",
+    breadcrumb: "Consulting Clients' Products",
     sections: [
       {
         title: "About the Client",
@@ -69,7 +69,7 @@ const content: Record<
     ctaLabel: "Schedule Consultation",
   },
   ar: {
-    breadcrumb: "منتج مدعوم",
+    breadcrumb: "منتجات الشركات المستشارة",
     sections: [
       {
         title: "عن العميل",

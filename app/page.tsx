@@ -574,25 +574,54 @@ export default function Home() {
               <div className="mx-auto max-w-3xl text-center">
                 <p className="text-xs font-medium uppercase tracking-[0.3em] text-[#c9a86c]">
                   {isJP
-                    ? "支援先プロダクト"
+                    ? "相談企業のプロダクト"
                     : isAr
-                      ? "المنتجات المدعومة"
-                      : "Supported Products"}
+                      ? "منتجات الشركات المستشارة"
+                      : "Consulting Clients' Products"}
                 </p>
                 <h2 className="mt-6 text-2xl font-light tracking-[-0.03em] text-slate-900 sm:text-3xl">
                   {isJP
-                    ? "UAE展開を支援したプロダクト・サービス"
+                    ? "チームHINODEYAがつなぐ、ビジネスマッチング"
                     : isAr
-                      ? "منتجات وخدمات دعمنا توسعها في الإمارات"
-                      : "Products and services we supported for UAE expansion"}
+                      ? "مطابقة الأعمال عبر فريق HINODEYA"
+                      : "Business Matching through Team HINODEYA"}
                 </h2>
                 <p className="mt-6 text-base leading-[1.9] text-slate-600 sm:text-lg">
                   {isJP
-                    ? "支援先企業がUAEを拠点に展開する代表的なプロダクトをご紹介します。将来的には各詳細ページからECや販売代理店向けの導線へ広げられる構成を想定しています。"
+                    ? "ご相談いただいた企業をチームHINODEYAとしてまとめ、それぞれのプロダクトと強みが活きるビジネスマッチングの機会を創出します。UAE進出企業同士、そして現地パートナーとの接点づくりをサポートします。"
                     : isAr
-                      ? "مجموعة مختارة من المنتجات التي أطلقتها شركات دعمناها في الإمارات. صُمّم الهيكل بحيث يمكن لكل صفحة تفصيلية لاحقاً الربط بوجهات التجارة الإلكترونية أو الموزعين."
-                      : "A selection of products launched by companies we supported in the UAE. The structure is designed so each detail page can later connect to e-commerce or distributor-facing destinations."}
+                      ? "نجمع الشركات التي استشارتنا تحت فريق HINODEYA، ونخلق فرص مطابقة أعمال عالية القيمة تبرز فيها منتجات ونقاط قوة كل شركة. ندعم التواصل بين الداخلين إلى الإمارات ومع الشركاء المحليين."
+                      : "We bring together companies that have consulted with us as Team HINODEYA, creating high-value business matching opportunities where each product and strength can shine. We support connections among UAE entrants and with local partners."}
                 </p>
+              </div>
+
+              <div className="mx-auto mt-10 max-w-3xl">
+                <div className="rounded-2xl bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 px-8 py-10 text-center shadow-[0_24px_60px_rgba(15,23,42,0.18)] sm:px-12 sm:py-12">
+                  <p className="text-[11px] font-semibold uppercase tracking-[0.22em] text-[#c9a86c]">
+                    {isJP
+                      ? "Team HINODEYA"
+                      : isAr
+                        ? "فريق HINODEYA"
+                        : "Team HINODEYA"}
+                  </p>
+                  <p className="mt-4 text-base leading-[1.9] text-slate-200 sm:text-lg">
+                    {isJP
+                      ? "あなたのビジネスも、チームHINODEYAの一員として新たなパートナーと出会えます。"
+                      : isAr
+                        ? "يمكن لأعمالك أيضاً أن تلتقي بشركاء جدد كعضو في فريق HINODEYA."
+                        : "Your business can also meet new partners as a member of Team HINODEYA."}
+                  </p>
+                  <a
+                    href="/contact"
+                    className="mt-8 inline-flex items-center justify-center rounded-full bg-[#c9a86c] px-12 py-4 text-xs font-semibold uppercase tracking-[0.2em] text-white shadow-[0_18px_45px_rgba(201,168,108,0.35)] transition-all hover:bg-[#d4b87a] hover:shadow-[0_22px_55px_rgba(201,168,108,0.45)]"
+                  >
+                    {isJP
+                      ? "チームHINODEYAでビジネスマッチングに参加する"
+                      : isAr
+                        ? "انضم إلى فريق HINODEYA للمطابقة"
+                        : "Join Team HINODEYA for Business Matching"}
+                  </a>
+                </div>
               </div>
 
               <div className="mt-14 grid gap-10 lg:grid-cols-3">
@@ -623,12 +652,16 @@ export default function Home() {
                 ))}
               </div>
 
-              <div className="mt-12 flex justify-center">
+              <div className="mt-12 flex flex-col items-center justify-center gap-4 sm:flex-row">
                 <a
                   href="/media"
-                  className="inline-flex items-center justify-center rounded-full bg-[#c9a86c] px-10 py-3.5 text-xs font-semibold uppercase tracking-[0.2em] text-white shadow-[0_18px_45px_rgba(15,23,42,0.18)] transition-colors hover:bg-[#b89455]"
+                  className="inline-flex items-center justify-center rounded-full border border-slate-200 bg-white px-10 py-3.5 text-xs font-semibold uppercase tracking-[0.2em] text-slate-700 transition-colors hover:border-slate-300 hover:bg-slate-50"
                 >
-                  {isJP ? "もっと見る" : isAr ? "عرض المزيد" : "View more"}
+                  {isJP
+                    ? "相談企業のプロダクトを見る"
+                    : isAr
+                      ? "استكشف منتجات الشركات المستشارة"
+                      : "Explore Consulting Clients' Products"}
                 </a>
               </div>
             </div>
