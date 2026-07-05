@@ -1,6 +1,8 @@
-export type FreeZone = "dmcc" | "ifza" | "meydan" | "rakez" | "spc";
-export type LangCopy = { jp: string; en: string };
+import { type Lang, type LangCopy } from "../i18n";
 
+export type { LangCopy };
+
+export type FreeZone = "dmcc" | "ifza" | "meydan" | "rakez" | "spc";
 export type SubActivity = {
   id: string;
   label: LangCopy;
@@ -32,18 +34,22 @@ export type HinodeyaSimulatorZone = (typeof HINODEYA_SIMULATOR_ZONES)[number];
 export const MAJOR_ACTIVITIES: MajorActivity[] = [
   {
     id: "financial",
-    label: { jp: "金融・フィンテック", en: "Financial & fintech" },
+    label: { jp: "金融・フィンテック", en: "Financial & fintech", ar: "الخدمات المالية والتقنية المالية" },
     description: {
       jp: "規制対象か非規制かで選べるフリーゾーンが大きく変わります。",
       en: "Eligible free zones depend heavily on whether the activity is regulated.",
+
+      ar: "تعتمد المناطق الحرة المؤهلة بشكل كبير على ما إذا كان النشاط خاضعاً للتنظيم.",
     },
     subActivities: [
       {
         id: "crypto_vasp",
-        label: { jp: "暗号資産・VASP", en: "Crypto / VASP" },
+        label: { jp: "暗号資産・VASP", en: "Crypto / VASP", ar: "العملات الرقمية / مزود خدمات الأصول الافتراضية" },
         description: {
           jp: "仮想資産関連。VARA/DIFC等の追加規制が必要なケースが多いです。",
           en: "Virtual asset activities often require VARA/DIFC permissions in addition.",
+
+          ar: "غالباً ما تتطلب أنشطة الأصول الافتراضية تصاريح VARA أو DIFC إضافية.",
         },
         allowedZones: ["dmcc"],
         recommendedZones: ["dmcc"],
@@ -52,14 +58,18 @@ export const MAJOR_ACTIVITIES: MajorActivity[] = [
         regulatoryNote: {
           jp: "DMCC Crypto Centreが選択肢の一つですが、実際の営業にはVARAまたはDIFC/ADGMの認可確認が必須です。",
           en: "DMCC Crypto Centre is one route, but VARA or DIFC/ADGM authorisation must be confirmed before operating.",
+
+          ar: "مركز DMCC للعملات الرقمية أحد الخيارات، لكن يجب تأكيد ترخيص VARA أو DIFC/ADGM قبل بدء التشغيل.",
         },
       },
       {
         id: "asset_management",
-        label: { jp: "資産運用・ファンド", en: "Asset management / funds" },
+        label: { jp: "資産運用・ファンド", en: "Asset management / funds", ar: "إدارة الأصول / الصناديق" },
         description: {
           jp: "投資運用・ファンド設立。金融サービスライセンスが必要です。",
           en: "Investment management and fund structures require financial services licensing.",
+
+          ar: "تتطلب إدارة الاستثمار وهياكل الصناديق ترخيص خدمات مالية.",
         },
         allowedZones: ["dmcc"],
         recommendedZones: ["dmcc"],
@@ -68,14 +78,18 @@ export const MAJOR_ACTIVITIES: MajorActivity[] = [
         regulatoryNote: {
           jp: "本格的な金融サービスはDIFC（DFSA）やADGM（FSRA）が一般的です。DMCCは関連バックオフィス・商流設計向け。",
           en: "Full financial services are typically in DIFC (DFSA) or ADGM (FSRA). DMCC suits related back-office structures.",
+
+          ar: "الخدمات المالية الكاملة عادة في DIFC (DFSA) أو ADGM (FSRA). DMCC مناسب لهياكل المكاتب الخلفية ذات الصلة.",
         },
       },
       {
         id: "payment_services",
-        label: { jp: "決済・送金サービス", en: "Payments / remittance" },
+        label: { jp: "決済・送金サービス", en: "Payments / remittance", ar: "المدفوعات / التحويلات" },
         description: {
           jp: "決済代行・送金。CBUAEやFSRA/DFSAの規制対象になりやすい領域です。",
           en: "Payment and remittance models are often regulated by CBUAE, FSRA, or DFSA.",
+
+          ar: "نماذج الدفع والتحويل غالباً خاضعة لتنظيم CBUAE أو FSRA أو DFSA.",
         },
         allowedZones: ["dmcc"],
         recommendedZones: ["dmcc"],
@@ -84,14 +98,18 @@ export const MAJOR_ACTIVITIES: MajorActivity[] = [
         regulatoryNote: {
           jp: "フリーゾーン法人のみでは不十分な場合があります。メインランドまたはDIFC/ADGMの検討が必要です。",
           en: "A free-zone entity alone may be insufficient; mainland or DIFC/ADGM may be required.",
+
+          ar: "قد لا يكفي كيان المنطقة الحرة وحده؛ قد يُطلب التأسيس في البر الرئيسي أو DIFC/ADGM.",
         },
       },
       {
         id: "fintech_software",
-        label: { jp: "フィンテック・ソフトウェア（非規制）", en: "Fintech software (non-regulated)" },
+        label: { jp: "フィンテック・ソフトウェア（非規制）", en: "Fintech software (non-regulated)", ar: "برمجيات التقنية المالية (غير خاضعة للتنظيم)" },
         description: {
           jp: "顧客資金を扱わないB2B SaaS、RegTech、KYCツールなど。",
           en: "B2B SaaS, RegTech, KYC tools without client-money handling.",
+
+          ar: "SaaS للأعمال، RegTech، أدوات KYC دون التعامل بأموال العملاء.",
         },
         allowedZones: ["dmcc", "ifza", "meydan", "rakez"],
         recommendedZones: ["meydan", "ifza", "dmcc", "rakez"],
@@ -99,10 +117,12 @@ export const MAJOR_ACTIVITIES: MajorActivity[] = [
       },
       {
         id: "financial_consulting",
-        label: { jp: "金融コンサルティング（非規制）", en: "Financial consulting (non-regulated)" },
+        label: { jp: "金融コンサルティング（非規制）", en: "Financial consulting (non-regulated)", ar: "الاستشارات المالية (غير خاضعة للتنظيم)" },
         description: {
           jp: "戦略・業務改善など、規制対象外のコンサルティング。",
           en: "Strategy and advisory work outside the regulated perimeter.",
+
+          ar: "أعمال الاستراتيجية والاستشارة خارج نطاق التنظيم.",
         },
         allowedZones: ALL_ZONES,
         recommendedZones: ["ifza", "meydan", "dmcc", "rakez", "spc"],
@@ -112,18 +132,22 @@ export const MAJOR_ACTIVITIES: MajorActivity[] = [
   },
   {
     id: "trading",
-    label: { jp: "商業・トレーディング", en: "Trading & commerce" },
+    label: { jp: "商業・トレーディング", en: "Trading & commerce", ar: "التجارة والتجارة العامة" },
     description: {
       jp: "一般商社からコモディティまで、商流設計に応じてゾーンを選びます。",
       en: "From general trading to commodities — zone choice follows your supply chain.",
+
+      ar: "من التجارة العامة إلى السلع — اختيار المنطقة يتبع سلسلة التوريد.",
     },
     subActivities: [
       {
         id: "general_trading",
-        label: { jp: "一般トレーディング", en: "General trading" },
+        label: { jp: "一般トレーディング", en: "General trading", ar: "التجارة العامة" },
         description: {
           jp: "複数カテゴリの輸出入・卸。全ゾーンで選択可能。",
           en: "Import/export and wholesale across multiple categories.",
+
+          ar: "الاستيراد والتصدير والجملة عبر فئات متعددة.",
         },
         allowedZones: ALL_ZONES,
         recommendedZones: ["ifza", "rakez", "meydan", "spc", "dmcc"],
@@ -131,10 +155,12 @@ export const MAJOR_ACTIVITIES: MajorActivity[] = [
       },
       {
         id: "commodities",
-        label: { jp: "コモディティ・貴金属", en: "Commodities & precious metals" },
+        label: { jp: "コモディティ・貴金属", en: "Commodities & precious metals", ar: "السلع والمعادن الثمينة" },
         description: {
           jp: "金・ダイヤ・エネルギー等。DMCCの専門エコシステムが最適。",
           en: "Gold, diamonds, energy — DMCC's commodity ecosystem is the strongest fit.",
+
+          ar: "الذهب والماس والطاقة — نظام DMCC البيئي للسلع هو الأنسب.",
         },
         allowedZones: ["dmcc", "ifza", "rakez"],
         recommendedZones: ["dmcc", "ifza", "rakez"],
@@ -142,10 +168,12 @@ export const MAJOR_ACTIVITIES: MajorActivity[] = [
       },
       {
         id: "food_consumer",
-        label: { jp: "食品・消費財", en: "Food & consumer goods" },
+        label: { jp: "食品・消費財", en: "Food & consumer goods", ar: "الأغذية والسلع الاستهلاكية" },
         description: {
           jp: "食品・日用品の流通。コスト重視ならRAKEZ/IFZA。",
           en: "FMCG distribution. RAKEZ/IFZA for cost efficiency.",
+
+          ar: "توزيع السلع الاستهلاكية. RAKEZ/IFZA لكفاءة التكلفة.",
         },
         allowedZones: ALL_ZONES,
         recommendedZones: ["rakez", "ifza", "meydan", "spc", "dmcc"],
@@ -155,18 +183,22 @@ export const MAJOR_ACTIVITIES: MajorActivity[] = [
   },
   {
     id: "consulting",
-    label: { jp: "コンサルティング・専門サービス", en: "Consulting & professional services" },
+    label: { jp: "コンサルティング・専門サービス", en: "Consulting & professional services", ar: "الاستشارات والخدمات المهنية" },
     description: {
       jp: "最もゾーン選択の自由度が高いカテゴリです。",
       en: "The broadest category with the most free-zone flexibility.",
+
+      ar: "الفئة الأوسع بأكبر مرونة في اختيار المنطقة الحرة.",
     },
     subActivities: [
       {
         id: "management_consulting",
-        label: { jp: "経営・戦略コンサル", en: "Management / strategy consulting" },
+        label: { jp: "経営・戦略コンサル", en: "Management / strategy consulting", ar: "استشارات الإدارة والاستراتيجية" },
         description: {
           jp: "BtoBコンサルティング全般。",
           en: "General B2B consulting.",
+
+          ar: "استشارات B2B عامة.",
         },
         allowedZones: ALL_ZONES,
         recommendedZones: ["ifza", "meydan", "rakez", "dmcc", "spc"],
@@ -174,10 +206,12 @@ export const MAJOR_ACTIVITIES: MajorActivity[] = [
       },
       {
         id: "legal_accounting",
-        label: { jp: "法務・会計・税務", en: "Legal / accounting / tax" },
+        label: { jp: "法務・会計・税務", en: "Legal / accounting / tax", ar: "القانون / المحاسبة / الضرائب" },
         description: {
           jp: "専門職サービス。一部アクティビティは追加承認が必要です。",
           en: "Professional services; some activities need extra approvals.",
+
+          ar: "خدمات مهنية؛ بعض الأنشطة تتطلب موافقات إضافية.",
         },
         allowedZones: ["dmcc", "ifza", "meydan", "rakez"],
         recommendedZones: ["dmcc", "ifza", "meydan", "rakez"],
@@ -185,10 +219,12 @@ export const MAJOR_ACTIVITIES: MajorActivity[] = [
       },
       {
         id: "hr_recruitment",
-        label: { jp: "人材・リクルート", en: "HR / recruitment" },
+        label: { jp: "人材・リクルート", en: "HR / recruitment", ar: "الموارد البشرية / التوظيف" },
         description: {
           jp: "人材紹介・HRコンサル。",
           en: "Recruitment and HR advisory.",
+
+          ar: "التوظيف والاستشارات في الموارد البشرية.",
         },
         allowedZones: ALL_ZONES,
         recommendedZones: ["ifza", "meydan", "rakez", "dmcc", "spc"],
@@ -198,18 +234,22 @@ export const MAJOR_ACTIVITIES: MajorActivity[] = [
   },
   {
     id: "technology",
-    label: { jp: "IT・テクノロジー", en: "IT & technology" },
+    label: { jp: "IT・テクノロジー", en: "IT & technology", ar: "تقنية المعلومات والتكنولوجيا" },
     description: {
       jp: "SaaSやITコンサルはMeydan/IFZAがコスト効率、DMCCは信頼性重視向け。",
       en: "Meydan/IFZA for cost-efficient SaaS; DMCC for credibility-focused tech.",
+
+      ar: "Meydan/IFZA لـ SaaS بكفاءة التكلفة؛ DMCC للتقنية التي تركز على المصداقية.",
     },
     subActivities: [
       {
         id: "software_saas",
-        label: { jp: "ソフトウェア / SaaS", en: "Software / SaaS" },
+        label: { jp: "ソフトウェア / SaaS", en: "Software / SaaS", ar: "البرمجيات / SaaS" },
         description: {
           jp: "B2B/B2Cソフトウェア開発・提供。",
           en: "B2B/B2C software products.",
+
+          ar: "منتجات برمجية B2B/B2C.",
         },
         allowedZones: ALL_ZONES,
         recommendedZones: ["meydan", "ifza", "rakez", "dmcc", "spc"],
@@ -217,10 +257,12 @@ export const MAJOR_ACTIVITIES: MajorActivity[] = [
       },
       {
         id: "it_consulting",
-        label: { jp: "ITコンサル・システム開発", en: "IT consulting / systems" },
+        label: { jp: "ITコンサル・システム開発", en: "IT consulting / systems", ar: "استشارات تقنية المعلومات / الأنظمة" },
         description: {
           jp: "受託開発・ITアドバイザリー。",
           en: "Custom development and IT advisory.",
+
+          ar: "التطوير المخصص والاستشارات التقنية.",
         },
         allowedZones: ALL_ZONES,
         recommendedZones: ["ifza", "meydan", "rakez", "dmcc", "spc"],
@@ -228,10 +270,12 @@ export const MAJOR_ACTIVITIES: MajorActivity[] = [
       },
       {
         id: "ai_data",
-        label: { jp: "AI・データ分析", en: "AI / data analytics" },
+        label: { jp: "AI・データ分析", en: "AI / data analytics", ar: "الذكاء الاصطناعي / تحليل البيانات" },
         description: {
           jp: "AI/ML、データ基盤、分析サービス。",
           en: "AI/ML, data infrastructure, analytics services.",
+
+          ar: "الذكاء الاصطناعي/التعلم الآلي، البنية التحتية للبيانات، خدمات التحليل.",
         },
         allowedZones: ["dmcc", "ifza", "meydan", "rakez"],
         recommendedZones: ["meydan", "ifza", "dmcc", "rakez"],
@@ -241,18 +285,22 @@ export const MAJOR_ACTIVITIES: MajorActivity[] = [
   },
   {
     id: "ecommerce",
-    label: { jp: "Eコマース・小売", en: "E-commerce & retail" },
+    label: { jp: "Eコマース・小売", en: "E-commerce & retail", ar: "التجارة الإلكترونية والتجزئة" },
     description: {
       jp: "オンライン販売・越境EC。SPC/Meydan/IFZAが得意領域です。",
       en: "Online sales and cross-border e-commerce — SPC, Meydan, and IFZA excel here.",
+
+      ar: "المبيعات عبر الإنترنت والتجارة الإلكترونية العابرة للحدود — SPC وMeydan وIFZA متميزة هنا.",
     },
     subActivities: [
       {
         id: "ecommerce_retail",
-        label: { jp: "EC・オンライン小売", en: "E-commerce / online retail" },
+        label: { jp: "EC・オンライン小売", en: "E-commerce / online retail", ar: "التجارة الإلكترونية / التجزئة عبر الإنترنت" },
         description: {
           jp: "自社EC・D2Cモデル。",
           en: "Owned e-commerce and D2C models.",
+
+          ar: "نماذج التجارة الإلكترونية المملوكة وD2C.",
         },
         allowedZones: ALL_ZONES,
         recommendedZones: ["spc", "meydan", "ifza", "rakez", "dmcc"],
@@ -260,10 +308,12 @@ export const MAJOR_ACTIVITIES: MajorActivity[] = [
       },
       {
         id: "marketplace",
-        label: { jp: "マーケットプレイス・プラットフォーム", en: "Marketplace / platform" },
+        label: { jp: "マーケットプレイス・プラットフォーム", en: "Marketplace / platform", ar: "السوق الإلكتروني / المنصة" },
         description: {
           jp: "複数事業者をつなぐプラットフォーム型ビジネス。",
           en: "Multi-vendor marketplace platforms.",
+
+          ar: "منصات أسواق متعددة البائعين.",
         },
         allowedZones: ["ifza", "meydan", "spc", "dmcc", "rakez"],
         recommendedZones: ["meydan", "ifza", "spc", "dmcc", "rakez"],
@@ -273,18 +323,22 @@ export const MAJOR_ACTIVITIES: MajorActivity[] = [
   },
   {
     id: "media",
-    label: { jp: "メディア・出版・クリエイティブ", en: "Media, publishing & creative" },
+    label: { jp: "メディア・出版・クリエイティブ", en: "Media, publishing & creative", ar: "الإعلام والنشر والإبداع" },
     description: {
       jp: "出版・デジタルメディアはSPCが最もコスト効率が高いです。",
       en: "Publishing and digital media — SPC offers the best cost efficiency.",
+
+      ar: "النشر والإعلام الرقمي — SPC يقدم أفضل كفاءة للتكلفة.",
     },
     subActivities: [
       {
         id: "publishing",
-        label: { jp: "出版・Eパブリッシング", en: "Publishing / e-publishing" },
+        label: { jp: "出版・Eパブリッシング", en: "Publishing / e-publishing", ar: "النشر / النشر الإلكتروني" },
         description: {
           jp: "書籍・電子出版。SPCの専門ライセンスが最適。",
           en: "Books and digital publishing — SPC's specialist licence fits best.",
+
+          ar: "الكتب والنشر الرقمي — ترخيص SPC المتخصص هو الأنسب.",
         },
         allowedZones: ["spc", "ifza", "meydan"],
         recommendedZones: ["spc", "meydan", "ifza"],
@@ -292,10 +346,12 @@ export const MAJOR_ACTIVITIES: MajorActivity[] = [
       },
       {
         id: "digital_media",
-        label: { jp: "デジタルメディア・コンテンツ", en: "Digital media / content" },
+        label: { jp: "デジタルメディア・コンテンツ", en: "Digital media / content", ar: "الإعلام الرقمي / المحتوى" },
         description: {
           jp: "動画・コンテンツ制作・配信。",
           en: "Video, content production, and distribution.",
+
+          ar: "الفيديو وإنتاج المحتوى والتوزيع.",
         },
         allowedZones: ["spc", "meydan", "ifza", "dmcc"],
         recommendedZones: ["spc", "meydan", "ifza", "dmcc"],
@@ -303,10 +359,12 @@ export const MAJOR_ACTIVITIES: MajorActivity[] = [
       },
       {
         id: "advertising",
-        label: { jp: "広告・マーケティング", en: "Advertising / marketing" },
+        label: { jp: "広告・マーケティング", en: "Advertising / marketing", ar: "الإعلان / التسويق" },
         description: {
           jp: "広告代理・デジタルマーケ支援。",
           en: "Agency and digital marketing services.",
+
+          ar: "خدمات الوكالة والتسويق الرقمي.",
         },
         allowedZones: ALL_ZONES,
         recommendedZones: ["spc", "meydan", "ifza", "dmcc", "rakez"],
@@ -316,18 +374,22 @@ export const MAJOR_ACTIVITIES: MajorActivity[] = [
   },
   {
     id: "manufacturing",
-    label: { jp: "製造・工業・物流", en: "Manufacturing, industrial & logistics" },
+    label: { jp: "製造・工業・物流", en: "Manufacturing, industrial & logistics", ar: "التصنيع والصناعة واللوجستيات" },
     description: {
       jp: "工場・倉庫が必要な場合はRAKEZが第一候補です。",
       en: "RAKEZ is the primary choice when factory or warehouse space is needed.",
+
+      ar: "RAKEZ هو الخيار الأول عند الحاجة لمساحة مصنع أو مستودع.",
     },
     subActivities: [
       {
         id: "light_manufacturing",
-        label: { jp: "軽工業・組立", en: "Light manufacturing / assembly" },
+        label: { jp: "軽工業・組立", en: "Light manufacturing / assembly", ar: "التصنيع الخفيف / التجميع" },
         description: {
           jp: "組立・軽加工。RAKEZの工業パークが適合。",
           en: "Assembly and light processing — RAKEZ industrial parks fit well.",
+
+          ar: "التجميع والمعالجة الخفيفة — المدن الصناعية في RAKEZ مناسبة.",
         },
         allowedZones: ["rakez", "dmcc"],
         recommendedZones: ["rakez", "dmcc"],
@@ -335,10 +397,12 @@ export const MAJOR_ACTIVITIES: MajorActivity[] = [
       },
       {
         id: "warehouse_logistics",
-        label: { jp: "倉庫・物流・再輸出", en: "Warehouse / logistics / re-export" },
+        label: { jp: "倉庫・物流・再輸出", en: "Warehouse / logistics / re-export", ar: "المستودعات / اللوجستيات / إعادة التصدير" },
         description: {
           jp: "倉庫・物流拠点。RAKEZ/JAFZA系の設計が一般的（JAFZAは本シミュレーター対象外）。",
           en: "Warehouse and logistics — RAKEZ is the best fit among listed zones.",
+
+          ar: "المستودعات واللوجستيات — RAKEZ الأنسب بين المناطق المدرجة.",
         },
         allowedZones: ["rakez", "dmcc"],
         recommendedZones: ["rakez", "dmcc"],
@@ -348,18 +412,22 @@ export const MAJOR_ACTIVITIES: MajorActivity[] = [
   },
   {
     id: "real_estate",
-    label: { jp: "不動産", en: "Real estate" },
+    label: { jp: "不動産", en: "Real estate", ar: "العقارات" },
     description: {
       jp: "仲介・管理・開発支援。ドバイ拠点のIFZA/Meydan/DMCCが選択肢。",
       en: "Brokerage, management, and development support — Dubai zones lead.",
+
+      ar: "الوساطة والإدارة ودعم التطوير — مناطق دبي في المقدمة.",
     },
     subActivities: [
       {
         id: "real_estate_brokerage",
-        label: { jp: "不動産仲介", en: "Real estate brokerage" },
+        label: { jp: "不動産仲介", en: "Real estate brokerage", ar: "وساطة العقارات" },
         description: {
           jp: "売買・賃貸仲介。RERA登録等の追加要件あり。",
           en: "Sales and leasing brokerage; RERA registration may apply.",
+
+          ar: "وساطة البيع والإيجار؛ قد يُطلب تسجيل RERA.",
         },
         allowedZones: DUBAI_ZONES,
         recommendedZones: ["ifza", "meydan", "dmcc"],
@@ -367,10 +435,12 @@ export const MAJOR_ACTIVITIES: MajorActivity[] = [
       },
       {
         id: "property_management",
-        label: { jp: "プロパティマネジメント", en: "Property management" },
+        label: { jp: "プロパティマネジメント", en: "Property management", ar: "إدارة العقارات" },
         description: {
           jp: "建物管理・運営代行。",
           en: "Building management and operations.",
+
+          ar: "إدارة المباني والعمليات.",
         },
         allowedZones: DUBAI_ZONES,
         recommendedZones: ["ifza", "meydan", "dmcc"],
@@ -380,18 +450,22 @@ export const MAJOR_ACTIVITIES: MajorActivity[] = [
   },
   {
     id: "education",
-    label: { jp: "教育・研修", en: "Education & training" },
+    label: { jp: "教育・研修", en: "Education & training", ar: "التعليم والتدريب" },
     description: {
       jp: "研修・教育事業。RAKEZ/IFZAがコスト効率良好。",
       en: "Training and education — RAKEZ and IFZA are cost-efficient.",
+
+      ar: "التدريب والتعليم — RAKEZ وIFZA بكفاءة تكلفة جيدة.",
     },
     subActivities: [
       {
         id: "corporate_training",
-        label: { jp: "企業研修・セミナー", en: "Corporate training / seminars" },
+        label: { jp: "企業研修・セミナー", en: "Corporate training / seminars", ar: "التدريب المؤسسي / الندوات" },
         description: {
           jp: "BtoB研修・ワークショップ。",
           en: "B2B training and workshops.",
+
+          ar: "تدريب وورش عمل B2B.",
         },
         allowedZones: ["rakez", "ifza", "meydan", "dmcc"],
         recommendedZones: ["rakez", "ifza", "meydan", "dmcc"],
@@ -399,10 +473,12 @@ export const MAJOR_ACTIVITIES: MajorActivity[] = [
       },
       {
         id: "academic_institution",
-        label: { jp: "教育機関・スクール", en: "Academic institution / school" },
+        label: { jp: "教育機関・スクール", en: "Academic institution / school", ar: "مؤسسة تعليمية / مدرسة" },
         description: {
           jp: "学校・学院設立。追加の教育省承認が必要な場合あり。",
           en: "Schools and academies; KHDA or MOE approvals may apply.",
+
+          ar: "المدارس والأكاديميات؛ قد تُطلب موافقات KHDA أو وزارة التربية.",
         },
         allowedZones: ["rakez", "ifza", "meydan"],
         recommendedZones: ["rakez", "ifza", "meydan"],
@@ -411,24 +487,30 @@ export const MAJOR_ACTIVITIES: MajorActivity[] = [
         regulatoryNote: {
           jp: "教育系はフリーゾーンライセンスに加え、教育当局の承認が必要になることがあります。",
           en: "Education activities may require education-authority approval beyond the free-zone licence.",
+
+          ar: "قد تتطلب أنشطة التعليم موافقة جهة تعليمية بخلاف ترخيص المنطقة الحرة.",
         },
       },
     ],
   },
   {
     id: "hospitality",
-    label: { jp: "飲食・ホスピタリティ", en: "F&B & hospitality" },
+    label: { jp: "飲食・ホスピタリティ", en: "F&B & hospitality", ar: "الأغذية والمشروبات والضيافة" },
     description: {
       jp: "レストラン等はメインランド要件が出やすい領域です。",
       en: "Restaurants often trigger mainland licensing requirements.",
+
+      ar: "المطاعم غالباً تستدعي متطلبات ترخيص البر الرئيسي.",
     },
     subActivities: [
       {
         id: "restaurant_cafe",
-        label: { jp: "レストラン・カフェ", en: "Restaurant / café" },
+        label: { jp: "レストラン・カフェ", en: "Restaurant / café", ar: "مطعم / مقهى" },
         description: {
           jp: "実店舗飲食。メインランド+現地パートナーが必要なケースが多い。",
           en: "Physical F&B — mainland licensing is often required.",
+
+          ar: "أغذية ومشروبات فعلية — غالباً يُطلب ترخيص البر الرئيسي.",
         },
         allowedZones: ["meydan", "ifza"],
         recommendedZones: ["meydan", "ifza"],
@@ -437,14 +519,18 @@ export const MAJOR_ACTIVITIES: MajorActivity[] = [
         regulatoryNote: {
           jp: "フリーゾーン法人のみでは実店舗運営ができない場合があります。メインランド設立も併せて検討してください。",
           en: "A free-zone entity alone may not permit outlet operations; mainland setup may be needed.",
+
+          ar: "قد لا يسمح كيان المنطقة الحرة وحده بتشغيل منفذ؛ قد يُحتاج التأسيس في البر الرئيسي.",
         },
       },
       {
         id: "catering_events",
-        label: { jp: "ケータリング・イベント", en: "Catering / events" },
+        label: { jp: "ケータリング・イベント", en: "Catering / events", ar: "التموين / الفعاليات" },
         description: {
           jp: "イベントケータリング・食品サービス。",
           en: "Event catering and food services.",
+
+          ar: "تموين الفعاليات وخدمات الطعام.",
         },
         allowedZones: ["meydan", "ifza", "rakez"],
         recommendedZones: ["meydan", "ifza", "rakez"],
@@ -469,19 +555,19 @@ export const TIMELINE_OPTIONS: {
 }[] = [
   {
     id: "asap",
-    label: { jp: "できるだけ早く", en: "As soon as possible" },
+    label: { jp: "できるだけ早く", en: "As soon as possible", ar: "في أقرب وقت ممكن" },
   },
   {
     id: "1_3m",
-    label: { jp: "1〜3ヶ月以内", en: "Within 1–3 months" },
+    label: { jp: "1〜3ヶ月以内", en: "Within 1–3 months", ar: "خلال 1–3 أشهر" },
   },
   {
     id: "3_6m",
-    label: { jp: "3〜6ヶ月以内", en: "Within 3–6 months" },
+    label: { jp: "3〜6ヶ月以内", en: "Within 3–6 months", ar: "خلال 3–6 أشهر" },
   },
   {
     id: "exploring",
-    label: { jp: "情報収集中", en: "Still exploring" },
+    label: { jp: "情報収集中", en: "Still exploring", ar: "ما زلت أستكشف" },
   },
 ];
 
@@ -489,18 +575,18 @@ export const SHAREHOLDER_OPTIONS: {
   id: CustomerProfile["shareholderCount"];
   label: LangCopy;
 }[] = [
-  { id: "1", label: { jp: "1名", en: "1" } },
-  { id: "2_3", label: { jp: "2〜3名", en: "2–3" } },
-  { id: "4_plus", label: { jp: "4名以上", en: "4+" } },
+  { id: "1", label: { jp: "1名", en: "1", ar: "1" } },
+  { id: "2_3", label: { jp: "2〜3名", en: "2–3", ar: "2–3" } },
+  { id: "4_plus", label: { jp: "4名以上", en: "4+", ar: "4+" } },
 ];
 
 export const COUNTRY_OPTIONS: { id: string; label: LangCopy }[] = [
-  { id: "jp", label: { jp: "日本", en: "Japan" } },
-  { id: "ae", label: { jp: "UAE", en: "UAE" } },
-  { id: "sg", label: { jp: "シンガポール", en: "Singapore" } },
-  { id: "uk", label: { jp: "イギリス", en: "United Kingdom" } },
-  { id: "us", label: { jp: "アメリカ", en: "United States" } },
-  { id: "other", label: { jp: "その他", en: "Other" } },
+  { id: "jp", label: { jp: "日本", en: "Japan", ar: "اليابان" } },
+  { id: "ae", label: { jp: "UAE", en: "UAE", ar: "الإمارات" } },
+  { id: "sg", label: { jp: "シンガポール", en: "Singapore", ar: "سنغافورة" } },
+  { id: "uk", label: { jp: "イギリス", en: "United Kingdom", ar: "المملكة المتحدة" } },
+  { id: "us", label: { jp: "アメリカ", en: "United States", ar: "الولايات المتحدة" } },
+  { id: "other", label: { jp: "その他", en: "Other", ar: "أخرى" } },
 ];
 
 export function getMajorActivity(id: string): MajorActivity | undefined {
@@ -573,8 +659,8 @@ export type ZoneRecommendation = {
 export function getRecommendationReason(
   zone: FreeZone,
   sub: SubActivity,
-  total: number,
-  lang: "jp" | "en",
+  _total: number,
+  _lang: Lang,
 ): LangCopy {
   const isPrimary = sub.recommendedZones[0] === zone;
   const isAllowed = sub.allowedZones.includes(zone);
@@ -583,12 +669,15 @@ export function getRecommendationReason(
     return {
       jp: "このアクティビティには対応していません",
       en: "Not eligible for this activity",
+
+      ar: "غير مؤهل لهذا النشاط",
     };
   }
   if (sub.allowedZones.length === 1) {
     return {
       jp: `「${sub.label.jp}」は${zone.toUpperCase()}が最適`,
       en: `${sub.label.en} is best suited to ${zone.toUpperCase()}`,
+      ar: `${sub.label.ar} الأنسب لـ ${zone.toUpperCase()}`,
     };
   }
   if (isPrimary) {
@@ -596,26 +685,36 @@ export function getRecommendationReason(
       ? {
           jp: "コスト効率と設立スピードのバランスが最良",
           en: "Best balance of cost efficiency and setup speed",
+
+          ar: "أفضل توازن بين كفاءة التكلفة وسرعة التأسيس",
         }
       : {
           jp: "信頼性・ブランド力とアクティビティ適合性が最良",
           en: "Best balance of credibility and activity fit",
+
+          ar: "أفضل توازن بين المصداقية وملاءمة النشاط",
         };
   }
   if (zone === "rakez") {
     return {
       jp: "初年度コストを抑えたい場合の候補",
       en: "Cost-efficient option for first-year setup",
+
+      ar: "خيار فعال من حيث التكلفة للتأسيس في السنة الأولى",
     };
   }
   if (zone === "dmcc") {
     return {
       jp: "金融・コモディティ・ブランド重視の候補",
       en: "Strong option for finance, commodities, and brand credibility",
+
+      ar: "خيار قوي للخدمات المالية والسلع ومصداقية العلامة التجارية",
     };
   }
   return {
     jp: "条件を満たす候補",
     en: "Eligible candidate",
+
+    ar: "مرشح مؤهل",
   };
 }

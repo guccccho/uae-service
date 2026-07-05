@@ -76,10 +76,20 @@ export async function fetchMonthlyAedJpyRate(
   return { rate: 40, date: firstOfMonth };
 }
 
-export function formatRateDate(date: string, lang: "jp" | "en"): string {
+import type { Lang } from "../i18n";
+
+export function formatRateDate(date: string, lang: Lang): string {
   const [year, month, day] = date.split("-").map(Number);
   if (lang === "jp") {
     return `${year}年${month}月${day}日`;
+  }
+  if (lang === "ar") {
+    return new Date(Date.UTC(year, month - 1, day)).toLocaleDateString("ar-AE", {
+      day: "numeric",
+      month: "long",
+      year: "numeric",
+      timeZone: "UTC",
+    });
   }
   return new Date(Date.UTC(year, month - 1, day)).toLocaleDateString("en-GB", {
     day: "numeric",

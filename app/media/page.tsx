@@ -2,24 +2,36 @@
 
 import React from "react";
 import { useLang } from "../lang-context";
+import { LangSwitch } from "../components/LangSwitch";
 import { getMediaItemsForLang } from "./data";
 import Link from "next/link";
+import type { Lang } from "../i18n";
+
+const content: Record<Lang, { title: string; description: string }> = {
+  jp: {
+    title: "支援先プロダクト・サービス",
+    description:
+      "当社がUAE展開を支援した企業のプロダクトやサービスをご紹介します。現在は紹介ページですが、今後は各詳細ページからECや販売代理店向けページへ接続できる構成を想定しています。",
+  },
+  en: {
+    title: "Supported Products and Services",
+    description:
+      "A selection of products and services from companies we supported for UAE expansion. Today these pages serve as showcases, with a structure that can later connect each product to e-commerce or distributor-facing pages.",
+  },
+  ar: {
+    title: "المنتجات والخدمات المدعومة",
+    description:
+      "مجموعة من المنتجات والخدمات لشركات دعمناها في التوسع في الإمارات. تعمل هذه الصفحات حالياً كعروض تعريفية، بهيكل يمكن لاحقاً ربط كل منتج بصفحات التجارة الإلكترونية أو صفحات الموزعين.",
+  },
+};
 
 export default function MediaIndexPage() {
   const { lang, setLang } = useLang();
-  const isJP = lang === "jp";
+  const t = content[lang];
   const items = getMediaItemsForLang(lang);
-
-  const title = isJP
-    ? "支援先プロダクト・サービス"
-    : "Supported Products and Services";
-  const description = isJP
-    ? "当社がUAE展開を支援した企業のプロダクトやサービスをご紹介します。現在は紹介ページですが、今後は各詳細ページからECや販売代理店向けページへ接続できる構成を想定しています。"
-    : "A selection of products and services from companies we supported for UAE expansion. Today these pages serve as showcases, with a structure that can later connect each product to e-commerce or distributor-facing pages.";
 
   return (
     <div className="min-h-screen bg-white text-slate-900 antialiased">
-      {/* Header */}
       <header className="border-b border-[#f0ece5]">
         <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-6 sm:px-10 lg:px-12">
           <a
@@ -28,50 +40,24 @@ export default function MediaIndexPage() {
           >
             UAE Business Consulting
           </a>
-          <div className="flex items-center gap-2 text-[11px] font-semibold tracking-[0.18em]">
-            <button
-              type="button"
-              onClick={() => setLang("jp")}
-              className={`rounded-full px-3 py-1 transition-colors ${
-                lang === "jp"
-                  ? "bg-[#c9a86c] text-white"
-                  : "text-slate-500 hover:text-slate-800"
-              }`}
-            >
-              JP
-            </button>
-            <span className="text-slate-400">/</span>
-            <button
-              type="button"
-              onClick={() => setLang("en")}
-              className={`rounded-full px-3 py-1 transition-colors ${
-                lang === "en"
-                  ? "bg-[#c9a86c] text-white"
-                  : "text-slate-500 hover:text-slate-800"
-              }`}
-            >
-              EN
-            </button>
-          </div>
+          <LangSwitch lang={lang} setLang={setLang} />
         </div>
       </header>
 
       <main>
-        {/* Hero */}
         <section className="border-b border-[#f0ece5] bg-slate-50/40">
           <div className="mx-auto max-w-6xl px-6 sm:px-10 lg:px-12 py-20 sm:py-28 lg:py-32">
             <div className="mx-auto max-w-3xl text-center">
               <h1 className="text-3xl font-light tracking-[-0.04em] text-slate-900 sm:text-4xl lg:text-5xl">
-                {title}
+                {t.title}
               </h1>
               <p className="mt-6 text-base leading-[1.9] text-slate-600 sm:text-lg">
-                {description}
+                {t.description}
               </p>
             </div>
           </div>
         </section>
 
-        {/* Grid */}
         <section>
           <div className="mx-auto max-w-6xl px-6 sm:px-10 lg:px-12 py-16 sm:py-24 lg:py-28">
             <div className="grid gap-10 lg:grid-cols-3">
@@ -113,4 +99,3 @@ export default function MediaIndexPage() {
     </div>
   );
 }
-

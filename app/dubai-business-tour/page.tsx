@@ -1,11 +1,41 @@
 "use client";
 
 import Link from "next/link";
-import { useState, type ReactNode } from "react";
+import { type ReactNode } from "react";
+import { useLang } from "../lang-context";
+import { LangSwitch } from "../components/LangSwitch";
+import type { Lang } from "../i18n";
 
-type Lang = "jp" | "en";
-
-const content = {
+const content: Record<
+  Lang,
+  {
+    badge: string;
+    title: string;
+    description: string;
+    primaryCta: string;
+    secondaryCta: string;
+    overviewTitle: string;
+    overviewItems: string[];
+    whoTitle: string;
+    whoItems: string[];
+    scheduleTitle: string;
+    day1Title: string;
+    day1Items: string[];
+    day2Title: string;
+    day2Items: string[];
+    day3Title: string;
+    day3Items: string[];
+    pricingTitle: string;
+    pricingCards: { title: string; price: string }[];
+    pricingLabels: string[];
+    recommendedBadge: string;
+    ctaEyebrow: string;
+    ctaTitle: string;
+    ctaText: string;
+    contactButton: string;
+    simulatorButton: string;
+  }
+> = {
   jp: {
     badge: "DUBAI BUSINESS TOUR",
     title: "UAE進出のためのドバイ視察プログラム",
@@ -42,6 +72,8 @@ const content = {
       { title: "プレミアム視察", price: "¥800,000〜¥1,200,000" },
     ],
     pricingLabels: ["PLAN 1", "RECOMMENDED", "PREMIUM"],
+    recommendedBadge: "おすすめ",
+    ctaEyebrow: "無料相談",
     ctaTitle: "UAE進出について相談する",
     ctaText:
       "法人設立、不動産、出店、JVなど\nUAE進出の可能性を整理するための\n視察プログラムをご提案します。",
@@ -84,11 +116,57 @@ const content = {
       { title: "Premium Exploration", price: "¥800,000–¥1,200,000" },
     ],
     pricingLabels: ["PLAN 1", "RECOMMENDED", "PREMIUM"],
+    recommendedBadge: "Recommended",
+    ctaEyebrow: "Consultation",
     ctaTitle: "Discuss Your UAE Entry",
     ctaText:
       "We propose an exploration program to help you clarify next steps,\ncovering company formation, real estate, commercial expansion, and JV options.",
     contactButton: "Discuss the Tour",
     simulatorButton: "Try Cost Simulator",
+  },
+  ar: {
+    badge: "جولة الأعمال في دبي",
+    title: "برنامج استكشاف الأعمال في دبي لدخول الإمارات",
+    description:
+      "برنامج منظم لاستكشاف تأسيس الشركات والعقارات والمساحات التجارية\nوشركاء الأعمال المحتملين في الإمارات خلال فترة قصيرة.",
+    primaryCta: "حجز استشارة مجانية",
+    secondaryCta: "فتح محاكي التكاليف",
+    overviewTitle: "ما يغطيه هذا البرنامج",
+    overviewItems: [
+      "مقارنة المناطق الحرة (DMCC / RAKEZ)",
+      "نظرة عامة على عملية تأسيس الشركات",
+      "زيارات مناطق عقارية",
+      "جولة في مساحات تجارية للمطاعم والتجزئة",
+      "تعريف بشركات محلية ومرشحين للمشاريع المشتركة",
+    ],
+    whoTitle: "لمن هذا البرنامج",
+    whoItems: [
+      "أصحاب الأعمال الذين يفكرون في التوسع في الإمارات",
+      "من يقيّمون تأسيس الشركة مع إعادة التوطين",
+      "مشغلو المطاعم والتجزئة الذين يستكشفون مواقع المتاجر",
+      "الشركات الباحثة عن شركاء محليين أو مشاريع مشتركة",
+    ],
+    scheduleTitle: "جدول نموذجي",
+    day1Title: "اليوم 1",
+    day1Items: ["مقارنة المناطق الحرة", "نظرة عامة على DMCC / RAKEZ", "استشارة استراتيجية الدخول"],
+    day2Title: "اليوم 2",
+    day2Items: ["زيارات عقارية", "مناطق سكنية", "مساحات تجارية"],
+    day3Title: "اليوم 3",
+    day3Items: ["نظرة عامة على الخدمات المصرفية", "اجتماعات مع شركات محلية", "مناقشة المشاريع المشتركة"],
+    pricingTitle: "الأسعار",
+    pricingCards: [
+      { title: "جلسة استراتيجية عبر الإنترنت", price: "من ¥50,000" },
+      { title: "برنامج استشاري ميداني", price: "من ¥500,000" },
+      { title: "استكشاف متميز", price: "¥800,000–¥1,200,000" },
+    ],
+    pricingLabels: ["الخطة 1", "موصى به", "متميز"],
+    recommendedBadge: "موصى به",
+    ctaEyebrow: "استشارة",
+    ctaTitle: "ناقش دخولكم إلى الإمارات",
+    ctaText:
+      "نقترح برنامج استكشاف لمساعدتكم على توضيح الخطوات التالية،\nيشمل تأسيس الشركات والعقارات والتوسع التجاري وخيارات المشاريع المشتركة.",
+    contactButton: "مناقشة الجولة",
+    simulatorButton: "تجربة محاكي التكاليف",
   },
 };
 
@@ -97,46 +175,20 @@ function SectionTitle({ children }: { children: ReactNode }) {
 }
 
 export default function DubaiBusinessTourPage() {
-  const [lang, setLang] = useState<Lang>("jp");
+  const { lang, setLang } = useLang();
   const t = content[lang];
 
   return (
     <main className="min-h-screen bg-white text-slate-900 antialiased">
-      {/* Top bar */}
       <header className="border-b border-[#f0ece5] bg-white">
         <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-6 sm:px-10 lg:px-12">
           <p className="text-xs font-semibold uppercase tracking-[0.26em] text-slate-800">
             UAE Business Consulting
           </p>
-          <div className="flex items-center gap-2 text-[11px] font-semibold tracking-[0.18em]">
-            <button
-              type="button"
-              onClick={() => setLang("jp")}
-              className={`rounded-full px-3 py-1 transition-colors ${
-                lang === "jp"
-                  ? "bg-[#c9a86c] text-white"
-                  : "text-slate-500 hover:text-slate-800"
-              }`}
-            >
-              JP
-            </button>
-            <span className="text-slate-400">/</span>
-            <button
-              type="button"
-              onClick={() => setLang("en")}
-              className={`rounded-full px-3 py-1 transition-colors ${
-                lang === "en"
-                  ? "bg-[#c9a86c] text-white"
-                  : "text-slate-500 hover:text-slate-800"
-              }`}
-            >
-              EN
-            </button>
-          </div>
+          <LangSwitch lang={lang} setLang={setLang} />
         </div>
       </header>
 
-      {/* 1. Hero */}
       <section className="border-b border-[#f0ece5] bg-white">
         <div className="mx-auto max-w-6xl px-6 py-16 sm:px-10 sm:py-20 lg:px-12 lg:py-24">
           <div className="mx-auto max-w-3xl text-center">
@@ -167,7 +219,6 @@ export default function DubaiBusinessTourPage() {
         </div>
       </section>
 
-      {/* 2. Program Overview */}
       <section className="border-b border-[#f0ece5] bg-slate-50/40">
         <div className="mx-auto max-w-6xl px-6 py-16 sm:px-10 sm:py-20 lg:px-12 lg:py-24">
           <div className="grid gap-8 md:grid-cols-2">
@@ -183,7 +234,6 @@ export default function DubaiBusinessTourPage() {
               </ul>
             </div>
 
-            {/* 3. Who this is for */}
             <div className="rounded-2xl bg-white p-8 shadow-[0_18px_45px_rgba(15,23,42,0.06)] ring-1 ring-slate-100/70">
               <SectionTitle>{t.whoTitle}</SectionTitle>
               <ul className="mt-6 space-y-4 text-sm leading-7 text-slate-700 md:text-base">
@@ -199,7 +249,6 @@ export default function DubaiBusinessTourPage() {
         </div>
       </section>
 
-      {/* 4. Sample schedule */}
       <section className="border-b border-[#f0ece5] bg-white">
         <div className="mx-auto max-w-6xl px-6 py-16 sm:px-10 sm:py-20 lg:px-12 lg:py-24">
           <div className="mx-auto max-w-3xl text-center">
@@ -234,7 +283,6 @@ export default function DubaiBusinessTourPage() {
         </div>
       </section>
 
-      {/* 5. Pricing */}
       <section className="border-b border-[#f0ece5] bg-slate-50/40">
         <div className="mx-auto max-w-6xl px-6 py-16 sm:px-10 sm:py-20 lg:px-12 lg:py-24">
           <div className="mx-auto max-w-3xl text-center">
@@ -254,7 +302,7 @@ export default function DubaiBusinessTourPage() {
               >
                 {idx === 1 && (
                   <span className="absolute -top-3 right-6 rounded-full bg-[#c9a86c] px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.22em] text-white">
-                    {lang === "jp" ? "おすすめ" : "Recommended"}
+                    {t.recommendedBadge}
                   </span>
                 )}
                 <p className="text-xs font-semibold uppercase tracking-[0.22em] text-[#c9a86c]">
@@ -272,12 +320,11 @@ export default function DubaiBusinessTourPage() {
         </div>
       </section>
 
-      {/* 6. CTA */}
       <section className="bg-white">
         <div className="mx-auto max-w-5xl px-6 py-16 sm:px-10 sm:py-20 lg:px-12 lg:py-24">
           <div className="rounded-2xl bg-white p-8 text-center shadow-[0_22px_60px_rgba(15,23,42,0.10)] ring-1 ring-slate-100/70 sm:p-12">
             <p className="text-xs font-medium uppercase tracking-[0.35em] text-[#c9a86c]">
-              {lang === "jp" ? "無料相談" : "Consultation"}
+              {t.ctaEyebrow}
             </p>
             <h2 className="mt-4 text-3xl font-light leading-tight tracking-[-0.03em] text-slate-900 sm:text-4xl lg:text-5xl">
               {t.ctaTitle}

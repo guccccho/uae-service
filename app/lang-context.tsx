@@ -7,8 +7,9 @@ import React, {
   useEffect,
   useState,
 } from "react";
+import { htmlLang, isRtl, type Lang } from "./i18n";
 
-export type Lang = "jp" | "en";
+export type { Lang };
 
 type LangContextValue = {
   lang: Lang;
@@ -23,10 +24,16 @@ export function LangProvider({ children }: { children: React.ReactNode }) {
   useEffect(() => {
     if (typeof window === "undefined") return;
     const stored = window.localStorage.getItem("uae-lang");
-    if (stored === "jp" || stored === "en") {
+    if (stored === "jp" || stored === "en" || stored === "ar") {
       setLangState(stored);
     }
   }, []);
+
+  useEffect(() => {
+    if (typeof document === "undefined") return;
+    document.documentElement.lang = htmlLang[lang];
+    document.documentElement.dir = isRtl(lang) ? "rtl" : "ltr";
+  }, [lang]);
 
   const setLang = useCallback((next: Lang) => {
     setLangState(next);
@@ -49,4 +56,3 @@ export function useLang(): LangContextValue {
   }
   return ctx;
 }
-

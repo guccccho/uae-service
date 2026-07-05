@@ -3,6 +3,7 @@
 import React from "react";
 import type { FreeZone } from "./data";
 import type { HinodeyaSimulatorZone } from "./activities";
+import { pickLang, type Lang, type LangCopy } from "../i18n";
 import {
   ZONE_MEDIA,
   ZONE_MEDIA_ATTRIBUTION,
@@ -11,9 +12,21 @@ import {
 
 const GOLD = "#c9a86c";
 
+const OFFICIAL_SITE: LangCopy = {
+  jp: "公式サイト →",
+  en: "Official site →",
+  ar: "الموقع الرسمي →",
+};
+
+const VIEW_OFFICIAL: LangCopy = {
+  jp: "公式ページで見る",
+  en: "View on official site",
+  ar: "عرض على الموقع الرسمي",
+};
+
 type Props = {
   zone: FreeZone;
-  lang: "jp" | "en";
+  lang: Lang;
   compact?: boolean;
 };
 
@@ -22,17 +35,18 @@ function MediaEmbed({
   lang,
 }: {
   embed: NonNullable<ZoneMediaConfig["video"] | ZoneMediaConfig["virtualTour"]>;
-  lang: "jp" | "en";
+  lang: Lang;
 }) {
+  const title = pickLang(embed.title, lang);
   return (
     <div className="overflow-hidden rounded-xl ring-1 ring-slate-200/80">
       <p className="bg-slate-50 px-4 py-2 text-[11px] font-medium text-slate-600">
-        {embed.title[lang]}
+        {title}
       </p>
       <div className="relative aspect-video w-full bg-slate-900">
         <iframe
           src={embed.embedUrl}
-          title={embed.title[lang]}
+          title={title}
           className="absolute inset-0 h-full w-full"
           allow="autoplay; fullscreen; picture-in-picture; xr-spatial-tracking"
           allowFullScreen
@@ -47,7 +61,7 @@ function MediaEmbed({
           rel="noopener noreferrer"
           className="underline-offset-2 hover:underline"
         >
-          {lang === "jp" ? "公式ページで見る" : "View on official site"}
+          {pickLang(VIEW_OFFICIAL, lang)}
         </a>
       </p>
     </div>
@@ -81,7 +95,7 @@ export default function ZoneShowcase({ zone, lang, compact = false }: Props) {
     return (
       <div className="flex items-center gap-3">
         <ZoneLogo zone={zone} className="h-6 w-auto max-w-[100px] object-contain" />
-        <p className="text-[11px] leading-relaxed text-slate-500">{media.overview[lang]}</p>
+        <p className="text-[11px] leading-relaxed text-slate-500">{pickLang(media.overview, lang)}</p>
       </div>
     );
   }
@@ -91,7 +105,7 @@ export default function ZoneShowcase({ zone, lang, compact = false }: Props) {
       <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
         <div className="flex items-center gap-4">
           <ZoneLogo zone={zone} className="h-8 w-auto max-w-[140px] object-contain" />
-          <p className="text-xs leading-relaxed text-slate-600">{media.overview[lang]}</p>
+          <p className="text-xs leading-relaxed text-slate-600">{pickLang(media.overview, lang)}</p>
         </div>
         <a
           href={media.homepageUrl}
@@ -100,7 +114,7 @@ export default function ZoneShowcase({ zone, lang, compact = false }: Props) {
           className="shrink-0 text-[11px] font-medium underline-offset-2 hover:underline"
           style={{ color: GOLD }}
         >
-          {lang === "jp" ? "公式サイト →" : "Official site →"}
+          {pickLang(OFFICIAL_SITE, lang)}
         </a>
       </div>
 
@@ -116,13 +130,13 @@ export default function ZoneShowcase({ zone, lang, compact = false }: Props) {
             <div className="aspect-[4/3] overflow-hidden bg-slate-100">
               <img
                 src={image.url}
-                alt={image.caption[lang]}
+                alt={pickLang(image.caption, lang)}
                 className="h-full w-full object-cover transition duration-300 group-hover:scale-[1.02]"
                 loading="lazy"
               />
             </div>
             <p className="px-3 py-2 text-[10px] leading-relaxed text-slate-600">
-              {image.caption[lang]}
+              {pickLang(image.caption, lang)}
             </p>
           </a>
         ))}
@@ -131,14 +145,14 @@ export default function ZoneShowcase({ zone, lang, compact = false }: Props) {
       {embed && <MediaEmbed embed={embed} lang={lang} />}
 
       <p className="text-[10px] text-slate-400">
-        {ZONE_MEDIA_ATTRIBUTION[lang]} ·{" "}
+        {pickLang(ZONE_MEDIA_ATTRIBUTION, lang)} ·{" "}
         <a
           href={media.facilitiesUrl}
           target="_blank"
           rel="noopener noreferrer"
           className="underline-offset-2 hover:underline"
         >
-          {media.facilitiesLabel[lang]}
+          {pickLang(media.facilitiesLabel, lang)}
         </a>
       </p>
     </div>

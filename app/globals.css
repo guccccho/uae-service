@@ -28,3 +28,15 @@ body {
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
+
+[dir="rtl"] body {
+  font-family: "Noto Sans Arabic", Arial, Helvetica, sans-serif;
+}
+
+[dir="rtl"] .rtl-flip-row {
+  flex-direction: row-reverse;
+}
+
+[dir="rtl"] .text-start-aware {
+  text-align: right;
+}

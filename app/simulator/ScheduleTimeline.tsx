@@ -1,10 +1,23 @@
 "use client";
 
 import { useLang } from "../lang-context";
+import { pickLang, type LangCopy } from "../i18n";
 import { getAcquisitionSchedule } from "./schedule";
 import type { VisaSpeed } from "./data";
 
 const GOLD = "#C8A46A";
+
+const ATTEND_DETAIL: LangCopy = {
+  jp: "詳細・料金は無料相談時にご案内します。",
+  en: "Details and pricing provided during your free consultation.",
+  ar: "التفاصيل والأسعار تُقدَّم خلال استشارتك المجانية.",
+};
+
+const TOUR_LINK: LangCopy = {
+  jp: "ドバイ視察プログラムを見る →",
+  en: "View Dubai business tour program →",
+  ar: "عرض برنامج جولة الأعمال في دبي →",
+};
 
 export function VisaAcquisitionSchedule({
   visaSpeed,
@@ -26,10 +39,10 @@ export function VisaAcquisitionSchedule({
         className="text-xs font-semibold uppercase tracking-[0.16em]"
         style={{ color: GOLD }}
       >
-        {schedule.title[lang]}
+        {pickLang(schedule.title, lang)}
       </p>
       <p className="mt-2 text-xs leading-relaxed text-slate-500">
-        {schedule.subtitle[lang]}
+        {pickLang(schedule.subtitle, lang)}
       </p>
 
       <ol className="mt-5 space-y-0">
@@ -55,13 +68,13 @@ export function VisaAcquisitionSchedule({
             </div>
             <div className="min-w-0 flex-1">
               <p className="text-[10px] font-semibold uppercase tracking-[0.14em] text-slate-400">
-                {step.phase[lang]}
+                {pickLang(step.phase, lang)}
               </p>
               <p className="mt-1 text-sm font-medium text-slate-900">
-                {step.title[lang]}
+                {pickLang(step.title, lang)}
               </p>
               <p className="mt-1 text-xs leading-relaxed text-slate-600">
-                {step.body[lang]}
+                {pickLang(step.body, lang)}
               </p>
             </div>
           </li>
@@ -69,13 +82,13 @@ export function VisaAcquisitionSchedule({
       </ol>
 
       <p className="mt-2 text-[11px] leading-relaxed text-slate-500">
-        {schedule.footnote[lang]}
+        {pickLang(schedule.footnote, lang)}
       </p>
 
       {showAttendOption && (
         <div className="mt-5 rounded-xl border border-dashed border-slate-200 bg-white p-4">
           <p className="text-xs leading-relaxed text-slate-600">
-            {schedule.attendNote[lang]}
+            {pickLang(schedule.attendNote, lang)}
           </p>
           <label className="mt-3 flex cursor-pointer items-start gap-3">
             <input
@@ -85,11 +98,9 @@ export function VisaAcquisitionSchedule({
               className="mt-1 h-4 w-4 rounded border-slate-300 text-[#c9a86c] focus:ring-[#c9a86c]"
             />
             <span className="text-xs text-slate-700">
-              <span className="font-medium">{schedule.attendOption[lang]}</span>
+              <span className="font-medium">{pickLang(schedule.attendOption, lang)}</span>
               <span className="mt-1 block text-slate-500">
-                {lang === "jp"
-                  ? "詳細・料金は無料相談時にご案内します。"
-                  : "Details and pricing provided during your free consultation."}
+                {pickLang(ATTEND_DETAIL, lang)}
               </span>
             </span>
           </label>
@@ -97,9 +108,7 @@ export function VisaAcquisitionSchedule({
             href="/dubai-business-tour"
             className="mt-3 inline-block text-[11px] font-medium text-slate-600 underline-offset-2 hover:text-slate-900 hover:underline"
           >
-            {lang === "jp"
-              ? "ドバイ視察プログラムを見る →"
-              : "View Dubai business tour program →"}
+            {pickLang(TOUR_LINK, lang)}
           </a>
         </div>
       )}

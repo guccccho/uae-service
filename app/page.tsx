@@ -1,6 +1,8 @@
 "use client";
 
 import React from "react";
+import { LangSwitch } from "./components/LangSwitch";
+import { pickLang } from "./i18n";
 import { useLang } from "./lang-context";
 import { mediaItems } from "./media/data";
 
@@ -213,17 +215,122 @@ const content = {
       email: "contact@hinodeya.ae",
     },
   },
+  ar: {
+    logo: "HINODEYA",
+    logoSub: "استشارات الأعمال في الإمارات",
+    hero: {
+      title: "دخول استراتيجي إلى سوق الإمارات",
+      subtitleLine1: "استشارات شاملة للشركات الراغبة في التوسع في الإمارات،",
+      subtitleLine2: "من الاستراتيجية والشراكات إلى التنفيذ على أرض الواقع.",
+      primaryCta: "حجز استشارة",
+      secondaryCta: "عرض الخدمات",
+      simulatorCta: "فتح محاكي التكاليف",
+    },
+    trusted: {
+      title: "شركاؤنا وثقة عملائنا",
+      logos: ["DMCC", "Abu Dhabi Global Market", "RAKEZ", "International Partners"],
+    },
+    expertise: {
+      title: "خبراتنا",
+      subtitle: "استشارات متكاملة تشمل الاستراتيجية والتأسيس والشراكات في الإمارات.",
+      cards: [
+        {
+          code: "ME",
+          title: "استراتيجية دخول السوق",
+          body: "تصميم الوصول إلى سوق الإمارات، واستراتيجيات النمو، والتموضع التنافسي.",
+        },
+        {
+          code: "CS",
+          title: "تأسيس الشركات",
+          body: "تأسيس الشركات والتراخيص والاستشارات التنظيمية عبر مختلف الولايات القضائية في الإمارات.",
+        },
+        {
+          code: "SP",
+          title: "الشراكات الاستراتيجية",
+          body: "ربط الشركات اليابانية بشركاء ومستثمرين إقليميين موثوقين.",
+        },
+      ],
+    },
+    why: {
+      title: "لماذا الإمارات",
+      subtitle: "قاعدة استراتيجية للنمو الإقليمي والعالمي.",
+      cards: [
+        {
+          title: "مركز مالي عالمي",
+          body: "موطن للمؤسسات المالية والمستثمرين الرائدين، مع وصول واسع إلى رأس المال.",
+        },
+        {
+          title: "بوابة لأسواق الشرق الأوسط",
+          body: "مركز مستقر ومتصل عالمياً لخدمة أسواق دول مجلس التعاون الخليجي ومنطقة الشرق الأوسط وشمال أفريقيا.",
+        },
+        {
+          title: "بيئة أعمال مواتية ضريبياً",
+          body: "مناطق حرة وأنظمة خاصة توفر هياكل ضريبية صفرية أو منخفضة على الشركات.",
+        },
+      ],
+    },
+    cases: {
+      title: "دراسات حالة",
+      subtitle: "مشاريع مختارة مع عملاء يابانيين وعالميين.",
+      cards: [
+        {
+          tag: "التصنيع",
+          title: "شركة تصنيع يابانية – استراتيجية دخول سوق الإمارات",
+          body: "تصميم خطة مرحلية لدخول سوق الإمارات تشمل اختيار المنطقة الحرة واستراتيجية الشريك المحلي.",
+        },
+        {
+          tag: "التكنولوجيا",
+          title: "شركة ناشئة تقنية – دعم التوسع الإقليمي",
+          body: "دعم التراخيص وتأسيس المقر في دبي والشراكات التجارية عبر دول الخليج.",
+        },
+        {
+          tag: "التجارة",
+          title: "شركة تجارية – تطوير الشراكات الاستراتيجية",
+          body: "هيكلة مشاريع مشتركة مع موزعين إقليميين وشركاء شراء طويل الأجل.",
+        },
+      ],
+    },
+    faq: {
+      title: "الأسئلة الشائعة",
+      items: [
+        {
+          q: "كيف تبدو الاستشارة الأولية؟",
+          a: "نبدأ عادةً بمناقشة عبر الإنترنت لمدة 30–45 دقيقة لفهم نشاطكم والجدول الزمني والأهداف. بناءً على ذلك، نحدد سيناريوهات الدخول المحتملة ونوضح المعلومات التي تحتاجونها داخلياً.",
+        },
+        {
+          q: "ما الوقت المناسب للتواصل معكم؟",
+          a: "لا بأس بالتواصل معنا أثناء استكشاف الخيارات. التواصل المبكر يساعدكم على مقارنة الولايات القضائية وتوقع النقاط التنظيمية وإعداد القرارات الداخلية.",
+        },
+        {
+          q: "ما أنواع الشركات التي تعملون معها عادةً؟",
+          a: "نعمل بشكل أساسي مع شركات يابانية وعالمية متوسطة وكبيرة في التصنيع والتجارة والتكنولوجيا. إذا لم تكونوا متأكدين من ملاءمة حالتكم، تواصلوا معنا لمناقشة ذلك.",
+        },
+      ],
+    },
+    cta: {
+      label: "الخطوة التالية",
+      heading: "هل أنتم مستعدون للتوسع في الإمارات؟",
+      body: "شاركونا أهدافكم والجدول الزمني، وسنقدّم رؤية مركّزة حول كيف يمكن للإمارات دعم استراتيجيتكم الإقليمية.",
+      button: "جدولة استشارة",
+    },
+    footer: {
+      name: "UAE Business Consulting",
+      location: "IFZA Business Park, Dubai Silicon Oasis, Dubai, United Arab Emirates",
+      email: "contact@hinodeya.ae",
+    },
+  },
 } as const;
 
 export default function Home() {
   const { lang, setLang } = useLang();
   const t = content[lang];
   const isJP = lang === "jp";
+  const isAr = lang === "ar";
   const mediaTeasers = mediaItems.slice(0, 3).map((item) => ({
     slug: item.slug,
-    sectorLabel: item.sector[lang],
-    titleLabel: item.title[lang],
-    summaryLabel: item.summary[lang],
+    sectorLabel: pickLang(item.sector, lang),
+    titleLabel: pickLang(item.title, lang),
+    summaryLabel: pickLang(item.summary, lang),
     imageUrl: item.imageUrl,
   }));
 
@@ -242,31 +349,7 @@ export default function Home() {
               </div>
             </div>
           </div>
-          <div className="flex items-center gap-2 text-[11px] font-semibold tracking-[0.18em]">
-            <button
-              type="button"
-              onClick={() => setLang("jp")}
-              className={`rounded-full px-3 py-1 transition-colors ${
-                lang === "jp"
-                  ? "bg-[#c9a86c] text-white"
-                  : "text-slate-500 hover:text-slate-800"
-              }`}
-            >
-              JP
-            </button>
-            <span className="text-slate-400">/</span>
-            <button
-              type="button"
-              onClick={() => setLang("en")}
-              className={`rounded-full px-3 py-1 transition-colors ${
-                lang === "en"
-                  ? "bg-[#c9a86c] text-white"
-                  : "text-slate-500 hover:text-slate-800"
-              }`}
-            >
-              EN
-            </button>
-          </div>
+          <LangSwitch lang={lang} setLang={setLang} />
         </div>
       </header>
 
@@ -294,7 +377,12 @@ export default function Home() {
                         fontFamily:
                           '"Hiragino Mincho ProN", "Yu Mincho", "MS PMincho", "Noto Serif JP", serif',
                       }
-                    : undefined
+                    : isAr
+                      ? {
+                          fontFamily:
+                            '"Noto Naskh Arabic", "Geeza Pro", "Traditional Arabic", serif',
+                        }
+                      : undefined
                 }
               >
                 {isJP ? (
@@ -302,6 +390,12 @@ export default function Home() {
                     届け世界へ
                     <br />
                     日本の誇り
+                  </>
+                ) : isAr ? (
+                  <>
+                    نُوصِل تميّز اليابان
+                    <br />
+                    إلى العالم
                   </>
                 ) : (
                   <>
@@ -320,6 +414,14 @@ export default function Home() {
                     <br />
                     誕生しました。
                   </>
+                ) : isAr ? (
+                  <>
+                    وُلدت HINODEYA لتقديم الحرفية والجودة اليابانية إلى
+                    العملاء حول العالم.
+                    <br />
+                    من العلامات التجارية الراسخة في التقاليد إلى الابتكارات
+                    الجديدة، نربط اليابان والسوق العالمي.
+                  </>
                 ) : (
                   <>
                     HINODEYA exists to bring Japan&apos;s craftsmanship and
@@ -334,17 +436,21 @@ export default function Home() {
             <div className="mt-10 sm:mt-0">
               <div className="inline-flex items-center rounded-full bg-white/90 px-4 py-2 text-xs font-medium tracking-[0.16em] text-slate-700 shadow-sm backdrop-blur">
                 <span className="mr-3 text-slate-500">
-                  {isJP ? "言語" : "Language"}
+                  {isJP ? "言語" : isAr ? "اللغة" : "Language"}
                 </span>
                 <select
                   value={lang}
-                  onChange={(e) =>
-                    setLang(e.target.value === "jp" ? "jp" : "en")
-                  }
+                  onChange={(e) => {
+                    const next = e.target.value;
+                    if (next === "jp" || next === "en" || next === "ar") {
+                      setLang(next);
+                    }
+                  }}
                   className="bg-transparent text-xs font-semibold tracking-[0.16em] text-slate-900 outline-none"
                 >
                   <option value="jp">JA</option>
                   <option value="en">EN</option>
+                  <option value="ar">AR</option>
                 </select>
               </div>
             </div>
@@ -388,12 +494,14 @@ export default function Home() {
           <div className="mx-auto flex max-w-6xl flex-col items-center gap-6 px-6 py-10 text-center sm:flex-row sm:items-center sm:justify-between sm:px-10 sm:text-left lg:px-12">
             <div className="max-w-xl">
               <p className="text-xs font-medium uppercase tracking-[0.3em] text-[#c9a86c]">
-                {isJP ? "コストの目安" : "Cost Baseline"}
+                {isJP ? "コストの目安" : isAr ? "تقدير التكاليف" : "Cost Baseline"}
               </p>
               <p className="mt-3 text-sm leading-[1.9] text-slate-600 sm:text-base">
                 {isJP
                   ? "具体的なご相談の前に、フリーゾーンや法人形態ごとの設立コスト感を知りたい方向けの簡易シミュレーターです。あくまで概算の目安としてご活用ください。"
-                  : "If you would like a rough sense of setup costs across different free zones and entity types before speaking with us, you can use our simple simulator as an initial benchmark."}
+                  : isAr
+                    ? "إذا رغبتم في الحصول على فكرة تقريبية عن تكاليف التأسيس عبر المناطق الحرة وأنواع الكيانات قبل التواصل معنا، يمكنكم استخدام محاكينا البسيط كمرجع أولي."
+                    : "If you would like a rough sense of setup costs across different free zones and entity types before speaking with us, you can use our simple simulator as an initial benchmark."}
               </p>
             </div>
             <a
@@ -466,17 +574,25 @@ export default function Home() {
             <div className="mt-20">
               <div className="mx-auto max-w-3xl text-center">
                 <p className="text-xs font-medium uppercase tracking-[0.3em] text-[#c9a86c]">
-                  {isJP ? "支援先プロダクト" : "Supported Products"}
+                  {isJP
+                    ? "支援先プロダクト"
+                    : isAr
+                      ? "المنتجات المدعومة"
+                      : "Supported Products"}
                 </p>
                 <h2 className="mt-6 text-2xl font-light tracking-[-0.03em] text-slate-900 sm:text-3xl">
                   {isJP
                     ? "UAE展開を支援したプロダクト・サービス"
-                    : "Products and services we supported for UAE expansion"}
+                    : isAr
+                      ? "منتجات وخدمات دعمنا توسعها في الإمارات"
+                      : "Products and services we supported for UAE expansion"}
                 </h2>
                 <p className="mt-6 text-base leading-[1.9] text-slate-600 sm:text-lg">
                   {isJP
                     ? "支援先企業がUAEを拠点に展開する代表的なプロダクトをご紹介します。将来的には各詳細ページからECや販売代理店向けの導線へ広げられる構成を想定しています。"
-                    : "A selection of products launched by companies we supported in the UAE. The structure is designed so each detail page can later connect to e-commerce or distributor-facing destinations."}
+                    : isAr
+                      ? "مجموعة مختارة من المنتجات التي أطلقتها شركات دعمناها في الإمارات. صُمّم الهيكل بحيث يمكن لكل صفحة تفصيلية لاحقاً الربط بوجهات التجارة الإلكترونية أو الموزعين."
+                      : "A selection of products launched by companies we supported in the UAE. The structure is designed so each detail page can later connect to e-commerce or distributor-facing destinations."}
                 </p>
               </div>
 
@@ -513,7 +629,7 @@ export default function Home() {
                   href="/media"
                   className="inline-flex items-center justify-center rounded-full bg-[#c9a86c] px-10 py-3.5 text-xs font-semibold uppercase tracking-[0.2em] text-white shadow-[0_18px_45px_rgba(15,23,42,0.18)] transition-colors hover:bg-[#b89455]"
                 >
-                  {isJP ? "もっと見る" : "View more"}
+                  {isJP ? "もっと見る" : isAr ? "عرض المزيد" : "View more"}
                 </a>
               </div>
             </div>

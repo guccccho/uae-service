@@ -2,6 +2,8 @@
 
 import React, { useEffect, useMemo, useRef, useState } from "react";
 import { useLang } from "../lang-context";
+import { LangSwitch } from "../components/LangSwitch";
+import { pickLang, type Lang, type LangCopy } from "../i18n";
 import {
   COUNTRY_OPTIONS,
   MAJOR_ACTIVITIES,
@@ -39,7 +41,7 @@ const FALLBACK_AED_JPY = 40;
 type ExchangeRateData = {
   rate: number;
   date: string;
-  label: { jp: string; en: string };
+  label: LangCopy;
 };
 
 const EMPTY_CUSTOMER: CustomerProfile = {
@@ -170,7 +172,90 @@ const TEXT = {
     },
     relocation: { yes: "Yes", no: "No" },
   },
+  ar: {
+    freeZoneDescription:
+      "يدعم HINODEYA منطقتي DMCC وRAKEZ. نوصي تلقائياً بالخيار الأنسب لنشاط الترخيص وملف التأسيس.",
+    customerTitle: "ملفك الشخصي",
+    customerNote: "يُستخدم مع نتيجة المحاكاة في استشارتك المجانية.",
+    activityTitle: "نشاط الترخيص",
+    majorActivity: "القطاع الرئيسي",
+    subActivity: "القطاع الفرعي (نشاط الترخيص)",
+    freeZoneTitle: "المنطقة الحرة (DMCC / RAKEZ)",
+    freeZoneFiltered: "مناطق مدعومة من HINODEYA. يُختار الأنسب تلقائياً حسب النشاط.",
+    freeZoneUnavailable: "غير مؤهل لهذا النشاط",
+    conditionsTitle: "افتراضات التأسيس",
+    sourceNote: "تقديرات مبنية على التسعير الرسمي لكل منطقة حرة (2024–2026).",
+    labels: {
+      companyType: "نوع الكيان القانوني",
+      visas: "حصة التأشيرات",
+      office: "نوع المكتب",
+      relocation: "دعم الانتقال",
+      visaSpeed: "سرعة معالجة التأشيرة",
+      bankAccount: "دعم فتح الحساب البنكي",
+      companyName: "اسم الشركة (مخطط)",
+      contactName: "اسم جهة الاتصال",
+      email: "البريد الإلكتروني",
+      country: "بلد المنشأ",
+      timeline: "التوقيت المخطط للتأسيس",
+      shareholders: "المساهمون (مخطط)",
+    },
+    resultTitle: "تكلفة التأسيس المقدرة",
+    breakdown: {
+      license: "الترخيص / الحزمة",
+      registration: "التسجيل وعقد التأسيس",
+      establishment: "بطاقة التأسيس",
+      governmentExtras: "الحكومة / الهجرة (E-channel وغيرها)",
+      directCost: "المجموع الفرعي للمنطقة والحكومة",
+      visas: "متعلق بالتأشيرات",
+      office: "ترقية المكتب",
+      relocation: "دعم الانتقال",
+      visaVip: "أولوية VIP للتأشيرة",
+      bankAccount: "دعم فتح الحساب البنكي",
+      hinodeyaService: "رسوم خدمة HINODEYA",
+      total: "الإجمالي المقدر",
+    },
+    visaTimeline: "تقدير معالجة التأشيرة",
+    businessDays: "أيام عمل",
+    recommendationTitle: "المنطقة الحرة الموصى بها (DMCC / RAKEZ)",
+    recommendationBody:
+      "بناءً على نشاطك وافتراضات التأسيس، نوصي بـ DMCC أو RAKEZ كالأنسب.",
+    recommendationNote:
+      "ملاحظة: الأنشطة الخاضعة للتنظيم (المالية، العملات الرقمية، إلخ) قد تتطلب موافقات إضافية من الجهات التنظيمية بخلاف ترخيص المنطقة الحرة.",
+    ctaButton: "احجز استشارة مجانية",
+    contact: {
+      title: "استشارة مجانية",
+      body: "باستخدام نتيجة المحاكاة كأساس، نساعدك في توضيح المتطلبات والمستندات والجدول الزمني العام.",
+      submit: "إرسال (يفتح البريد)",
+      note: "الإرسال يفتح تطبيق البريد. لا نحفظ إرسالات النموذج على هذا الموقع.",
+      fields: { message: "الرسالة (اختياري)" },
+    },
+    relocation: { yes: "نعم", no: "لا" },
+  },
 } as const;
+
+const PAGE_TITLE: LangCopy = {
+  jp: "ドバイ会社設立コストシミュレーター",
+  en: "Dubai Company Setup Cost Simulator",
+  ar: "محاكي تكلفة تأسيس شركة في دبي",
+};
+
+const SOURCE_PREFIX: LangCopy = {
+  jp: "出典: ",
+  en: "Source: ",
+  ar: "المصدر: ",
+};
+
+const TOP_BADGE: LangCopy = {
+  jp: "推奨",
+  en: "TOP",
+  ar: "الأفضل",
+};
+
+const JPY_APPROX: Record<Lang, (n: string) => string> = {
+  jp: (n) => `約 ${n} 円`,
+  en: (n) => `≈ ${n} JPY`,
+  ar: (n) => `≈ ${n} ين ياباني`,
+};
 
 function formatAED(value: number) {
   return value.toLocaleString("en-US");
@@ -210,15 +295,11 @@ function PillButton({
   );
 }
 
-function OptionDescription({
-  description,
-}: {
-  description: { jp: string; en: string };
-}) {
+function OptionDescription({ description }: { description: LangCopy }) {
   const { lang } = useLang();
   return (
     <p className="mt-2 text-xs leading-relaxed text-slate-500">
-      {description[lang]}
+      {pickLang(description, lang)}
     </p>
   );
 }
@@ -229,41 +310,106 @@ function buildMailto(
   freeZone: FreeZone,
   breakdown: ReturnType<typeof calculateZoneCost>,
   aedToJpy: number,
-  lang: "jp" | "en",
+  lang: Lang,
   localAttend: boolean,
 ) {
   const major = getMajorActivity(selections.majorActivity);
   const sub = getSubActivity(selections.majorActivity, selections.subActivity);
-  const subject =
-    lang === "jp"
-      ? `【HINODEYA】設立シミュレーション相談 — ${customer.companyName || customer.contactName || "新規"}`
-      : `[HINODEYA] Setup simulation enquiry — ${customer.companyName || customer.contactName || "New"}`;
+  const subjectByLang: Record<Lang, string> = {
+    jp: `【HINODEYA】設立シミュレーション相談 — ${customer.companyName || customer.contactName || "新規"}`,
+    en: `[HINODEYA] Setup simulation enquiry — ${customer.companyName || customer.contactName || "New"}`,
+    ar: `[HINODEYA] استفسار محاكاة التأسيس — ${customer.companyName || customer.contactName || "جديد"}`,
+  };
+  const subject = subjectByLang[lang];
+
+  const L: Record<Lang, Record<string, string>> = {
+    jp: {
+      profile: "■ お客様情報",
+      company: "会社名",
+      contact: "担当者",
+      email: "メール",
+      country: "所在国",
+      activity: "■ ライセンスアクティビティ",
+      major: "大業種",
+      sub: "中業種",
+      result: "■ シミュレーション結果",
+      zone: "フリーゾーン",
+      total: "推定合計",
+      direct: "フリーゾーン・政府費用",
+      service: "HINODEYAサービス料",
+      visa: "ビザ取得目安",
+      days: "営業日",
+      bank: "口座開設サポート",
+      attend: "5日間アテンド（不動産視察）",
+      attendYes: "希望あり",
+    },
+    en: {
+      profile: "■ Profile",
+      company: "Company",
+      contact: "Contact",
+      email: "Email",
+      country: "Country",
+      activity: "■ Licence activity",
+      major: "Major",
+      sub: "Sub-sector",
+      result: "■ Simulation result",
+      zone: "Free zone",
+      total: "Estimated total",
+      direct: "Zone & government subtotal",
+      service: "HINODEYA service fee",
+      visa: "Visa timeline",
+      days: "business days",
+      bank: "Bank account support",
+      attend: "5-day attend (property viewings)",
+      attendYes: "Requested",
+    },
+    ar: {
+      profile: "■ الملف الشخصي",
+      company: "الشركة",
+      contact: "جهة الاتصال",
+      email: "البريد الإلكتروني",
+      country: "البلد",
+      activity: "■ نشاط الترخيص",
+      major: "القطاع الرئيسي",
+      sub: "القطاع الفرعي",
+      result: "■ نتيجة المحاكاة",
+      zone: "المنطقة الحرة",
+      total: "الإجمالي المقدر",
+      direct: "المجموع الفرعي للمنطقة والحكومة",
+      service: "رسوم خدمة HINODEYA",
+      visa: "جدول التأشيرة",
+      days: "أيام عمل",
+      bank: "دعم فتح الحساب البنكي",
+      attend: "مرافقة 5 أيام (معاينة عقارات)",
+      attendYes: "مطلوب",
+    },
+  };
+  const l = L[lang];
+  const countryOpt = COUNTRY_OPTIONS.find((c) => c.id === customer.country);
 
   const body = [
-    lang === "jp" ? "■ お客様情報" : "■ Profile",
-    `${lang === "jp" ? "会社名" : "Company"}: ${customer.companyName || "—"}`,
-    `${lang === "jp" ? "担当者" : "Contact"}: ${customer.contactName || "—"}`,
-    `${lang === "jp" ? "メール" : "Email"}: ${customer.email || "—"}`,
-    `${lang === "jp" ? "所在国" : "Country"}: ${COUNTRY_OPTIONS.find((c) => c.id === customer.country)?.label[lang] ?? customer.country}`,
+    l.profile,
+    `${l.company}: ${customer.companyName || "—"}`,
+    `${l.contact}: ${customer.contactName || "—"}`,
+    `${l.email}: ${customer.email || "—"}`,
+    `${l.country}: ${countryOpt ? pickLang(countryOpt.label, lang) : customer.country}`,
     "",
-    lang === "jp" ? "■ ライセンスアクティビティ" : "■ Licence activity",
-    `${lang === "jp" ? "大業種" : "Major"}: ${major?.label[lang] ?? ""}`,
-    `${lang === "jp" ? "中業種" : "Sub-sector"}: ${sub?.label[lang] ?? ""}`,
+    l.activity,
+    `${l.major}: ${major ? pickLang(major.label, lang) : ""}`,
+    `${l.sub}: ${sub ? pickLang(sub.label, lang) : ""}`,
     "",
-    lang === "jp" ? "■ シミュレーション結果" : "■ Simulation result",
-    `${lang === "jp" ? "フリーゾーン" : "Free zone"}: ${FREE_ZONE_LABELS[freeZone]}`,
-    `${lang === "jp" ? "推定合計" : "Estimated total"}: ${formatAED(Math.round(breakdown.total))} AED (≈ ${formatJPY(Math.round(breakdown.total * aedToJpy))} JPY)`,
-    `${lang === "jp" ? "フリーゾーン・政府費用" : "Zone & government subtotal"}: ${formatAED(Math.round(breakdown.directCost))} AED`,
-    `${lang === "jp" ? "HINODEYAサービス料" : "HINODEYA service fee"}: ${formatAED(Math.round(breakdown.hinodeyaServiceFee))} AED`,
+    l.result,
+    `${l.zone}: ${FREE_ZONE_LABELS[freeZone]}`,
+    `${l.total}: ${formatAED(Math.round(breakdown.total))} AED (≈ ${formatJPY(Math.round(breakdown.total * aedToJpy))} JPY)`,
+    `${l.direct}: ${formatAED(Math.round(breakdown.directCost))} AED`,
+    `${l.service}: ${formatAED(Math.round(breakdown.hinodeyaServiceFee))} AED`,
     breakdown.visaProcessingDays > 0
-      ? `${lang === "jp" ? "ビザ取得目安" : "Visa timeline"}: ${breakdown.visaProcessingDays} ${lang === "jp" ? "営業日" : "business days"}${selections.visaSpeed === "vip" ? " (VIP)" : ""}`
+      ? `${l.visa}: ${breakdown.visaProcessingDays} ${l.days}${selections.visaSpeed === "vip" ? " (VIP)" : ""}`
       : "",
     selections.bankAccount === "yes"
-      ? `${lang === "jp" ? "口座開設サポート" : "Bank account support"}: +${formatAED(BANK_ACCOUNT_CONFIG.yes.cost)} AED`
+      ? `${l.bank}: +${formatAED(BANK_ACCOUNT_CONFIG.yes.cost)} AED`
       : "",
-    localAttend
-      ? `${lang === "jp" ? "5日間アテンド（不動産視察）" : "5-day attend (property viewings)"}: ${lang === "jp" ? "希望あり" : "Requested"}`
-      : "",
+    localAttend ? `${l.attend}: ${l.attendYes}` : "",
   ]
     .filter(Boolean)
     .join("\n");
@@ -308,7 +454,7 @@ export default function SimulatorPage() {
           setExchangeRate({
             rate: FALLBACK_AED_JPY,
             date: new Date().toISOString().slice(0, 10),
-            label: { jp: "レート取得不可（参考値）", en: "Rate unavailable (fallback)" },
+            label: { jp: "レート取得不可（参考値）", en: "Rate unavailable (fallback)", ar: "السعر غير متاح (قيمة مرجعية)" },
           });
         }
       });
@@ -408,23 +554,10 @@ export default function SimulatorPage() {
             <p className="hidden text-xs font-medium tracking-[0.18em] text-slate-500 sm:block">
               1 AED = {aedToJpy.toFixed(2)} JPY
               {exchangeRate && (
-                <span className="ml-1 text-slate-400">({exchangeRate.label[lang]})</span>
+                <span className="ml-1 text-slate-400">({pickLang(exchangeRate.label, lang)})</span>
               )}
             </p>
-            <div className="flex items-center gap-2 text-[11px] font-semibold tracking-[0.18em]">
-              {(["jp", "en"] as const).map((l) => (
-                <button
-                  key={l}
-                  type="button"
-                  onClick={() => setLang(l)}
-                  className={`rounded-full px-3 py-1 transition-colors ${
-                    lang === l ? "bg-[#c9a86c] text-white" : "text-slate-500 hover:text-slate-800"
-                  }`}
-                >
-                  {l.toUpperCase()}
-                </button>
-              ))}
-            </div>
+            <LangSwitch lang={lang} setLang={setLang} />
           </div>
         </div>
       </header>
@@ -433,7 +566,7 @@ export default function SimulatorPage() {
         <div className="mx-auto max-w-6xl px-6 py-14 sm:px-10 lg:px-12 lg:py-20">
           <div className="mx-auto max-w-3xl text-center">
             <h1 className="text-3xl font-light tracking-[-0.04em] text-slate-900 sm:text-4xl lg:text-5xl">
-              {lang === "jp" ? "ドバイ会社設立コストシミュレーター" : "Dubai Company Setup Cost Simulator"}
+              {pickLang(PAGE_TITLE, lang)}
             </h1>
             <p className="mt-4 text-base leading-[1.9] text-slate-600 sm:text-lg">{t.freeZoneDescription}</p>
           </div>
@@ -464,7 +597,7 @@ export default function SimulatorPage() {
                     <span className="text-xs font-semibold uppercase tracking-[0.16em] text-slate-500">{t.labels.country}</span>
                     <select className={inputClass} value={customer.country} onChange={(e) => setCustomer((p) => ({ ...p, country: e.target.value }))}>
                       {COUNTRY_OPTIONS.map((c) => (
-                        <option key={c.id} value={c.id}>{c.label[lang]}</option>
+                        <option key={c.id} value={c.id}>{pickLang(c.label, lang)}</option>
                       ))}
                     </select>
                   </label>
@@ -472,7 +605,7 @@ export default function SimulatorPage() {
                     <span className="text-xs font-semibold uppercase tracking-[0.16em] text-slate-500">{t.labels.timeline}</span>
                     <select className={inputClass} value={customer.timeline} onChange={(e) => setCustomer((p) => ({ ...p, timeline: e.target.value as CustomerProfile["timeline"] }))}>
                       {TIMELINE_OPTIONS.map((o) => (
-                        <option key={o.id} value={o.id}>{o.label[lang]}</option>
+                        <option key={o.id} value={o.id}>{pickLang(o.label, lang)}</option>
                       ))}
                     </select>
                   </label>
@@ -482,7 +615,7 @@ export default function SimulatorPage() {
                   <div className="mt-3 flex flex-wrap gap-2">
                     {SHAREHOLDER_OPTIONS.map((o) => (
                       <PillButton key={o.id} active={customer.shareholderCount === o.id} onClick={() => setCustomer((p) => ({ ...p, shareholderCount: o.id }))}>
-                        {o.label[lang]}
+                        {pickLang(o.label, lang)}
                       </PillButton>
                     ))}
                   </div>
@@ -497,7 +630,7 @@ export default function SimulatorPage() {
                     <div className="mt-3 flex flex-wrap gap-2">
                       {MAJOR_ACTIVITIES.map((m) => (
                         <PillButton key={m.id} active={selections.majorActivity === m.id} onClick={() => handleMajorChange(m.id)}>
-                          {m.label[lang]}
+                          {pickLang(m.label, lang)}
                         </PillButton>
                       ))}
                     </div>
@@ -508,14 +641,14 @@ export default function SimulatorPage() {
                     <div className="mt-3 flex flex-wrap gap-2">
                       {majorActivity?.subActivities.map((s) => (
                         <PillButton key={s.id} active={selections.subActivity === s.id} onClick={() => updateSelection("subActivity", s.id)}>
-                          {s.label[lang]}
+                          {pickLang(s.label, lang)}
                         </PillButton>
                       ))}
                     </div>
                     {subActivity && <OptionDescription description={subActivity.description} />}
                     {subActivity?.regulated && subActivity.regulatoryNote && (
                       <p className="mt-2 rounded-xl bg-amber-50 px-4 py-3 text-xs leading-relaxed text-amber-800 ring-1 ring-amber-100">
-                        {subActivity.regulatoryNote[lang]}
+                        {pickLang(subActivity.regulatoryNote, lang)}
                       </p>
                     )}
                   </div>
@@ -545,9 +678,9 @@ export default function SimulatorPage() {
                   <p className="mt-2 text-xs text-amber-700">{t.freeZoneUnavailable}</p>
                 )}
                 <p className="mt-3 text-[11px] text-slate-400">
-                  {lang === "jp" ? "出典: " : "Source: "}
+                  {pickLang(SOURCE_PREFIX, lang)}
                   <a href={zoneConfig.sourceUrl} target="_blank" rel="noopener noreferrer" className="underline-offset-2 hover:underline">
-                    {zoneConfig.sourceLabel[lang]}
+                    {pickLang(zoneConfig.sourceLabel, lang)}
                   </a>
                 </p>
 
@@ -563,7 +696,7 @@ export default function SimulatorPage() {
                       <div className="mt-3 flex flex-wrap gap-2">
                         {group.options.map((option) => (
                           <PillButton key={option.id} active={selections[group.key] === option.id} onClick={() => updateSelection(group.key, option.id)}>
-                            {option.label[lang]}
+                            {pickLang(option.label, lang)}
                           </PillButton>
                         ))}
                       </div>
@@ -587,7 +720,7 @@ export default function SimulatorPage() {
                       <div className="mt-3 flex flex-wrap gap-2">
                         {(["standard", "vip"] as VisaSpeed[]).map((k) => (
                           <PillButton key={k} active={selections.visaSpeed === k} onClick={() => updateSelection("visaSpeed", k)}>
-                            {VISA_SPEED_CONFIG[k].label[lang]}
+                            {pickLang(VISA_SPEED_CONFIG[k].label, lang)}
                           </PillButton>
                         ))}
                       </div>
@@ -600,7 +733,7 @@ export default function SimulatorPage() {
                     <div className="mt-3 flex flex-wrap gap-2">
                       {(["no", "yes"] as BankAccountOption[]).map((k) => (
                         <PillButton key={k} active={selections.bankAccount === k} onClick={() => updateSelection("bankAccount", k)}>
-                          {BANK_ACCOUNT_CONFIG[k].label[lang]}
+                          {pickLang(BANK_ACCOUNT_CONFIG[k].label, lang)}
                         </PillButton>
                       ))}
                     </div>
@@ -614,7 +747,7 @@ export default function SimulatorPage() {
             <aside className="rounded-2xl bg-white p-6 shadow-[0_18px_45px_rgba(15,23,42,0.06)] ring-1 ring-slate-100/70 sm:p-8 lg:sticky lg:top-6">
               <h2 className="text-sm font-semibold tracking-[0.16em] text-slate-900 uppercase">{t.resultTitle}</h2>
               <p className="mt-2 text-xs text-slate-500">
-                {FREE_ZONE_LABELS[freeZone]} · {subActivity?.label[lang]}
+                {FREE_ZONE_LABELS[freeZone]} · {subActivity ? pickLang(subActivity.label, lang) : ""}
               </p>
               {(freeZone === "dmcc" || freeZone === "rakez") && (
                 <div className="mt-4 flex justify-center">
@@ -663,10 +796,10 @@ export default function SimulatorPage() {
                   <span className="font-medium text-slate-900">{formatAED(Math.round(breakdown.hinodeyaServiceFee))} AED</span>
                 </div>
                 <p className="text-[11px] leading-relaxed text-slate-400">
-                  {HINODEYA_SERVICE_NOTE[lang]}
+                  {pickLang(HINODEYA_SERVICE_NOTE, lang)}
                 </p>
                 {freeZone === "rakez" && visaQuotaActive && (
-                  <p className="text-[11px] leading-relaxed text-amber-700/90">{RAKEZ_PRICING_NOTE[lang]}</p>
+                  <p className="text-[11px] leading-relaxed text-amber-700/90">{pickLang(RAKEZ_PRICING_NOTE, lang)}</p>
                 )}
                 {breakdown.visaProcessingDays > 0 && (
                   <div className="rounded-xl bg-slate-50 px-4 py-3 text-xs text-slate-600 ring-1 ring-slate-100">
@@ -693,11 +826,11 @@ export default function SimulatorPage() {
                         {formatAED(Math.round(breakdown.total))} AED
                       </div>
                       <div className="text-xs text-slate-500">
-                        {lang === "jp" ? `約 ${formatJPY(totalJPY)} 円` : `≈ ${formatJPY(totalJPY)} JPY`}
+                        {JPY_APPROX[lang](formatJPY(totalJPY))}
                       </div>
                       {exchangeRate && (
                         <div className="mt-1 text-[10px] text-slate-400">
-                          1 AED = {aedToJpy.toFixed(2)} JPY · {exchangeRate.label[lang]}
+                          1 AED = {aedToJpy.toFixed(2)} JPY · {pickLang(exchangeRate.label, lang)}
                         </div>
                       )}
                     </div>
@@ -727,12 +860,12 @@ export default function SimulatorPage() {
                             {FREE_ZONE_LABELS[rec.zone]}
                             {rec.rank === 1 && (
                               <span className="ml-2 rounded-full bg-[#c9a86c]/15 px-2 py-0.5 text-[9px] font-semibold tracking-[0.12em] text-[#9a7a45]">
-                                {lang === "jp" ? "推奨" : "TOP"}
+                                {pickLang(TOP_BADGE, lang)}
                               </span>
                             )}
                           </p>
                         </div>
-                        <p className="mt-1 text-[11px] text-slate-500">{rec.reason[lang]}</p>
+                        <p className="mt-1 text-[11px] text-slate-500">{pickLang(rec.reason, lang)}</p>
                       </div>
                       <p className="shrink-0 text-xs font-medium text-slate-700">{formatAED(Math.round(rec.total))} AED</p>
                     </button>

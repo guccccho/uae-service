@@ -15,6 +15,7 @@ export async function GET() {
     label: {
       jp: `${formatRateDate(date, "jp")}レート`,
       en: `Rate as of ${formatRateDate(date, "en")}`,
+      ar: `سعر ${formatRateDate(date, "ar")}`,
     },
   });
 }
