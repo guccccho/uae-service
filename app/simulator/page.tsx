@@ -81,22 +81,20 @@ const TEXT = {
       timeline: "設立予定時期",
       shareholders: "株主人数（予定）",
     },
-    resultTitle: "HINODEYAサービス料（お支払い額）",
+    resultTitle: "推定設立費用",
     breakdown: {
       license: "ライセンス / パッケージ",
       registration: "登録・定款費用",
       establishment: "エスタブリッシュメントカード",
       governmentExtras: "政府・移民局手続き（E-channel等）",
-      directCost: "参考：フリーゾーン・政府設立費（別途・当局へ直接）",
-      referenceSection: "設立費用の参考（HINODEYAへのお支払いではありません）",
+      directCost: "フリーゾーン・政府費用（小計）",
       visas: "ビザ関連費用",
       office: "オフィス追加費用",
       relocation: "リロケーションサポート",
       visaVip: "ビザVIP優先処理",
       bankAccount: "口座開設サポート",
       hinodeyaService: "HINODEYAサービス料",
-      total: "HINODEYAへのお支払い額",
-      totalOwnership: "参考：設立費＋サービス料の合計",
+      total: "推定合計コスト",
     },
     visaTimeline: "ビザ取得目安",
     businessDays: "営業日",
@@ -142,22 +140,20 @@ const TEXT = {
       timeline: "Planned setup timing",
       shareholders: "Shareholders (planned)",
     },
-    resultTitle: "HINODEYA service fee (your payment)",
+    resultTitle: "Estimated setup cost",
     breakdown: {
       license: "Licence / package",
       registration: "Registration & MOA",
       establishment: "Establishment card",
       governmentExtras: "Government / immigration (E-channel etc.)",
-      directCost: "Reference: zone & government setup (paid directly, not to HINODEYA)",
-      referenceSection: "Setup cost reference (not payable to HINODEYA)",
+      directCost: "Zone & government subtotal",
       visas: "Visa-related",
       office: "Office upgrade",
       relocation: "Relocation support",
       visaVip: "Visa VIP priority",
       bankAccount: "Bank account support",
       hinodeyaService: "HINODEYA service fee",
-      total: "Payable to HINODEYA",
-      totalOwnership: "Reference: setup + service total",
+      total: "Estimated total",
     },
     visaTimeline: "Visa processing estimate",
     businessDays: "business days",
@@ -203,22 +199,20 @@ const TEXT = {
       timeline: "التوقيت المخطط للتأسيس",
       shareholders: "المساهمون (مخطط)",
     },
-    resultTitle: "رسوم خدمة HINODEYA (مبلغ الدفع)",
+    resultTitle: "تكلفة التأسيس المقدرة",
     breakdown: {
       license: "الترخيص / الحزمة",
       registration: "التسجيل وعقد التأسيس",
       establishment: "بطاقة التأسيس",
       governmentExtras: "الحكومة / الهجرة (E-channel وغيرها)",
-      directCost: "مرجع: تكاليف المنطقة والحكومة (تُدفع مباشرة، وليس لـ HINODEYA)",
-      referenceSection: "مرجع تكاليف التأسيس (لا يُدفع لـ HINODEYA)",
+      directCost: "المجموع الفرعي للمنطقة والحكومة",
       visas: "متعلق بالتأشيرات",
       office: "ترقية المكتب",
       relocation: "دعم الانتقال",
       visaVip: "أولوية VIP للتأشيرة",
       bankAccount: "دعم فتح الحساب البنكي",
       hinodeyaService: "رسوم خدمة HINODEYA",
-      total: "المبلغ المستحق لـ HINODEYA",
-      totalOwnership: "مرجع: إجمالي التأسيس + الخدمة",
+      total: "الإجمالي المقدر",
     },
     visaTimeline: "تقدير معالجة التأشيرة",
     businessDays: "أيام عمل",
@@ -340,9 +334,8 @@ function buildMailto(
       sub: "中業種",
       result: "■ シミュレーション結果",
       zone: "フリーゾーン",
-      total: "HINODEYAへのお支払い額",
-      direct: "参考：フリーゾーン・政府設立費（別途）",
-      ownership: "参考：設立費＋サービス料合計",
+      total: "推定合計",
+      direct: "フリーゾーン・政府費用",
       service: "HINODEYAサービス料",
       visa: "ビザ取得目安",
       days: "営業日",
@@ -361,9 +354,8 @@ function buildMailto(
       sub: "Sub-sector",
       result: "■ Simulation result",
       zone: "Free zone",
-      total: "Payable to HINODEYA",
-      direct: "Reference: zone & government setup (separate)",
-      ownership: "Reference: setup + service total",
+      total: "Estimated total",
+      direct: "Zone & government subtotal",
       service: "HINODEYA service fee",
       visa: "Visa timeline",
       days: "business days",
@@ -382,9 +374,8 @@ function buildMailto(
       sub: "القطاع الفرعي",
       result: "■ نتيجة المحاكاة",
       zone: "المنطقة الحرة",
-      total: "المبلغ المستحق لـ HINODEYA",
-      direct: "مرجع: تكاليف المنطقة والحكومة (منفصلة)",
-      ownership: "مرجع: إجمالي التأسيس + الخدمة",
+      total: "الإجمالي المقدر",
+      direct: "المجموع الفرعي للمنطقة والحكومة",
       service: "رسوم خدمة HINODEYA",
       visa: "جدول التأشيرة",
       days: "أيام عمل",
@@ -410,9 +401,8 @@ function buildMailto(
     l.result,
     `${l.zone}: ${FREE_ZONE_LABELS[freeZone]}`,
     `${l.total}: ${formatAED(Math.round(breakdown.total))} AED (≈ ${formatJPY(Math.round(breakdown.total * aedToJpy))} JPY)`,
-    `${l.service}: ${formatAED(Math.round(breakdown.hinodeyaServiceFee))} AED`,
     `${l.direct}: ${formatAED(Math.round(breakdown.directCost))} AED`,
-    `${l.ownership}: ${formatAED(Math.round(breakdown.totalCostOfOwnership))} AED`,
+    `${l.service}: ${formatAED(Math.round(breakdown.hinodeyaServiceFee))} AED`,
     breakdown.visaProcessingDays > 0
       ? `${l.visa}: ${breakdown.visaProcessingDays} ${l.days}${selections.visaSpeed === "vip" ? " (VIP)" : ""}`
       : "",
@@ -523,11 +513,9 @@ export default function SimulatorPage() {
     }));
   };
 
-  const aedToJpy = exchangeRate?.rate ?? FALLBACK_AED_JPY;
-
   const breakdown = useMemo(
-    () => calculateZoneCost(freeZone, selections, aedToJpy),
-    [freeZone, selections, aedToJpy],
+    () => calculateZoneCost(freeZone, selections),
+    [freeZone, selections],
   );
 
   const visaQuotaActive = hasVisaQuota(freeZone, selections.visas);
@@ -539,8 +527,8 @@ export default function SimulatorPage() {
   }, [visaQuotaActive, selections.visaSpeed]);
 
   const optimizedZones = useMemo(
-    () => rankZonesByActivity(selections, aedToJpy),
-    [selections, aedToJpy],
+    () => rankZonesByActivity(selections),
+    [selections],
   );
 
   const selectedLicenseType = zoneConfig.licenseTypes.find(
@@ -549,6 +537,7 @@ export default function SimulatorPage() {
   const selectedVisa = zoneConfig.visaPackages.find((v) => v.id === selections.visas);
   const selectedOffice = zoneConfig.officeTypes.find((o) => o.id === selections.office);
 
+  const aedToJpy = exchangeRate?.rate ?? FALLBACK_AED_JPY;
   const totalJPY = Math.round(breakdown.total * aedToJpy);
 
   const inputClass =
@@ -766,68 +755,49 @@ export default function SimulatorPage() {
                 </div>
               )}
               <div className="mt-6 space-y-4 text-sm">
-                <div className="rounded-xl bg-brand/5 px-4 py-4 ring-1 ring-brand/15">
-                  <div className="flex items-start justify-between gap-4">
-                    <span className="font-semibold text-slate-800">{t.breakdown.total}</span>
-                    <div className="text-right">
-                      <div className="text-2xl font-semibold tracking-[-0.01em] text-slate-900">
-                        {formatAED(Math.round(breakdown.total))} AED
-                      </div>
-                      <div className="text-xs text-slate-500">
-                        {JPY_APPROX[lang](formatJPY(totalJPY))}
-                      </div>
-                    </div>
+                {[
+                  { label: t.breakdown.license, value: breakdown.license },
+                  ...(breakdown.registration > 0
+                    ? [{ label: t.breakdown.registration, value: breakdown.registration }]
+                    : []),
+                  ...(breakdown.establishment > 0
+                    ? [{ label: t.breakdown.establishment, value: breakdown.establishment }]
+                    : []),
+                  ...(breakdown.governmentExtras > 0
+                    ? [{ label: t.breakdown.governmentExtras, value: breakdown.governmentExtras }]
+                    : []),
+                  ...(breakdown.visas > 0
+                    ? [{ label: t.breakdown.visas, value: breakdown.visas }]
+                    : []),
+                  ...(breakdown.visaSpeedCost > 0
+                    ? [{ label: t.breakdown.visaVip, value: breakdown.visaSpeedCost }]
+                    : []),
+                  ...(breakdown.office > 0
+                    ? [{ label: t.breakdown.office, value: breakdown.office }]
+                    : []),
+                  ...(breakdown.relocationCost > 0
+                    ? [{ label: t.breakdown.relocation, value: breakdown.relocationCost }]
+                    : []),
+                  ...(breakdown.bankAccountCost > 0
+                    ? [{ label: t.breakdown.bankAccount, value: breakdown.bankAccountCost }]
+                    : []),
+                ].map((row) => (
+                  <div key={row.label} className="flex items-center justify-between">
+                    <span className="text-slate-600">{row.label}</span>
+                    <span className="font-medium text-slate-900">{formatAED(Math.round(row.value))} AED</span>
                   </div>
-                  <p className="mt-3 text-[11px] leading-relaxed text-slate-500">
-                    {pickLang(HINODEYA_SERVICE_NOTE, lang)}
-                  </p>
+                ))}
+                <div className="flex items-center justify-between border-t border-dashed border-slate-200 pt-3">
+                  <span className="font-medium text-slate-700">{t.breakdown.directCost}</span>
+                  <span className="font-semibold text-slate-900">{formatAED(Math.round(breakdown.directCost))} AED</span>
                 </div>
-
-                <div className="rounded-xl bg-slate-50/80 px-4 py-4 ring-1 ring-slate-100">
-                  <p className="text-[10px] font-semibold uppercase tracking-[0.14em] text-slate-400">
-                    {t.breakdown.referenceSection}
-                  </p>
-                  <div className="mt-3 space-y-3">
-                    {[
-                      { label: t.breakdown.license, value: breakdown.license },
-                      ...(breakdown.registration > 0
-                        ? [{ label: t.breakdown.registration, value: breakdown.registration }]
-                        : []),
-                      ...(breakdown.establishment > 0
-                        ? [{ label: t.breakdown.establishment, value: breakdown.establishment }]
-                        : []),
-                      ...(breakdown.governmentExtras > 0
-                        ? [{ label: t.breakdown.governmentExtras, value: breakdown.governmentExtras }]
-                        : []),
-                      ...(breakdown.visas > 0
-                        ? [{ label: t.breakdown.visas, value: breakdown.visas }]
-                        : []),
-                      ...(breakdown.visaSpeedCost > 0
-                        ? [{ label: t.breakdown.visaVip, value: breakdown.visaSpeedCost }]
-                        : []),
-                      ...(breakdown.office > 0
-                        ? [{ label: t.breakdown.office, value: breakdown.office }]
-                        : []),
-                    ].map((row) => (
-                      <div key={row.label} className="flex items-center justify-between text-xs">
-                        <span className="text-slate-500">{row.label}</span>
-                        <span className="font-medium text-slate-700">{formatAED(Math.round(row.value))} AED</span>
-                      </div>
-                    ))}
-                    <div className="flex items-center justify-between border-t border-dashed border-slate-200 pt-3 text-xs">
-                      <span className="font-medium text-slate-600">{t.breakdown.directCost}</span>
-                      <span className="font-semibold text-slate-800">{formatAED(Math.round(breakdown.directCost))} AED</span>
-                    </div>
-                  </div>
+                <div className="flex items-center justify-between">
+                  <span className="text-slate-600">{t.breakdown.hinodeyaService}</span>
+                  <span className="font-medium text-slate-900">{formatAED(Math.round(breakdown.hinodeyaServiceFee))} AED</span>
                 </div>
-
-                <div className="flex items-center justify-between border-t border-dashed border-slate-200 pt-3 text-xs text-slate-500">
-                  <span>{t.breakdown.totalOwnership}</span>
-                  <span className="font-medium text-slate-700">
-                    {formatAED(Math.round(breakdown.totalCostOfOwnership))} AED
-                  </span>
-                </div>
-
+                <p className="text-[11px] leading-relaxed text-slate-400">
+                  {pickLang(HINODEYA_SERVICE_NOTE, lang)}
+                </p>
                 {freeZone === "rakez" && visaQuotaActive && (
                   <p className="text-[11px] leading-relaxed text-amber-700/90">{pickLang(RAKEZ_PRICING_NOTE, lang)}</p>
                 )}
@@ -848,11 +818,24 @@ export default function SimulatorPage() {
                   />
                 )}
 
-                {exchangeRate && (
-                  <div className="text-[10px] text-slate-400">
-                    1 AED = {aedToJpy.toFixed(2)} JPY · {pickLang(exchangeRate.label, lang)}
+                <div className="mt-4 border-t border-dashed border-slate-200 pt-4">
+                  <div className="flex items-start justify-between">
+                    <span className="font-semibold text-slate-800">{t.breakdown.total}</span>
+                    <div className="text-right">
+                      <div className="text-2xl font-semibold tracking-[-0.01em] text-slate-900">
+                        {formatAED(Math.round(breakdown.total))} AED
+                      </div>
+                      <div className="text-xs text-slate-500">
+                        {JPY_APPROX[lang](formatJPY(totalJPY))}
+                      </div>
+                      {exchangeRate && (
+                        <div className="mt-1 text-[10px] text-slate-400">
+                          1 AED = {aedToJpy.toFixed(2)} JPY · {pickLang(exchangeRate.label, lang)}
+                        </div>
+                      )}
+                    </div>
                   </div>
-                )}
+                </div>
               </div>
 
               <div className="mt-8 rounded-2xl bg-slate-50/60 p-5 ring-1 ring-slate-100/70">
