@@ -123,14 +123,14 @@ export default function PartnersPage() {
             <p className="text-center text-xs font-medium uppercase tracking-[0.25em] text-slate-400">
               {t.partnersTitle}
             </p>
-            <div className="mt-8 flex flex-wrap items-center justify-center gap-6 sm:gap-10">
+            <div className="mt-8 flex flex-wrap items-center justify-center gap-4 sm:gap-6">
               {TRUSTED_PARTNERS.map((partner) => (
                 <a
                   key={partner.id}
                   href={partner.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex min-h-14 min-w-[200px] items-center justify-center rounded-2xl border border-slate-100 bg-slate-50/80 px-8 py-4 transition-colors hover:border-[#c9a86c]/50 hover:bg-white"
+                  className="flex min-h-14 min-w-[170px] items-center justify-center rounded-2xl border border-slate-100 bg-slate-50/80 px-6 py-4 transition-colors hover:border-[#c9a86c]/50 hover:bg-white sm:min-w-[190px]"
                   aria-label={partner.name}
                 >
                   <img

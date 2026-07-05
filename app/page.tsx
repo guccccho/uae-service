@@ -642,14 +642,14 @@ export default function Home() {
               <p className="text-center text-xs font-medium uppercase tracking-[0.25em] text-slate-400">
                 {t.trusted.title}
               </p>
-              <div className="flex flex-wrap items-center justify-center gap-6 sm:gap-10 lg:gap-14">
+              <div className="flex flex-wrap items-center justify-center gap-4 sm:gap-6 lg:gap-8">
                 {TRUSTED_PARTNERS.map((partner) => (
                   <a
                     key={partner.id}
                     href={partner.href}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex min-h-14 min-w-[200px] items-center justify-center rounded-full border border-slate-100 bg-slate-50/80 px-6 py-3 transition-colors hover:border-[#c9a86c]/50 hover:bg-white"
+                    className="flex min-h-14 min-w-[170px] items-center justify-center rounded-full border border-slate-100 bg-slate-50/80 px-5 py-3 transition-colors hover:border-[#c9a86c]/50 hover:bg-white sm:min-w-[190px] sm:px-6"
                     aria-label={partner.name}
                   >
                     <img
