@@ -5,6 +5,7 @@ import { LangSwitch } from "./components/LangSwitch";
 import { pickLang } from "./i18n";
 import { useLang } from "./lang-context";
 import { mediaItems } from "./media/data";
+import { TRUSTED_PARTNERS } from "./trusted-partners";
 
 const content = {
   jp: {
@@ -20,7 +21,6 @@ const content = {
     },
     trusted: {
       title: "提携パートナー / 実績",
-      logos: ["DMCC", "Abu Dhabi Global Market", "RAKEZ", "International Partners"],
     },
     expertise: {
       title: "サービス内容",
@@ -124,7 +124,6 @@ const content = {
     },
     trusted: {
       title: "Trusted by",
-      logos: ["DMCC", "Abu Dhabi Global Market", "RAKEZ", "International Partners"],
     },
     expertise: {
       title: "Our Expertise",
@@ -228,7 +227,6 @@ const content = {
     },
     trusted: {
       title: "شركاؤنا وثقة عملائنا",
-      logos: ["DMCC", "Abu Dhabi Global Market", "RAKEZ", "International Partners"],
     },
     expertise: {
       title: "خبراتنا",
@@ -644,31 +642,21 @@ export default function Home() {
                 {t.trusted.title}
               </p>
               <div className="flex flex-wrap items-center justify-center gap-6 sm:gap-10 lg:gap-14">
-                {t.trusted.logos.map((name) => (
-                  <div
-                    key={name}
-                    className={`flex items-center justify-center rounded-full border border-slate-100 bg-slate-50/80 text-xs font-semibold uppercase tracking-[0.18em] text-slate-400 transition-colors hover:border-[#c9a86c]/50 hover:text-slate-700 ${
-                      name === "DMCC" || name === "RAKEZ"
-                        ? "min-h-14 min-w-[220px] px-6 py-3"
-                        : "px-5 py-2"
-                    }`}
+                {TRUSTED_PARTNERS.map((partner) => (
+                  <a
+                    key={partner.id}
+                    href={partner.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex min-h-14 min-w-[200px] items-center justify-center rounded-full border border-slate-100 bg-slate-50/80 px-6 py-3 transition-colors hover:border-[#c9a86c]/50 hover:bg-white"
+                    aria-label={partner.name}
                   >
-                    {name === "DMCC" ? (
-                      <img
-                        src="/dmcc-logo.svg"
-                        alt="DMCC"
-                        className="h-6 w-auto opacity-80"
-                      />
-                    ) : name === "RAKEZ" ? (
-                      <img
-                        src="/rakez-logo.svg"
-                        alt="RAKEZ"
-                        className="h-8 w-auto opacity-90"
-                      />
-                    ) : (
-                      name
-                    )}
-                  </div>
+                    <img
+                      src={partner.logo}
+                      alt={partner.name}
+                      className={partner.logoClassName}
+                    />
+                  </a>
                 ))}
               </div>
             </div>

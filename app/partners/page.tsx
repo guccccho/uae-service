@@ -4,12 +4,14 @@ import React from "react";
 import { useLang } from "../lang-context";
 import { LangSwitch } from "../components/LangSwitch";
 import type { Lang } from "../i18n";
+import { TRUSTED_PARTNERS } from "../trusted-partners";
 
 const content: Record<
   Lang,
   {
     title: string;
     description: string;
+    partnersTitle: string;
     cards: { title: string; body: string }[];
     ctaEyebrow: string;
     ctaBody: string;
@@ -20,6 +22,7 @@ const content: Record<
     title: "ローカルパートナー・専門家ネットワーク",
     description:
       "現地の法律事務所、税務・会計、不動産、人材、リロケーションなど、UAEでの事業運営に不可欠な専門家・パートナーと連携し、ワンストップでのプロジェクト推進を支援します。",
+    partnersTitle: "提携パートナー",
     cards: [
       {
         title: "法律・規制",
@@ -43,6 +46,7 @@ const content: Record<
     title: "Local Partner Network",
     description:
       "We work with a curated network of legal, tax, real estate, HR, and relocation specialists to deliver integrated support for your UAE operations.",
+    partnersTitle: "Strategic Partners",
     cards: [
       {
         title: "Legal & Regulatory",
@@ -66,6 +70,7 @@ const content: Record<
     title: "شبكة الشركاء والخبراء المحليين",
     description:
       "نتعاون مع شبكة منتقاة من المتخصصين في القانون والضرائب والعقارات والموارد البشرية وإعادة التوطين لتقديم دعم متكامل لعملياتكم في الإمارات.",
+    partnersTitle: "الشركاء الاستراتيجيون",
     cards: [
       {
         title: "القانون والتنظيم",
@@ -111,6 +116,30 @@ export default function PartnersPage() {
             <p className="mt-6 text-base leading-[1.9] text-slate-600 sm:text-lg">
               {t.description}
             </p>
+          </div>
+
+          <div className="mt-20">
+            <p className="text-center text-xs font-medium uppercase tracking-[0.25em] text-slate-400">
+              {t.partnersTitle}
+            </p>
+            <div className="mt-8 flex flex-wrap items-center justify-center gap-6 sm:gap-10">
+              {TRUSTED_PARTNERS.map((partner) => (
+                <a
+                  key={partner.id}
+                  href={partner.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex min-h-14 min-w-[200px] items-center justify-center rounded-2xl border border-slate-100 bg-slate-50/80 px-8 py-4 transition-colors hover:border-[#c9a86c]/50 hover:bg-white"
+                  aria-label={partner.name}
+                >
+                  <img
+                    src={partner.logo}
+                    alt={partner.name}
+                    className={partner.logoClassName}
+                  />
+                </a>
+              ))}
+            </div>
           </div>
 
           <div className="mt-16 grid gap-8 sm:grid-cols-3">
