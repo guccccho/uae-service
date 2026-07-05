@@ -19,27 +19,27 @@ const content: Record<
     eyebrow: "Contact",
     title: "お問い合わせ",
     subtitle:
-      "UAE進出・法人設立・商業展開に関するご相談は、下記メールアドレスよりお気軽にご連絡ください。",
+      "法人進出・個人の移住・不動産購入・決済ソリューションなど、UAEに関するご相談は下記メールアドレスよりお気軽にご連絡ください。",
     detail:
-      "貴社名、担当者名、概要（現状の検討状況・想定タイムライン・ご関心のトピックなど）を数行で構いませんのでお書き添えください。",
+      "法人の場合は貴社名・担当者名を、個人の場合はお名前をお書き添えください。現状の検討状況・想定タイムライン・ご関心のトピックを数行で構いません。",
     ctaLabel: "メールを送る",
   },
   en: {
     eyebrow: "Contact",
     title: "Contact",
     subtitle:
-      "For inquiries regarding UAE market entry, company setup, or commercial expansion, please contact us via email.",
+      "For corporate expansion, personal relocation, property purchase, or payment solutions in the UAE, please contact us via email.",
     detail:
-      "Include your company, contact details, and a brief description of your situation, timing, and topics of interest.",
+      "Include your company name and contact person for business inquiries, or your name for personal matters — plus a brief note on your situation, timing, and topics of interest.",
     ctaLabel: "Email Us",
   },
   ar: {
     eyebrow: "اتصل بنا",
     title: "اتصل بنا",
     subtitle:
-      "للاستفسارات المتعلقة بدخول سوق الإمارات أو تأسيس الشركات أو التوسع التجاري، يرجى التواصل معنا عبر البريد الإلكتروني.",
+      "للاستفسارات حول توسع الشركات أو الانتقال الشخصي أو شراء العقارات أو حلول الدفع في الإمارات، يرجى التواصل معنا عبر البريد الإلكتروني.",
     detail:
-      "يرجى تضمين اسم شركتك وبيانات الاتصال ووصفاً موجزاً لوضعكم والجدول الزمني المتوقع ومجالات الاهتمام.",
+      "للشركات: اسم الشركة ومسؤول الاتصال. للأفراد: اسمكم. أضيفوا وصفاً موجزاً لوضعكم والجدول الزمني ومجالات الاهتمام.",
     ctaLabel: "أرسل بريداً إلكترونياً",
   },
 };

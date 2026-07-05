@@ -19,7 +19,7 @@ const content: Record<
   jp: {
     title: "ドバイ不動産・リロケーション支援",
     description:
-      "経営陣・キーパーソンのドバイ赴任に伴う住居選定、学校、生活インフラの整備まで、日本側と連携しながら安全かつスムーズなリロケーションを実現します。",
+      "経営陣・キーパーソンの赴任に加え、個人の住宅購入・投資物件の取得、ご家族での移住まで。住居選定、学校、生活インフラの整備を、日本側と連携しながらサポートします。",
     cards: [
       {
         title: "エリア・住居選定",
@@ -42,7 +42,7 @@ const content: Record<
   en: {
     title: "Dubai Real Estate & Relocation Support",
     description:
-      "We support the relocation of executives and key staff to Dubai, covering housing, schools, and practical infrastructure so your team can settle quickly and focus on the business.",
+      "Beyond executive relocations, we support individual homebuyers and investors — housing selection, schools, and daily infrastructure, coordinated with your team in Japan.",
     cards: [
       {
         title: "Area & Housing Selection",
@@ -65,7 +65,7 @@ const content: Record<
   ar: {
     title: "دعم العقارات وإعادة التوطين في دبي",
     description:
-      "ندعم انتقال المديرين التنفيذيين والموظفين الرئيسيين إلى دبي، بما يشمل السكن والمدارس والبنية التحتية العملية ليتمكن فريقكم من الاستقرار بسرعة والتركيز على الأعمال.",
+      "إلى جانب انتقال المديرين التنفيذيين، ندعم مشتري العقارات والمستثمرين الأفراد — اختيار السكن والمدارس والبنية التحتية اليومية، بالتنسيق مع فريقكم في اليابان.",
     cards: [
       {
         title: "اختيار المنطقة والسكن",

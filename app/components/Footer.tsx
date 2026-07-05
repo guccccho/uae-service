@@ -6,9 +6,9 @@ import { pickLang, type LangCopy } from "../i18n";
 
 const footerCopy = {
   tagline: {
-    jp: "UAE進出に関する戦略立案から法人設立、現地パートナーシップ構築まで、日本企業の拠点づくりを一貫して支援します。",
-    en: "From strategy to setup and partnerships, we support organizations using the UAE as a regional base for growth.",
-    ar: "من الاستراتيجية إلى التأسيس والشراكات، ندعم المؤسسات التي تستخدم الإمارات كقاعدة إقليمية للنمو.",
+    jp: "法人進出から個人の移住・不動産・決済まで、日本とUAEをつなぐビジネスと生活の支援を一貫して行います。",
+    en: "From corporate UAE expansion to personal relocation, property, and payments — we support business and life between Japan and the UAE.",
+    ar: "من توسع الشركات في الإمارات إلى الانتقال الشخصي والعقارات والمدفوعات — ندعم الأعمال والحياة بين اليابان والإمارات.",
   },
   navigation: {
     jp: "ナビゲーション",

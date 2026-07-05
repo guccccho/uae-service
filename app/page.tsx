@@ -14,8 +14,8 @@ const content = {
     logoSub: "UAE Business Consulting",
     hero: {
       title: "UAE進出を、戦略から実行まで",
-      subtitleLine1: "法人設立、パートナーシップ構築、市場参入戦略まで、",
-      subtitleLine2: "日本企業のUAE進出をトータルで支援します。",
+      subtitleLine1: "法人進出から個人の移住・投資まで、",
+      subtitleLine2: "決済・不動産・ビザまで、日本からUAEへの道のりをトータルで支援します。",
       primaryCta: "相談を予約する",
       secondaryCta: "サービスを見る",
       simulatorCta: "コストシミュレーターを見る",
@@ -25,7 +25,7 @@ const content = {
     },
     expertise: {
       title: "サービス内容",
-      subtitle: "UAEでの設立・移住・不動産・事業展開を一括サポートします。",
+      subtitle: "法人の進出支援から、個人の決済・不動産・移住まで、UAEでのビジネスと生活を一括サポートします。",
       cards: [
         {
           code: "ME",
@@ -43,6 +43,30 @@ const content = {
           body: "信頼できる現地パートナーの選定から協業スキーム設計まで、長期的な関係構築を支援します。",
         },
       ],
+    },
+    individual: {
+      eyebrow: "個人のお客様へ",
+      title: "法人だけでなく、個人のUAE生活・投資もサポート",
+      subtitle:
+        "B2Bの企業支援に加え、決済ソリューション、不動産購入、ゴールデンビザ・移住など、個人のお客様のご相談にも対応しています。",
+      cards: [
+        {
+          code: "PY",
+          title: "決済・金融ソリューション",
+          body: "UAE口座開設、国際送金、決済インフラの選定など、個人・事業の資金管理をサポートします。",
+        },
+        {
+          code: "RE",
+          title: "不動産購入・投資",
+          body: "ドバイ・ラスアルハイマでの住宅購入、賃貸、投資物件の選定から契約・登記まで伴走します。",
+        },
+        {
+          code: "LV",
+          title: "移住・ビザ・生活設計",
+          body: "ゴールデンビザ、居住ビザ、学校・医療・生活インフラまで、UAEでの新しい生活の立ち上げを支援します。",
+        },
+      ],
+      cta: "個人向けのご相談はこちら",
     },
     why: {
       title: "UAEが選ばれる理由",
@@ -98,12 +122,16 @@ const content = {
           q: "どのような規模・業種の企業が対象ですか？",
           a: "ひとり社長から中堅、大企業まで様々な業種に対応しております。",
         },
+        {
+          q: "個人でも相談できますか？",
+          a: "はい。法人設立やB2Bの商業展開に加え、決済ソリューション、不動産購入、ゴールデンビザ・移住といった個人向けのご相談にも対応しております。お一人でのご検討から、ご家族での移住まで柔軟にサポートします。",
+        },
       ],
     },
     cta: {
       label: "コンサルティングのご相談",
-      heading: "UAE進出を検討されていますか？",
-      body: "貴社のビジネスゴールとタイムラインを共有いただければ、最適な進出プランとステップをご提案します。",
+      heading: "UAEでのビジネスや生活を検討されていますか？",
+      body: "法人進出・個人の移住・不動産投資など、ご状況とゴールを共有いただければ、最適なプランとステップをご提案します。",
       button: "無料相談を予約する",
     },
     footer: {
@@ -117,8 +145,8 @@ const content = {
     logoSub: "UAE Business Consulting",
     hero: {
       title: "Strategic UAE Market Entry",
-      subtitleLine1: "End-to-end advisory for companies expanding into the UAE,",
-      subtitleLine2: "from strategy and partnerships to execution on the ground.",
+      subtitleLine1: "From corporate expansion to personal relocation and investment,",
+      subtitleLine2: "we support your journey to the UAE — payments, property, visas, and more.",
       primaryCta: "Book Consultation",
       secondaryCta: "View Services",
       simulatorCta: "Open Cost Simulator",
@@ -128,7 +156,7 @@ const content = {
     },
     expertise: {
       title: "Our Expertise",
-      subtitle: "Advisory spanning strategy, setup, and partnerships for the UAE.",
+      subtitle: "From corporate market entry to personal payments, property, and relocation — we support business and life in the UAE.",
       cards: [
         {
           code: "ME",
@@ -146,6 +174,30 @@ const content = {
           body: "Connecting Japanese companies with trusted regional partners and investors.",
         },
       ],
+    },
+    individual: {
+      eyebrow: "For Individuals",
+      title: "Beyond B2B — personal UAE support too",
+      subtitle:
+        "Alongside corporate advisory, we help individuals with payment solutions, property purchase, Golden Visa, and relocation planning.",
+      cards: [
+        {
+          code: "PY",
+          title: "Payments & Financial Solutions",
+          body: "UAE bank account opening, cross-border transfers, and payment infrastructure for personal and business use.",
+        },
+        {
+          code: "RE",
+          title: "Property Purchase & Investment",
+          body: "Residential and investment property in Dubai and Ras Al Khaimah — from shortlisting to contract and registration.",
+        },
+        {
+          code: "LV",
+          title: "Relocation, Visa & Lifestyle",
+          body: "Golden Visa, residence permits, schools, healthcare, and daily infrastructure for your new life in the UAE.",
+        },
+      ],
+      cta: "Consult for personal support",
     },
     why: {
       title: "Why UAE",
@@ -201,12 +253,16 @@ const content = {
           q: "What types of companies do you usually work with?",
           a: "We support a wide range of industries — from sole founders and owner-managers to mid-sized and large enterprises.",
         },
+        {
+          q: "Can individuals consult with you as well?",
+          a: "Yes. In addition to company setup and B2B commercial expansion, we support individuals with payment solutions, property purchase, Golden Visa, and relocation — whether you are exploring alone or moving with your family.",
+        },
       ],
     },
     cta: {
       label: "Next step",
-      heading: "Ready to expand into the UAE?",
-      body: "Share your objectives and timelines, and we will prepare a focused perspective on how the UAE can support your regional strategy.",
+      heading: "Exploring business or life in the UAE?",
+      body: "Share your goals — corporate expansion, personal relocation, or property investment — and we will outline the right plan and steps.",
       button: "Schedule Consultation",
     },
     footer: {
@@ -220,8 +276,8 @@ const content = {
     logoSub: "استشارات الأعمال في الإمارات",
     hero: {
       title: "دخول استراتيجي إلى سوق الإمارات",
-      subtitleLine1: "استشارات شاملة للشركات الراغبة في التوسع في الإمارات،",
-      subtitleLine2: "من الاستراتيجية والشراكات إلى التنفيذ على أرض الواقع.",
+      subtitleLine1: "من توسع الشركات إلى الانتقال والاستثمار الشخصي،",
+      subtitleLine2: "ندعم رحلتكم إلى الإمارات — المدفوعات والعقارات والتأشيرات وأكثر.",
       primaryCta: "حجز استشارة",
       secondaryCta: "عرض الخدمات",
       simulatorCta: "فتح محاكي التكاليف",
@@ -231,7 +287,7 @@ const content = {
     },
     expertise: {
       title: "خبراتنا",
-      subtitle: "استشارات متكاملة تشمل الاستراتيجية والتأسيس والشراكات في الإمارات.",
+      subtitle: "من دخول الشركات إلى المدفوعات الشخصية والعقارات وإعادة التوطين — ندعم الأعمال والحياة في الإمارات.",
       cards: [
         {
           code: "ME",
@@ -249,6 +305,30 @@ const content = {
           body: "ربط الشركات اليابانية بشركاء ومستثمرين إقليميين موثوقين.",
         },
       ],
+    },
+    individual: {
+      eyebrow: "للأفراد",
+      title: "ليس للشركات فقط — دعم شخصي في الإمارات أيضاً",
+      subtitle:
+        "إلى جانب استشارات الشركات، نساعد الأفراد في حلول الدفع وشراء العقارات والتأشيرة الذهبية وخطط إعادة التوطين.",
+      cards: [
+        {
+          code: "PY",
+          title: "حلول الدفع والخدمات المالية",
+          body: "فتح حسابات مصرفية في الإمارات والتحويلات الدولية وبنية المدفوعات للاستخدام الشخصي والتجاري.",
+        },
+        {
+          code: "RE",
+          title: "شراء العقارات والاستثمار",
+          body: "عقارات سكنية واستثمارية في دبي ورأس الخيمة — من الاختيار إلى العقد والتسجيل.",
+        },
+        {
+          code: "LV",
+          title: "إعادة التوطين والتأشيرة ونمط الحياة",
+          body: "التأشيرة الذهبية وتصاريح الإقامة والمدارس والرعاية الصحية والبنية التحتية لحياتكم الجديدة في الإمارات.",
+        },
+      ],
+      cta: "استشارة للأفراد",
     },
     why: {
       title: "لماذا الإمارات",
@@ -304,12 +384,16 @@ const content = {
           q: "ما أنواع الشركات التي تعملون معها عادةً؟",
           a: "ندعم مجموعة واسعة من القطاعات — من المؤسسين الفرديين ومديري الشركات إلى الشركات المتوسطة والكبيرة.",
         },
+        {
+          q: "هل يمكن للأفراد الاستشارة أيضاً؟",
+          a: "نعم. إلى جانب تأسيس الشركات والتوسع التجاري B2B، ندعم الأفراد في حلول الدفع وشراء العقارات والتأشيرة الذهبية وإعادة التوطين — سواء كنتم تستكشفون بمفردكم أو تنتقلون مع عائلاتكم.",
+        },
       ],
     },
     cta: {
       label: "الخطوة التالية",
-      heading: "هل أنتم مستعدون للتوسع في الإمارات؟",
-      body: "شاركونا أهدافكم والجدول الزمني، وسنقدّم رؤية مركّزة حول كيف يمكن للإمارات دعم استراتيجيتكم الإقليمية.",
+      heading: "هل تفكرون في الأعمال أو الحياة في الإمارات؟",
+      body: "شاركونا أهدافكم — توسع الشركات أو الانتقال الشخصي أو الاستثمار العقاري — وسنحدد الخطة والخطوات المناسبة.",
       button: "جدولة استشارة",
     },
     footer: {
@@ -484,6 +568,49 @@ export default function Home() {
                   </p>
                 </div>
               ))}
+            </div>
+          </div>
+        </section>
+
+        {/* Individual support */}
+        <section className="border-b border-[#f0ece5] bg-slate-50/40">
+          <div className="mx-auto max-w-6xl px-6 sm:px-10 lg:px-12 py-24 sm:py-32 lg:py-40">
+            <div className="mx-auto max-w-3xl text-center">
+              <p className="text-xs font-medium uppercase tracking-[0.3em] text-[#c9a86c]">
+                {t.individual.eyebrow}
+              </p>
+              <h2 className="mt-6 text-2xl font-light tracking-[-0.03em] text-slate-900 sm:text-3xl">
+                {t.individual.title}
+              </h2>
+              <p className="mt-6 text-base leading-[1.9] text-slate-600 sm:text-lg">
+                {t.individual.subtitle}
+              </p>
+            </div>
+            <div className="mt-16 grid gap-10 sm:grid-cols-3 sm:gap-8 lg:gap-10">
+              {t.individual.cards.map((card) => (
+                <div
+                  key={card.title}
+                  className="rounded-2xl bg-white/90 p-7 shadow-[0_18px_45px_rgba(15,23,42,0.06)] ring-1 ring-slate-100/70"
+                >
+                  <div className="mb-6 inline-flex h-10 w-10 items-center justify-center rounded-full bg-[#c9a86c]/10 text-xs font-semibold uppercase tracking-[0.18em] text-[#c9a86c]">
+                    {card.code}
+                  </div>
+                  <h3 className="text-lg font-medium tracking-[-0.01em] text-slate-900">
+                    {card.title}
+                  </h3>
+                  <p className="mt-3 text-sm leading-[1.8] text-slate-600">
+                    {card.body}
+                  </p>
+                </div>
+              ))}
+            </div>
+            <div className="mt-12 flex justify-center">
+              <a
+                href="/contact"
+                className="inline-flex items-center justify-center rounded-full bg-[#c9a86c] px-10 py-3.5 text-xs font-semibold uppercase tracking-[0.2em] text-white shadow-[0_18px_45px_rgba(15,23,42,0.18)] transition-colors hover:bg-[#b89455]"
+              >
+                {t.individual.cta}
+              </a>
             </div>
           </div>
         </section>
