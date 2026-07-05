@@ -1056,10 +1056,10 @@ export const HINODEYA_SERVICE_ADDONS = {
 } as const;
 
 export const HINODEYA_SERVICE_NOTE: LangCopy = {
-  jp: "進出戦略整理、書類作成、当局手続き代行、日本語サポートを含むHINODEYAのサービス料です（政府料金は別途）。",
-  en: "HINODEYA service fee covering strategy, documentation, government liaison, and Japanese-language support (government fees are separate).",
+  jp: "進出戦略整理、書類作成、当局手続き代行、日本語サポートを含むサービス料です（政府料金は別途）。",
+  en: "Service fee covering strategy, documentation, government liaison, and Japanese-language support (government fees are separate).",
 
-  ar: "رسوم خدمة HINODEYA تشمل الاستراتيجية والوثائق والتنسيق الحكومي والدعم باللغة اليابانية (الرسوم الحكومية منفصلة).",
+  ar: "رسوم الخدمة تشمل الاستراتيجية والوثائق والتنسيق الحكومي والدعم باللغة اليابانية (الرسوم الحكومية منفصلة).",
 };
 
 /** RAKEZ SME packages list AED 14,320 but E-channel (AED 2,200) is billed separately per official FAQ. */
