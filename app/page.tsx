@@ -41,6 +41,10 @@ const content = {
           title: "戦略的パートナーシップ",
           body: "信頼できる現地パートナーの選定から協業スキーム設計まで、長期的な関係構築を支援します。",
         },
+        {
+          title: "移住サポート",
+          body: "ゴールデンビザ・居住ビザの取得から、住宅・学校・医療まで、経営陣とご家族のUAE移住をトータルで支援します。",
+        },
       ],
     },
     individual: {
@@ -166,6 +170,10 @@ const content = {
           title: "Strategic Partnerships",
           body: "Connecting Japanese companies with trusted regional partners and investors.",
         },
+        {
+          title: "Relocation Support",
+          body: "From Golden Visa and residence permits to housing, schools, and healthcare — full relocation support for executives and families.",
+        },
       ],
     },
     individual: {
@@ -290,6 +298,10 @@ const content = {
         {
           title: "الشراكات الاستراتيجية",
           body: "ربط الشركات اليابانية بشركاء ومستثمرين إقليميين موثوقين.",
+        },
+        {
+          title: "دعم إعادة التوطين",
+          body: "من التأشيرة الذهبية وتصاريح الإقامة إلى السكن والمدارس والرعاية الصحية — دعم شامل لانتقال الإدارة والعائلات إلى الإمارات.",
         },
       ],
     },
@@ -540,7 +552,7 @@ export default function Home() {
                 {t.expertise.subtitle}
               </h2>
             </div>
-            <div className="mt-16 grid gap-10 sm:grid-cols-3 sm:gap-8 lg:gap-10">
+            <div className="mt-16 grid gap-10 sm:grid-cols-2 lg:grid-cols-4 sm:gap-8 lg:gap-10">
               {t.expertise.cards.map((card) => (
                 <div
                   key={card.title}
