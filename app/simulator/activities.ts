@@ -26,7 +26,8 @@ const DUBAI_ZONES: FreeZone[] = ["dmcc", "ifza", "meydan"];
 const BUDGET_ZONES: FreeZone[] = ["rakez", "spc", "ifza", "meydan"];
 
 /** HINODEYAがサポートするシミュレーター対象フリーゾーン */
-export const HINODEYA_SIMULATOR_ZONES: FreeZone[] = ["dmcc", "rakez"];
+export const HINODEYA_SIMULATOR_ZONES = ["dmcc", "rakez"] as const satisfies readonly FreeZone[];
+export type HinodeyaSimulatorZone = (typeof HINODEYA_SIMULATOR_ZONES)[number];
 
 export const MAJOR_ACTIVITIES: MajorActivity[] = [
   {

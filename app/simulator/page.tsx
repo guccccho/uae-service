@@ -31,6 +31,7 @@ import {
   type VisaSpeed,
 } from "./data";
 import { VisaAcquisitionSchedule } from "./ScheduleTimeline";
+import ZoneShowcase, { ZoneLogo } from "./ZoneShowcase";
 
 const GOLD = "#C8A46A";
 const FALLBACK_AED_JPY = 40;
@@ -529,11 +530,17 @@ export default function SimulatorPage() {
                     const eligible = allowedZones.includes(z);
                     return (
                       <PillButton key={z} active={freeZone === z} disabled={!eligible} onClick={() => eligible && setFreeZone(z)}>
-                        {FREE_ZONE_LABELS[z]}
+                        <span className="inline-flex items-center gap-2">
+                          <ZoneLogo zone={z} className="h-4 w-auto max-w-[72px] object-contain opacity-90" />
+                          {FREE_ZONE_LABELS[z]}
+                        </span>
                       </PillButton>
                     );
                   })}
                 </div>
+                {(freeZone === "dmcc" || freeZone === "rakez") && (
+                  <ZoneShowcase zone={freeZone} lang={lang} />
+                )}
                 {!allowedZones.includes(freeZone) && (
                   <p className="mt-2 text-xs text-amber-700">{t.freeZoneUnavailable}</p>
                 )}
@@ -609,6 +616,11 @@ export default function SimulatorPage() {
               <p className="mt-2 text-xs text-slate-500">
                 {FREE_ZONE_LABELS[freeZone]} · {subActivity?.label[lang]}
               </p>
+              {(freeZone === "dmcc" || freeZone === "rakez") && (
+                <div className="mt-4 flex justify-center">
+                  <ZoneLogo zone={freeZone} className="h-7 w-auto max-w-[160px] object-contain opacity-90" />
+                </div>
+              )}
               <div className="mt-6 space-y-4 text-sm">
                 {[
                   { label: t.breakdown.license, value: breakdown.license },
@@ -702,15 +714,27 @@ export default function SimulatorPage() {
                       key={rec.zone}
                       type="button"
                       onClick={() => setFreeZone(rec.zone)}
-                      className={`flex w-full items-center justify-between rounded-xl border px-4 py-3 text-left transition-colors ${
+                      className={`flex w-full items-center justify-between gap-3 rounded-xl border px-4 py-3 text-left transition-colors ${
                         freeZone === rec.zone ? "border-[#c9a86c] bg-white" : "border-slate-200 bg-white hover:border-slate-300"
                       }`}
                     >
-                      <div>
-                        <p className="text-xs font-semibold tracking-[0.14em] text-slate-900">{FREE_ZONE_LABELS[rec.zone]}</p>
+                      <div className="min-w-0 flex-1">
+                        <div className="flex items-center gap-2">
+                          {(rec.zone === "dmcc" || rec.zone === "rakez") && (
+                            <ZoneLogo zone={rec.zone} className="h-5 w-auto max-w-[80px] shrink-0 object-contain" />
+                          )}
+                          <p className="text-xs font-semibold tracking-[0.14em] text-slate-900">
+                            {FREE_ZONE_LABELS[rec.zone]}
+                            {rec.rank === 1 && (
+                              <span className="ml-2 rounded-full bg-[#c9a86c]/15 px-2 py-0.5 text-[9px] font-semibold tracking-[0.12em] text-[#9a7a45]">
+                                {lang === "jp" ? "推奨" : "TOP"}
+                              </span>
+                            )}
+                          </p>
+                        </div>
                         <p className="mt-1 text-[11px] text-slate-500">{rec.reason[lang]}</p>
                       </div>
-                      <p className="text-xs font-medium text-slate-700">{formatAED(Math.round(rec.total))} AED</p>
+                      <p className="shrink-0 text-xs font-medium text-slate-700">{formatAED(Math.round(rec.total))} AED</p>
                     </button>
                   ))}
                 </div>

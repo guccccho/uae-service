@@ -545,7 +545,7 @@ export default function Home() {
                       />
                     ) : name === "RAKEZ" ? (
                       <img
-                        src="/rakez-logo.png"
+                        src="/rakez-logo.svg"
                         alt="RAKEZ"
                         className="h-8 w-auto opacity-90"
                       />
