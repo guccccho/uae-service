@@ -30,17 +30,14 @@ const content = {
       subtitle: "法人の進出支援から、個人の決済・不動産・移住まで、UAEでのビジネスと生活を一括サポートします。",
       cards: [
         {
-          code: "ME",
           title: "市場参入戦略",
           body: "UAE市場へのアクセス設計、成長戦略、現地競合分析を含む市場参入プランを策定します。",
         },
         {
-          code: "CS",
           title: "コーポレート設立",
           body: "法人設立、ライセンス取得、規制対応など、各フリーゾーン・本土管轄での設立プロセスを支援します。",
         },
         {
-          code: "SP",
           title: "戦略的パートナーシップ",
           body: "信頼できる現地パートナーの選定から協業スキーム設計まで、長期的な関係構築を支援します。",
         },
@@ -53,17 +50,14 @@ const content = {
         "B2Bの企業支援に加え、決済ソリューション、不動産購入、ゴールデンビザ・移住など、個人のお客様のご相談にも対応しています。",
       cards: [
         {
-          code: "PY",
           title: "決済・金融ソリューション",
           body: "UAE口座開設、国際送金、決済インフラの選定など、個人・事業の資金管理をサポートします。",
         },
         {
-          code: "RE",
           title: "不動産購入・投資",
           body: "ドバイ・ラスアルハイマでの住宅購入、賃貸、投資物件の選定から契約・登記まで伴走します。",
         },
         {
-          code: "LV",
           title: "移住・ビザ・生活設計",
           body: "ゴールデンビザ、居住ビザ、学校・医療・生活インフラまで、UAEでの新しい生活の立ち上げを支援します。",
         },
@@ -161,17 +155,14 @@ const content = {
       subtitle: "From corporate market entry to personal payments, property, and relocation — we support business and life in the UAE.",
       cards: [
         {
-          code: "ME",
           title: "Market Entry Strategy",
           body: "Structuring UAE market access, growth strategy, and competitive positioning.",
         },
         {
-          code: "CS",
           title: "Corporate Setup",
           body: "Company formation, licensing, and regulatory advisory across UAE jurisdictions.",
         },
         {
-          code: "SP",
           title: "Strategic Partnerships",
           body: "Connecting Japanese companies with trusted regional partners and investors.",
         },
@@ -184,17 +175,14 @@ const content = {
         "Alongside corporate advisory, we help individuals with payment solutions, property purchase, Golden Visa, and relocation planning.",
       cards: [
         {
-          code: "PY",
           title: "Payments & Financial Solutions",
           body: "UAE bank account opening, cross-border transfers, and payment infrastructure for personal and business use.",
         },
         {
-          code: "RE",
           title: "Property Purchase & Investment",
           body: "Residential and investment property in Dubai and Ras Al Khaimah — from shortlisting to contract and registration.",
         },
         {
-          code: "LV",
           title: "Relocation, Visa & Lifestyle",
           body: "Golden Visa, residence permits, schools, healthcare, and daily infrastructure for your new life in the UAE.",
         },
@@ -292,17 +280,14 @@ const content = {
       subtitle: "من دخول الشركات إلى المدفوعات الشخصية والعقارات وإعادة التوطين — ندعم الأعمال والحياة في الإمارات.",
       cards: [
         {
-          code: "ME",
           title: "استراتيجية دخول السوق",
           body: "تصميم الوصول إلى سوق الإمارات، واستراتيجيات النمو، والتموضع التنافسي.",
         },
         {
-          code: "CS",
           title: "تأسيس الشركات",
           body: "تأسيس الشركات والتراخيص والاستشارات التنظيمية عبر مختلف الولايات القضائية في الإمارات.",
         },
         {
-          code: "SP",
           title: "الشراكات الاستراتيجية",
           body: "ربط الشركات اليابانية بشركاء ومستثمرين إقليميين موثوقين.",
         },
@@ -315,17 +300,14 @@ const content = {
         "إلى جانب استشارات الشركات، نساعد الأفراد في حلول الدفع وشراء العقارات والتأشيرة الذهبية وخطط إعادة التوطين.",
       cards: [
         {
-          code: "PY",
           title: "حلول الدفع والخدمات المالية",
           body: "فتح حسابات مصرفية في الإمارات والتحويلات الدولية وبنية المدفوعات للاستخدام الشخصي والتجاري.",
         },
         {
-          code: "RE",
           title: "شراء العقارات والاستثمار",
           body: "عقارات سكنية واستثمارية في دبي ورأس الخيمة — من الاختيار إلى العقد والتسجيل.",
         },
         {
-          code: "LV",
           title: "إعادة التوطين والتأشيرة ونمط الحياة",
           body: "التأشيرة الذهبية وتصاريح الإقامة والمدارس والرعاية الصحية والبنية التحتية لحياتكم الجديدة في الإمارات.",
         },
@@ -564,9 +546,7 @@ export default function Home() {
                   key={card.title}
                   className="rounded-2xl bg-white/90 p-7 shadow-[0_18px_45px_rgba(15,23,42,0.06)] ring-1 ring-slate-100/70"
                 >
-                  <div className="mb-6 inline-flex h-10 w-10 items-center justify-center rounded-full bg-brand/10 text-xs font-semibold uppercase tracking-[0.18em] text-brand">
-                    {card.code}
-                  </div>
+                  <div className="mb-6 h-3 w-3 rounded-full bg-brand" aria-hidden />
                   <h3 className="text-lg font-medium tracking-[-0.01em] text-slate-900">
                     {card.title}
                   </h3>
@@ -599,9 +579,7 @@ export default function Home() {
                   key={card.title}
                   className="rounded-2xl bg-white/90 p-7 shadow-[0_18px_45px_rgba(15,23,42,0.06)] ring-1 ring-slate-100/70"
                 >
-                  <div className="mb-6 inline-flex h-10 w-10 items-center justify-center rounded-full bg-brand/10 text-xs font-semibold uppercase tracking-[0.18em] text-brand">
-                    {card.code}
-                  </div>
+                  <div className="mb-6 h-3 w-3 rounded-full bg-brand" aria-hidden />
                   <h3 className="text-lg font-medium tracking-[-0.01em] text-slate-900">
                     {card.title}
                   </h3>
