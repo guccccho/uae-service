@@ -13,6 +13,7 @@ export type MediaItem = {
   year: string;
   imageUrl: string;
   websiteUrl?: string;
+  homepageUrl?: string;
 };
 
 export const mediaItems: MediaItem[] = [
@@ -121,8 +122,8 @@ export const mediaItems: MediaItem[] = [
       ar: "تخطيط التوسع",
     },
     year: "2025",
-    imageUrl:
-      "https://images.unsplash.com/photo-1601584115197-04ecc0da31d7?auto=format&fit=crop&w=1600&q=80",
+    imageUrl: "/media-previews/shan-loong-logistics-energy.jpg",
+    homepageUrl: "https://w3.slc.com.tw/en/",
     websiteUrl: "https://w3.slc.com.tw/en/page/about",
   },
   {
@@ -149,7 +150,8 @@ export const mediaItems: MediaItem[] = [
       ar: "مرحلة النمو",
     },
     year: "2025",
-    imageUrl: "/okasanlivic-ogp.png",
+    imageUrl: "/media-previews/okasan-livic-infrastructure.jpg",
+    homepageUrl: "https://www.okasanlivic.co.jp/",
     websiteUrl: "https://www.okasanlivic.co.jp",
   },
   {
@@ -176,7 +178,8 @@ export const mediaItems: MediaItem[] = [
       ar: "الإطلاق العالمي",
     },
     year: "2025",
-    imageUrl: "/optiqb-hero.webp",
+    imageUrl: "/media-previews/optiqb-ai-3d-display.jpg",
+    homepageUrl: "https://optiqb.com/",
     websiteUrl: "https://optiqb.com",
   },
 ];

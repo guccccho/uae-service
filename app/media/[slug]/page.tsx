@@ -6,6 +6,7 @@ import { useLang } from "../../lang-context";
 import { LangSwitch } from "../../components/LangSwitch";
 import { mediaItems } from "../data";
 import Link from "next/link";
+import { MediaCardPreview } from "../../components/MediaCardPreview";
 import type { Lang } from "../../i18n";
 
 const content: Record<
@@ -170,10 +171,12 @@ export default function MediaDetailPage() {
                   )}
                 </div>
               </div>
-              <div className="overflow-hidden rounded-2xl bg-slate-100">
-                <div
-                  className="h-56 w-full bg-cover bg-center sm:h-64 lg:h-72"
-                  style={{ backgroundImage: `url(${item.imageUrl})` }}
+              <div className="overflow-hidden rounded-2xl bg-slate-100 ring-1 ring-slate-200/60">
+                <MediaCardPreview
+                  imageUrl={item.imageUrl}
+                  homepageUrl={item.homepageUrl ?? item.websiteUrl}
+                  alt={titleLabel}
+                  showChrome
                 />
               </div>
             </div>
