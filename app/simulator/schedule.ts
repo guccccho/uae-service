@@ -39,12 +39,16 @@ const STANDARD_STEPS: ScheduleStep[] = [
   {
     id: "d1",
     phase: { jp: "1日目", en: "Day 1", ar: "اليوم 1" },
-    title: { jp: "メディカルテスト・指紋登録", en: "Medical test & biometrics", ar: "الفحص الطبي والبصمات" },
+    title: {
+      jp: "メディカルチェック・EID登録",
+      en: "Medical check & Emirates ID registration",
+      ar: "الفحص الطبي وتسجيل هوية الإمارات",
+    },
     body: {
-      jp: "医療機関にてメディカルテストと指紋登録（Emirates ID）を実施します。",
-      en: "Medical examination and fingerprint registration (Emirates ID) at an approved centre.",
+      jp: "医療機関でのメディカルチェックと、Emirates IDの指紋・顔写真登録を行います。",
+      en: "Medical examination at an approved centre, plus Emirates ID fingerprint and photo registration.",
 
-      ar: "الفحص الطبي وتسجيل البصمات (هوية الإمارات) في مركز معتمد.",
+      ar: "الفحص الطبي في مركز معتمد، بالإضافة إلى تسجيل البصمات والصورة لهوية الإمارات.",
     },
   },
   {
@@ -52,10 +56,10 @@ const STANDARD_STEPS: ScheduleStep[] = [
     phase: { jp: "2日目", en: "Day 2", ar: "اليوم 2" },
     title: { jp: "予備日", en: "Buffer day", ar: "يوم احتياطي" },
     body: {
-      jp: "行政処理の遅延や追加書類対応に備えた予備日です。",
-      en: "Reserved for administrative delays or additional document requests.",
+      jp: "EID登録の遅延や追加書類対応、行政処理のバッファに充てる予備日です。",
+      en: "Reserved for EID registration delays, extra documents, or other administrative hold-ups.",
 
-      ar: "محجوز للتأخيرات الإدارية أو طلبات المستندات الإضافية.",
+      ar: "محجوز لتأخيرات تسجيل الهوية أو المستندات الإضافية أو التأخيرات الإدارية.",
     },
     optional: true,
   },
@@ -112,32 +116,76 @@ const STANDARD_STEPS: ScheduleStep[] = [
 const VIP_STEPS: ScheduleStep[] = [
   STANDARD_STEPS[0],
   STANDARD_STEPS[1],
-  {
-    id: "d2vip",
-    phase: { jp: "2日目", en: "Day 2", ar: "اليوم 2" },
-    title: { jp: "自由時間", en: "Free time", ar: "وقت حر" },
-    body: {
-      jp: "VIP優先処理により、早い段階で自由時間を確保できる場合があります。※",
-      en: "With VIP priority processing, free time may be available earlier. ※",
-
-      ar: "مع المعالجة الأولوية VIP، قد يتوفر وقت حر في وقت أبكر. ※",
-    },
-    optional: true,
-  },
+  STANDARD_STEPS[2],
   {
     id: "d3vip",
     phase: { jp: "3日目", en: "Day 3", ar: "اليوم 3" },
-    title: { jp: "ビザ有効化・口座開設", en: "Visa activation & banking", ar: "تفعيل التأشيرة والخدمات المصرفية" },
+    title: { jp: "ビザ有効化", en: "Visa activation", ar: "تفعيل التأشيرة" },
     body: {
-      jp: "営業日3日目を目安にビザ有効化。条件が整えば口座開設も可能です。",
-      en: "Target visa activation by business day 3; bank account opening when ready.",
+      jp: "VIP優先処理により、営業日3日目を目安にビザの有効化（ステータス変更）を行います。",
+      en: "With VIP priority processing, visa activation (status change) is targeted by business day 3.",
 
-      ar: "استهداف تفعيل التأشيرة بحلول اليوم الثالث من أيام العمل؛ فتح الحساب البنكي عند الجاهزية.",
+      ar: "مع المعالجة الأولوية VIP، يُستهدف تفعيل التأشيرة (تغيير الحالة) بحلول اليوم الثالث من أيام العمل.",
+    },
+    highlight: true,
+  },
+  STANDARD_STEPS[4],
+  {
+    id: "d5vip",
+    phase: { jp: "5日目", en: "Day 5", ar: "اليوم 5" },
+    title: { jp: "口座開設・まとめ", en: "Banking & wrap-up", ar: "الخدمات المصرفية والختام" },
+    body: {
+      jp: "条件が整えば法人口座開設を進め、視察内容の整理と次のステップを確認します。",
+      en: "Proceed with corporate bank account opening when ready; review site visits and next steps.",
+
+      ar: "المضي في فتح الحساب البنكي للشركة عند الجاهزية؛ مراجعة الزيارات والخطوات التالية.",
     },
     highlight: true,
   },
   STANDARD_STEPS[6],
 ];
+
+export const ATTEND_PROGRAM_STEPS: ScheduleStep[] = [
+  STANDARD_STEPS[1],
+  STANDARD_STEPS[2],
+  {
+    id: "a3",
+    phase: { jp: "3日目", en: "Day 3", ar: "اليوم 3" },
+    title: {
+      jp: "不動産・商業施設視察",
+      en: "Property & commercial site visits",
+      ar: "معاينة العقارات والمواقع التجارية",
+    },
+    body: {
+      jp: "HINODEYAスタッフが同行し、賃貸物件・居住エリア・商業テナント等の現地視察を行います。",
+      en: "HINODEYA staff accompany you for rental, residential area, and commercial space viewings.",
+
+      ar: "يرافقكم فريق HINODEYA في معاينة الإيجارات ومناطق السكن والمساحات التجارية.",
+    },
+  },
+  {
+    id: "a4",
+    phase: { jp: "4日目", en: "Day 4", ar: "اليوم 4" },
+    title: {
+      jp: "不動産・商業施設視察（続き）",
+      en: "Continued property & site visits",
+      ar: "متابعة معاينة العقارات والمواقع",
+    },
+    body: {
+      jp: "前日の続きとして視察を継続。フリーゾーン訪問や現地パートナーとの打ち合わせも可能です。",
+      en: "Continue viewings from the previous day; free zone visits or local partner meetings as needed.",
+
+      ar: "متابعة المعاينات من اليوم السابق؛ زيارات المناطق الحرة أو اجتماعات الشركاء المحليين حسب الحاجة.",
+    },
+  },
+  STANDARD_STEPS[5],
+];
+
+export const ATTEND_PROGRAM_TITLE: LangCopy = {
+  jp: "5日間アテンドプログラム",
+  en: "5-day attend program",
+  ar: "برنامج المرافقة لمدة 5 أيام",
+};
 
 export function getAcquisitionSchedule(visaSpeed: VisaSpeed): AcquisitionSchedule {
   return {
