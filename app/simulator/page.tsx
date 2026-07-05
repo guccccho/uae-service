@@ -27,6 +27,7 @@ import {
   type SimulatorSelections,
   type VisaSpeed,
 } from "./data";
+import { VisaAcquisitionSchedule } from "./ScheduleTimeline";
 
 const GOLD = "#C8A46A";
 const FALLBACK_AED_JPY = 40;
@@ -219,6 +220,7 @@ function buildMailto(
   breakdown: ReturnType<typeof calculateZoneCost>,
   aedToJpy: number,
   lang: "jp" | "en",
+  localAttend: boolean,
 ) {
   const major = getMajorActivity(selections.majorActivity);
   const sub = getSubActivity(selections.majorActivity, selections.subActivity);
@@ -247,6 +249,9 @@ function buildMailto(
     selections.bankAccount === "yes"
       ? `${lang === "jp" ? "口座開設サポート" : "Bank account support"}: +${formatAED(BANK_ACCOUNT_CONFIG.yes.cost)} AED`
       : "",
+    localAttend
+      ? `${lang === "jp" ? "5日間アテンド（不動産視察）" : "5-day attend (property viewings)"}: ${lang === "jp" ? "希望あり" : "Requested"}`
+      : "",
   ]
     .filter(Boolean)
     .join("\n");
@@ -266,6 +271,7 @@ export default function SimulatorPage() {
   );
   const [exchangeRate, setExchangeRate] = useState<ExchangeRateData | null>(null);
   const [contactMessage, setContactMessage] = useState("");
+  const [localAttend, setLocalAttend] = useState(false);
 
   const majorActivity = getMajorActivity(selections.majorActivity);
   const subActivity = getSubActivity(
@@ -616,6 +622,16 @@ export default function SimulatorPage() {
                     {selections.visaSpeed === "vip" ? " (VIP)" : ""}
                   </div>
                 )}
+
+                {visaQuotaActive && (
+                  <VisaAcquisitionSchedule
+                    visaSpeed={selections.visaSpeed}
+                    showAttendOption
+                    attendSelected={localAttend}
+                    onAttendChange={setLocalAttend}
+                  />
+                )}
+
                 <div className="mt-4 border-t border-dashed border-slate-200 pt-4">
                   <div className="flex items-start justify-between">
                     <span className="font-semibold text-slate-800">{t.breakdown.total}</span>
@@ -683,7 +699,7 @@ export default function SimulatorPage() {
               className="mt-8 space-y-4"
               onSubmit={(e) => {
                 e.preventDefault();
-                window.location.href = buildMailto(customer, selections, freeZone, breakdown, aedToJpy, lang);
+                window.location.href = buildMailto(customer, selections, freeZone, breakdown, aedToJpy, lang, localAttend);
               }}
             >
               <label className="block">
