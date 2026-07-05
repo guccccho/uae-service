@@ -1039,27 +1039,44 @@ export const RELOCATION_COST = { yes: 9000, no: 0 } as const;
 export const BANK_ACCOUNT_OPENING_COST = 5000;
 export const VISA_VIP_OPTION_COST = 5000;
 
-/** HINODEYA professional service fee (excl. government pass-through). Mid-market vs typical AED 3,000–8,000 setup consulting. */
+/** HINODEYA professional service fee — minimum floor before margin-based pricing. */
 export const HINODEYA_SERVICE_BASE: Record<FreeZone, number> = {
-  rakez: 4200,
-  spc: 4500,
-  ifza: 5500,
-  meydan: 5800,
-  dmcc: 7500,
+  rakez: 8000,
+  spc: 8500,
+  ifza: 10000,
+  meydan: 11000,
+  dmcc: 14000,
 };
 
 export const HINODEYA_SERVICE_ADDONS = {
-  regulatedActivity: 1500,
-  branchEntity: 700,
-  visaCoordinationPerPerson: 350,
-  visaCoordinationMax: 1050,
+  regulatedActivity: 2000,
+  branchEntity: 1000,
+  visaCoordinationPerPerson: 500,
+  visaCoordinationMax: 1500,
 } as const;
 
-export const HINODEYA_SERVICE_NOTE: LangCopy = {
-  jp: "進出戦略整理、書類作成、当局手続き代行、日本語サポートを含むHINODEYAのサービス料です（政府料金は別途）。",
-  en: "HINODEYA service fee covering strategy, documentation, government liaison, and Japanese-language support (government fees are separate).",
+/** Target gross margin: profit ≥ 20% of (zone government cost + service fee charged). */
+export const HINODEYA_MIN_MARGIN = 0.2;
 
-  ar: "رسوم خدمة HINODEYA تشمل الاستراتيجية والوثائق والتنسيق الحكومي والدعم باللغة اليابانية (الرسوم الحكومية منفصلة).",
+/** Minimum target profit per engagement (JPY). ≈ AED 7,500 at 40 JPY/AED. */
+export const HINODEYA_MIN_PROFIT_JPY = 300_000;
+
+export const DEFAULT_AED_JPY = 40;
+
+/** Estimated internal delivery cost per zone before add-ons (AED). */
+export const HINODEYA_INTERNAL_COST: Record<FreeZone, number> = {
+  rakez: 2000,
+  spc: 2000,
+  ifza: 2500,
+  meydan: 2800,
+  dmcc: 3500,
+};
+
+export const HINODEYA_SERVICE_NOTE: LangCopy = {
+  jp: "HINODEYAへのお支払いはサービス料のみです。ライセンス・政府手続き等の設立費用は当局・フリーゾーンへ直接お支払いいただきます（下記参考）。サービス料は設立費用の規模に応じ、最低利益率20%・目安利益30万円以上となるよう算出しています。",
+  en: "You pay HINODEYA the service fee only. Licence and government setup costs are paid directly to authorities and the free zone (reference below). The service fee is calculated for at least a 20% margin and roughly ¥300,000+ profit per engagement, scaled to setup complexity.",
+
+  ar: "تدفعون لـ HINODEYA رسوم الخدمة فقط. تُدفع تكاليف الترخيص والإعداد الحكومية مباشرة للجهات والمنطقة الحرة (مرجع أدناه). تُحسب رسوم الخدمة بهامش لا يقل عن 20٪ وربح تقريبي 300,000 ين+ لكل مشروع.",
 };
 
 /** RAKEZ SME packages list AED 14,320 but E-channel (AED 2,200) is billed separately per official FAQ. */
@@ -1154,9 +1171,12 @@ export type CostBreakdown = {
   visaSpeedCost: number;
   bankAccountCost: number;
   hinodeyaServiceFee: number;
-  /** Zone and government fees before HINODEYA service fee */
+  /** Zone and government fees paid directly to authorities (reference only) */
   directCost: number;
+  /** Service fee + zone government reference */
+  totalCostOfOwnership: number;
   visaProcessingDays: number;
+  /** Amount payable to HINODEYA */
   total: number;
 };
 
@@ -1191,33 +1211,52 @@ export function hasVisaQuota(
 export function calculateHinodeyaServiceFee(
   zoneId: FreeZone,
   selections: SimulatorSelections,
+  zoneGovernmentCost: number,
+  aedToJpy = DEFAULT_AED_JPY,
 ): number {
   const sub = getSubActivity(selections.majorActivity, selections.subActivity);
   const visaPkg = FREE_ZONE_CONFIGS[zoneId].visaPackages.find(
     (v) => v.id === selections.visas,
   );
 
-  let fee = HINODEYA_SERVICE_BASE[zoneId];
+  let floorFee = HINODEYA_SERVICE_BASE[zoneId];
+  let internalCost = HINODEYA_INTERNAL_COST[zoneId];
 
   if (sub?.regulated) {
-    fee += HINODEYA_SERVICE_ADDONS.regulatedActivity;
+    floorFee += HINODEYA_SERVICE_ADDONS.regulatedActivity;
+    internalCost += 1000;
   }
   if (selections.companyType === "branch") {
-    fee += HINODEYA_SERVICE_ADDONS.branchEntity;
+    floorFee += HINODEYA_SERVICE_ADDONS.branchEntity;
+    internalCost += 500;
   }
   if (visaPkg && visaPkg.visaCount > 0) {
-    fee += Math.min(
+    floorFee += Math.min(
       visaPkg.visaCount * HINODEYA_SERVICE_ADDONS.visaCoordinationPerPerson,
       HINODEYA_SERVICE_ADDONS.visaCoordinationMax,
     );
+    internalCost += Math.min(visaPkg.visaCount * 300, 900);
   }
 
-  return fee;
+  const minProfitAed = HINODEYA_MIN_PROFIT_JPY / aedToJpy;
+  const marginBasedFee =
+    (internalCost + zoneGovernmentCost * HINODEYA_MIN_MARGIN) /
+    (1 - HINODEYA_MIN_MARGIN);
+  const profitFloorFee = internalCost + minProfitAed;
+
+  const coreFee =
+    Math.ceil(Math.max(floorFee, marginBasedFee, profitFloorFee) / 100) * 100;
+
+  const bankAccountCost = BANK_ACCOUNT_CONFIG[selections.bankAccount].cost;
+  const relocationCost = RELOCATION_COST[selections.relocation];
+
+  return coreFee + bankAccountCost + relocationCost;
 }
 
 export function calculateZoneCost(
   zoneId: FreeZone,
   selections: SimulatorSelections,
+  aedToJpy = DEFAULT_AED_JPY,
 ): CostBreakdown {
   const zone = FREE_ZONE_CONFIGS[zoneId];
   const licenseType =
@@ -1254,7 +1293,6 @@ export function calculateZoneCost(
       ? 0
       : zone.establishmentCard;
   const governmentExtras = visaPkg.governmentExtras ?? 0;
-  const relocationCost = RELOCATION_COST[selections.relocation];
 
   const visaQuotaActive = visaPkg.visaCount > 0;
   const visaSpeedCost =
@@ -1264,8 +1302,6 @@ export function calculateZoneCost(
   const visaProcessingDays = visaQuotaActive
     ? VISA_SPEED_CONFIG[selections.visaSpeed].businessDays
     : 0;
-  const bankAccountCost = BANK_ACCOUNT_CONFIG[selections.bankAccount].cost;
-  const hinodeyaServiceFee = calculateHinodeyaServiceFee(zoneId, selections);
 
   const directCost =
     license +
@@ -1274,11 +1310,18 @@ export function calculateZoneCost(
     officeFee +
     establishment +
     governmentExtras +
-    relocationCost +
-    visaSpeedCost +
-    bankAccountCost;
+    visaSpeedCost;
 
-  const total = directCost + hinodeyaServiceFee;
+  const hinodeyaServiceFee = calculateHinodeyaServiceFee(
+    zoneId,
+    selections,
+    directCost,
+    aedToJpy,
+  );
+
+  const relocationCost = RELOCATION_COST[selections.relocation];
+  const bankAccountCost = BANK_ACCOUNT_CONFIG[selections.bankAccount].cost;
+  const totalCostOfOwnership = directCost + hinodeyaServiceFee;
 
   return {
     license,
@@ -1292,13 +1335,15 @@ export function calculateZoneCost(
     bankAccountCost,
     hinodeyaServiceFee,
     directCost,
+    totalCostOfOwnership,
     visaProcessingDays,
-    total,
+    total: hinodeyaServiceFee,
   };
 }
 
 export function rankZonesByActivity(
   selections: SimulatorSelections,
+  aedToJpy = DEFAULT_AED_JPY,
 ): ZoneRecommendation[] {
   const sub = getSubActivity(selections.majorActivity, selections.subActivity);
   const allowed = getAllowedZones(
@@ -1313,7 +1358,7 @@ export function rankZonesByActivity(
   const ranked = allowed
     .map((zone) => ({
       zone,
-      total: calculateZoneCost(zone, selections).total,
+      total: calculateZoneCost(zone, selections, aedToJpy).totalCostOfOwnership,
       recIndex: priority.indexOf(zone),
     }))
     .sort((a, b) => a.recIndex - b.recIndex || a.total - b.total);
@@ -1333,12 +1378,13 @@ export function rankZonesByActivity(
 /** @deprecated Use rankZonesByActivity for activity-aware ranking */
 export function rankZonesByCost(
   selections: SimulatorSelections,
+  aedToJpy = DEFAULT_AED_JPY,
 ): { zone: FreeZone; total: number }[] {
   const allowed = getAllowedZones(selections.majorActivity, selections.subActivity);
   return allowed
     .map((zone) => ({
       zone,
-      total: calculateZoneCost(zone, selections).total,
+      total: calculateZoneCost(zone, selections, aedToJpy).totalCostOfOwnership,
     }))
     .sort((a, b) => a.total - b.total);
 }
