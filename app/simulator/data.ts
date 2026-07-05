@@ -871,6 +871,27 @@ export const RELOCATION_COST = { yes: 9000, no: 0 } as const;
 export const BANK_ACCOUNT_OPENING_COST = 5000;
 export const VISA_VIP_OPTION_COST = 5000;
 
+/** HINODEYA professional service fee (excl. government pass-through). Mid-market vs typical AED 3,000–8,000 setup consulting. */
+export const HINODEYA_SERVICE_BASE: Record<FreeZone, number> = {
+  rakez: 4200,
+  spc: 4500,
+  ifza: 5500,
+  meydan: 5800,
+  dmcc: 7500,
+};
+
+export const HINODEYA_SERVICE_ADDONS = {
+  regulatedActivity: 1500,
+  branchEntity: 700,
+  visaCoordinationPerPerson: 350,
+  visaCoordinationMax: 1050,
+} as const;
+
+export const HINODEYA_SERVICE_NOTE: LangCopy = {
+  jp: "進出戦略整理、書類作成、当局手続き代行、日本語サポートを含むHINODEYAのサービス料です（政府料金は別途）。",
+  en: "HINODEYA service fee covering strategy, documentation, government liaison, and Japanese-language support (government fees are separate).",
+};
+
 export type Relocation = "yes" | "no";
 export type VisaSpeed = "standard" | "vip";
 export type BankAccountOption = "yes" | "no";
@@ -941,6 +962,7 @@ export type CostBreakdown = {
   relocationCost: number;
   visaSpeedCost: number;
   bankAccountCost: number;
+  hinodeyaServiceFee: number;
   visaProcessingDays: number;
   total: number;
 };
@@ -971,6 +993,33 @@ export function hasVisaQuota(
     (v) => v.id === visaSelectionId,
   );
   return (pkg?.visaCount ?? 0) > 0;
+}
+
+export function calculateHinodeyaServiceFee(
+  zoneId: FreeZone,
+  selections: SimulatorSelections,
+): number {
+  const sub = getSubActivity(selections.majorActivity, selections.subActivity);
+  const visaPkg = FREE_ZONE_CONFIGS[zoneId].visaPackages.find(
+    (v) => v.id === selections.visas,
+  );
+
+  let fee = HINODEYA_SERVICE_BASE[zoneId];
+
+  if (sub?.regulated) {
+    fee += HINODEYA_SERVICE_ADDONS.regulatedActivity;
+  }
+  if (selections.companyType === "branch") {
+    fee += HINODEYA_SERVICE_ADDONS.branchEntity;
+  }
+  if (visaPkg && visaPkg.visaCount > 0) {
+    fee += Math.min(
+      visaPkg.visaCount * HINODEYA_SERVICE_ADDONS.visaCoordinationPerPerson,
+      HINODEYA_SERVICE_ADDONS.visaCoordinationMax,
+    );
+  }
+
+  return fee;
 }
 
 export function calculateZoneCost(
@@ -1019,6 +1068,7 @@ export function calculateZoneCost(
     ? VISA_SPEED_CONFIG[selections.visaSpeed].businessDays
     : 0;
   const bankAccountCost = BANK_ACCOUNT_CONFIG[selections.bankAccount].cost;
+  const hinodeyaServiceFee = calculateHinodeyaServiceFee(zoneId, selections);
 
   const total =
     license +
@@ -1028,7 +1078,8 @@ export function calculateZoneCost(
     establishment +
     relocationCost +
     visaSpeedCost +
-    bankAccountCost;
+    bankAccountCost +
+    hinodeyaServiceFee;
 
   return {
     license,
@@ -1039,6 +1090,7 @@ export function calculateZoneCost(
     relocationCost,
     visaSpeedCost,
     bankAccountCost,
+    hinodeyaServiceFee,
     visaProcessingDays,
     total,
   };

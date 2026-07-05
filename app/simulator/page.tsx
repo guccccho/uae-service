@@ -21,6 +21,7 @@ import {
   getDefaultSelections,
   hasVisaQuota,
   rankZonesByActivity,
+  HINODEYA_SERVICE_NOTE,
   type BankAccountOption,
   type FreeZone,
   type Relocation,
@@ -85,6 +86,7 @@ const TEXT = {
       relocation: "リロケーションサポート",
       visaVip: "ビザVIP優先処理",
       bankAccount: "口座開設サポート",
+      hinodeyaService: "HINODEYAサービス料",
       total: "推定合計コスト",
     },
     visaTimeline: "ビザ取得目安",
@@ -141,6 +143,7 @@ const TEXT = {
       relocation: "Relocation support",
       visaVip: "Visa VIP priority",
       bankAccount: "Bank account support",
+      hinodeyaService: "HINODEYA service fee",
       total: "Estimated total",
     },
     visaTimeline: "Visa processing estimate",
@@ -243,6 +246,7 @@ function buildMailto(
     lang === "jp" ? "■ シミュレーション結果" : "■ Simulation result",
     `${lang === "jp" ? "フリーゾーン" : "Free zone"}: ${FREE_ZONE_LABELS[freeZone]}`,
     `${lang === "jp" ? "推定合計" : "Estimated total"}: ${formatAED(Math.round(breakdown.total))} AED (≈ ${formatJPY(Math.round(breakdown.total * aedToJpy))} JPY)`,
+    `${lang === "jp" ? "HINODEYAサービス料" : "HINODEYA service fee"}: ${formatAED(Math.round(breakdown.hinodeyaServiceFee))} AED`,
     breakdown.visaProcessingDays > 0
       ? `${lang === "jp" ? "ビザ取得目安" : "Visa timeline"}: ${breakdown.visaProcessingDays} ${lang === "jp" ? "営業日" : "business days"}${selections.visaSpeed === "vip" ? " (VIP)" : ""}`
       : "",
@@ -609,12 +613,16 @@ export default function SimulatorPage() {
                   ...(breakdown.bankAccountCost > 0
                     ? [{ label: t.breakdown.bankAccount, value: breakdown.bankAccountCost }]
                     : []),
+                  { label: t.breakdown.hinodeyaService, value: breakdown.hinodeyaServiceFee },
                 ].map((row) => (
                   <div key={row.label} className="flex items-center justify-between">
                     <span className="text-slate-600">{row.label}</span>
                     <span className="font-medium text-slate-900">{formatAED(Math.round(row.value))} AED</span>
                   </div>
                 ))}
+                <p className="text-[11px] leading-relaxed text-slate-400">
+                  {HINODEYA_SERVICE_NOTE[lang]}
+                </p>
                 {breakdown.visaProcessingDays > 0 && (
                   <div className="rounded-xl bg-slate-50 px-4 py-3 text-xs text-slate-600 ring-1 ring-slate-100">
                     <span className="font-medium text-slate-800">{t.visaTimeline}: </span>
