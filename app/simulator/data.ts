@@ -1039,41 +1039,29 @@ export const RELOCATION_COST = { yes: 9000, no: 0 } as const;
 export const BANK_ACCOUNT_CORPORATE_COST = 6000;
 export const BANK_ACCOUNT_PERSONAL_COST = 5000;
 
-export type BankAccountOption = "no" | "corporate" | "personal";
+export type BankAccountSupportType = "corporate" | "personal";
 
-export const BANK_ACCOUNT_OPTIONS_NO_VISA: BankAccountOption[] = [
-  "no",
-  "corporate",
-];
-export const BANK_ACCOUNT_OPTIONS_WITH_VISA: BankAccountOption[] = [
-  "no",
-  "corporate",
-  "personal",
-];
+export type BankAccountSelection = {
+  corporate: boolean;
+  personal: boolean;
+};
 
-export function getBankAccountOptions(hasVisaQuota: boolean): BankAccountOption[] {
-  return hasVisaQuota
-    ? BANK_ACCOUNT_OPTIONS_WITH_VISA
-    : BANK_ACCOUNT_OPTIONS_NO_VISA;
-}
+export const BANK_ACCOUNT_NONE_LABEL: LangCopy = {
+  jp: "口座サポートなし",
+  en: "No account support",
+  ar: "بدون دعم فتح حساب",
+};
 
-export const BANK_ACCOUNT_CONFIG: Record<
-  BankAccountOption,
+export const BANK_ACCOUNT_NONE_DESCRIPTION: LangCopy = {
+  jp: "口座開設サポートは含みません。",
+  en: "Bank account opening support not included.",
+  ar: "دعم فتح الحساب البنكي غير مشمول.",
+};
+
+export const BANK_ACCOUNT_SUPPORT_CONFIG: Record<
+  BankAccountSupportType,
   { cost: number; label: LangCopy; description: LangCopy }
 > = {
-  no: {
-    cost: 0,
-    label: {
-      jp: "口座サポートなし",
-      en: "No account support",
-      ar: "بدون دعم فتح حساب",
-    },
-    description: {
-      jp: "口座開設サポートは含みません。",
-      en: "Bank account opening support not included.",
-      ar: "دعم فتح الحساب البنكي غير مشمول.",
-    },
-  },
   corporate: {
     cost: BANK_ACCOUNT_CORPORATE_COST,
     label: {
@@ -1101,6 +1089,31 @@ export const BANK_ACCOUNT_CONFIG: Record<
     },
   },
 };
+
+export function hasBankAccountSupport(selection: BankAccountSelection): boolean {
+  return selection.corporate || selection.personal;
+}
+
+export function calculateBankAccountCost(
+  selection: BankAccountSelection,
+  hasVisaQuota: boolean,
+): { total: number; lines: { type: BankAccountSupportType; cost: number }[] } {
+  const lines: { type: BankAccountSupportType; cost: number }[] = [];
+  if (selection.corporate) {
+    lines.push({
+      type: "corporate",
+      cost: BANK_ACCOUNT_SUPPORT_CONFIG.corporate.cost,
+    });
+  }
+  if (selection.personal && hasVisaQuota) {
+    lines.push({
+      type: "personal",
+      cost: BANK_ACCOUNT_SUPPORT_CONFIG.personal.cost,
+    });
+  }
+  const total = lines.reduce((sum, line) => sum + line.cost, 0);
+  return { total, lines };
+}
 
 /** HINODEYA professional service fee (excl. government pass-through). Mid-market vs typical AED 3,000–8,000 setup consulting. */
 export const HINODEYA_SERVICE_BASE: Record<FreeZone, number> = {
@@ -1181,7 +1194,7 @@ export type SimulatorSelections = {
   office: string;
   relocation: Relocation;
   visaSpeed: VisaSpeed;
-  bankAccount: BankAccountOption;
+  bankAccount: BankAccountSelection;
 };
 
 export type CostBreakdown = {
@@ -1194,6 +1207,7 @@ export type CostBreakdown = {
   relocationCost: number;
   visaSpeedCost: number;
   bankAccountCost: number;
+  bankAccountLines: { type: BankAccountSupportType; cost: number }[];
   hinodeyaServiceFee: number;
   /** Zone and government fees before HINODEYA service fee */
   directCost: number;
@@ -1215,7 +1229,7 @@ export function getDefaultSelections(
     office: config.officeTypes[0].id,
     relocation: "no",
     visaSpeed: "standard",
-    bankAccount: "no",
+    bankAccount: { corporate: false, personal: false },
   };
 }
 
@@ -1305,7 +1319,8 @@ export function calculateZoneCost(
   const visaProcessingDays = visaQuotaActive
     ? VISA_SPEED_CONFIG[selections.visaSpeed].businessDays
     : 0;
-  const bankAccountCost = BANK_ACCOUNT_CONFIG[selections.bankAccount].cost;
+  const { total: bankAccountCost, lines: bankAccountLines } =
+    calculateBankAccountCost(selections.bankAccount, visaQuotaActive);
   const hinodeyaServiceFee = calculateHinodeyaServiceFee(zoneId, selections);
 
   const directCost =
@@ -1331,6 +1346,7 @@ export function calculateZoneCost(
     relocationCost,
     visaSpeedCost,
     bankAccountCost,
+    bankAccountLines,
     hinodeyaServiceFee,
     directCost,
     visaProcessingDays,
