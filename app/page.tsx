@@ -34,7 +34,7 @@ const content = {
           body: "UAE市場へのアクセス設計、成長戦略、現地競合分析を含む市場参入プランを策定します。",
         },
         {
-          title: "コーポレート設立",
+          title: "法人設立サポート",
           body: "法人設立、ライセンス取得、規制対応など、各フリーゾーン・本土管轄での設立プロセスを支援します。",
         },
         {
@@ -163,7 +163,7 @@ const content = {
           body: "Structuring UAE market access, growth strategy, and competitive positioning.",
         },
         {
-          title: "Corporate Setup",
+          title: "Company Formation Support",
           body: "Company formation, licensing, and regulatory advisory across UAE jurisdictions.",
         },
         {
@@ -292,7 +292,7 @@ const content = {
           body: "تصميم الوصول إلى سوق الإمارات، واستراتيجيات النمو، والتموضع التنافسي.",
         },
         {
-          title: "تأسيس الشركات",
+          title: "دعم تأسيس الشركات",
           body: "تأسيس الشركات والتراخيص والاستشارات التنظيمية عبر مختلف الولايات القضائية في الإمارات.",
         },
         {
