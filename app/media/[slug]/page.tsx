@@ -12,6 +12,7 @@ const content: Record<
   Lang,
   {
     breadcrumb: string;
+    officialSite: string;
     sections: { title: string; body: string }[];
     ctaEyebrow: string;
     ctaBody: string;
@@ -20,6 +21,7 @@ const content: Record<
 > = {
   jp: {
     breadcrumb: "支援先プロダクト",
+    officialSite: "公式サイト →",
     sections: [
       {
         title: "クライアント企業について",
@@ -45,6 +47,7 @@ const content: Record<
   },
   en: {
     breadcrumb: "Supported Product",
+    officialSite: "Official website →",
     sections: [
       {
         title: "About the Client",
@@ -70,6 +73,7 @@ const content: Record<
   },
   ar: {
     breadcrumb: "منتج مدعوم",
+    officialSite: "الموقع الرسمي →",
     sections: [
       {
         title: "عن العميل",
@@ -154,6 +158,16 @@ export default function MediaDetailPage() {
                   <span className="rounded-full border border-slate-200 px-3 py-1">
                     {item.year}
                   </span>
+                  {item.websiteUrl && (
+                    <a
+                      href={item.websiteUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="rounded-full border border-[#c9a86c]/40 px-3 py-1 text-[#b89455] transition-colors hover:border-[#c9a86c] hover:text-[#c9a86c]"
+                    >
+                      {t.officialSite}
+                    </a>
+                  )}
                 </div>
               </div>
               <div className="overflow-hidden rounded-2xl bg-slate-100">
