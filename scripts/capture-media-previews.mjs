@@ -6,6 +6,7 @@ const targets = [
   { slug: "shan-loong-logistics-energy", url: "https://w3.slc.com.tw/en/" },
   { slug: "okasan-livic-infrastructure", url: "https://www.okasanlivic.co.jp/" },
   { slug: "optiqb-ai-3d-display", url: "https://optiqb.com/" },
+  { slug: "rembo-skincare", url: "https://rembo.jp/" },
 ];
 
 const outDir = path.join(process.cwd(), "public", "media-previews");

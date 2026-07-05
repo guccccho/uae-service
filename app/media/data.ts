@@ -181,6 +181,34 @@ export const mediaItems: MediaItem[] = [
     homepageUrl: "https://optiqb.com/",
     websiteUrl: "https://optiqb.com",
   },
+  {
+    slug: "rembo-skincare",
+    sector: {
+      jp: "ビューティー / D2C",
+      en: "Beauty / D2C",
+      ar: "الجمال / التجارة المباشرة",
+    },
+    title: {
+      jp: "Rembo（レンボ）— 国内製造プレミアムスキンケア",
+      en: "Rembo – Premium Japanese Skincare D2C",
+      ar: "Rembo – عناية يابانية فاخرة مباشرة للمستهلك",
+    },
+    summary: {
+      jp: "「肌に、嘘をつかない。」を掲げる国内製造のスキンケアブランド。オールインワン、美容液、まつ毛美容液などプレミアムラインを展開し、日本・海外向けECで販売。中東・GCC展開をチームHINODEYAとともに推進。",
+      en: "A domestically manufactured skincare brand built on authentic formulas — premium all-in-one, serums, and lash care sold through its own e-commerce in Japan and abroad, with Team HINODEYA supporting GCC expansion.",
+      ar: "علامة عناية يابانية مصنّعة محلياً بتركيبات أصيلة — خط فاخر من منتجات متعددة الاستخدامات والأمصال ومنتجات الرموش تُباع عبر متجرها الإلكتروني في اليابان وخارجها، مع دعم فريق HINODEYA للتوسع في دول مجلس التعاون.",
+    },
+    location: "Japan",
+    stage: {
+      jp: "海外展開",
+      en: "International expansion",
+      ar: "التوسع الدولي",
+    },
+    year: "2025",
+    imageUrl: "/media-previews/rembo-skincare.jpg",
+    homepageUrl: "https://rembo.jp/",
+    websiteUrl: "https://rembo.jp",
+  },
 ];
 
 export function getMediaItemsForLang(lang: Lang) {
