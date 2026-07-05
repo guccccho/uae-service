@@ -6,12 +6,14 @@ import { useLang } from "../../lang-context";
 import { LangSwitch } from "../../components/LangSwitch";
 import { mediaItems } from "../data";
 import Link from "next/link";
+import { MediaCardPreview } from "../../components/MediaCardPreview";
 import type { Lang } from "../../i18n";
 
 const content: Record<
   Lang,
   {
     breadcrumb: string;
+    officialSite: string;
     sections: { title: string; body: string }[];
     ctaEyebrow: string;
     ctaBody: string;
@@ -20,6 +22,7 @@ const content: Record<
 > = {
   jp: {
     breadcrumb: "相談企業のプロダクト",
+    officialSite: "公式サイト →",
     sections: [
       {
         title: "クライアント企業について",
@@ -45,6 +48,7 @@ const content: Record<
   },
   en: {
     breadcrumb: "Consulting Clients' Products",
+    officialSite: "Official website →",
     sections: [
       {
         title: "About the Client",
@@ -70,6 +74,7 @@ const content: Record<
   },
   ar: {
     breadcrumb: "منتجات الشركات المستشارة",
+    officialSite: "الموقع الرسمي →",
     sections: [
       {
         title: "عن العميل",
@@ -154,12 +159,24 @@ export default function MediaDetailPage() {
                   <span className="rounded-full border border-slate-200 px-3 py-1">
                     {item.year}
                   </span>
+                  {item.websiteUrl && (
+                    <a
+                      href={item.websiteUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="rounded-full border border-[#c9a86c]/40 px-3 py-1 text-[#b89455] transition-colors hover:border-[#c9a86c] hover:text-[#c9a86c]"
+                    >
+                      {t.officialSite}
+                    </a>
+                  )}
                 </div>
               </div>
-              <div className="overflow-hidden rounded-2xl bg-slate-100">
-                <div
-                  className="h-56 w-full bg-cover bg-center sm:h-64 lg:h-72"
-                  style={{ backgroundImage: `url(${item.imageUrl})` }}
+              <div className="overflow-hidden rounded-2xl bg-slate-100 ring-1 ring-slate-200/60">
+                <MediaCardPreview
+                  imageUrl={item.imageUrl}
+                  homepageUrl={item.homepageUrl ?? item.websiteUrl}
+                  alt={titleLabel}
+                  showChrome
                 />
               </div>
             </div>

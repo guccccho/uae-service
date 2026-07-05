@@ -5,6 +5,7 @@ import { useLang } from "../lang-context";
 import { LangSwitch } from "../components/LangSwitch";
 import { getMediaItemsForLang } from "./data";
 import Link from "next/link";
+import { MediaCardPreview } from "../components/MediaCardPreview";
 import type { Lang } from "../i18n";
 
 const content: Record<
@@ -106,12 +107,11 @@ export default function MediaIndexPage() {
                   href={`/media/${item.slug}`}
                   className="group flex flex-col overflow-hidden rounded-2xl bg-white/90 shadow-[0_18px_45px_rgba(15,23,42,0.06)] ring-1 ring-slate-100/70 transition-transform hover:-translate-y-1 hover:shadow-[0_24px_60px_rgba(15,23,42,0.10)]"
                 >
-                  <div className="relative h-40 w-full overflow-hidden bg-slate-100 sm:h-44">
-                    <div
-                      className="h-full w-full bg-cover bg-center transition-transform duration-500 group-hover:scale-[1.03]"
-                      style={{ backgroundImage: `url(${item.imageUrl})` }}
-                    />
-                  </div>
+                  <MediaCardPreview
+                    imageUrl={item.imageUrl}
+                    homepageUrl={item.homepageUrl}
+                    alt={item.titleLabel}
+                  />
                   <div className="flex flex-1 flex-col p-6">
                     <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-slate-500">
                       {item.sectorLabel}

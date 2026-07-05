@@ -7,6 +7,7 @@ import { useLang } from "./lang-context";
 import { mediaItems } from "./media/data";
 import { TRUSTED_PARTNERS } from "./trusted-partners";
 import { GovernmentPortalsSection } from "./components/GovernmentPortalsSection";
+import { MediaCardPreview } from "./components/MediaCardPreview";
 
 const content = {
   jp: {
@@ -415,6 +416,7 @@ export default function Home() {
     titleLabel: pickLang(item.title, lang),
     summaryLabel: pickLang(item.summary, lang),
     imageUrl: item.imageUrl,
+    homepageUrl: item.homepageUrl,
   }));
 
   return (
@@ -758,12 +760,11 @@ export default function Home() {
                     href={`/media/${item.slug}`}
                     className="group flex flex-col overflow-hidden rounded-2xl bg-white/90 shadow-[0_18px_45px_rgba(15,23,42,0.06)] ring-1 ring-slate-100/70 transition-transform hover:-translate-y-1 hover:shadow-[0_24px_60px_rgba(15,23,42,0.10)]"
                   >
-                    <div className="relative h-40 w-full overflow-hidden bg-slate-100 sm:h-44">
-                      <div
-                        className="h-full w-full bg-cover bg-center transition-transform duration-500 group-hover:scale-[1.03]"
-                        style={{ backgroundImage: `url(${item.imageUrl})` }}
-                      />
-                    </div>
+                    <MediaCardPreview
+                      imageUrl={item.imageUrl}
+                      homepageUrl={item.homepageUrl}
+                      alt={item.titleLabel}
+                    />
                     <div className="flex flex-1 flex-col p-6">
                       <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-slate-500">
                         {item.sectorLabel}
