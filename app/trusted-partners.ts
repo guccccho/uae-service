@@ -17,9 +17,9 @@ export const TRUSTED_PARTNERS: TrustedPartner[] = [
   {
     id: "rakez",
     name: "RAKEZ",
-    logo: "/rakez-logo.svg",
+    logo: "/rakez-logo-horizontal.svg",
     href: "https://rakez.com",
-    logoClassName: "h-8 w-auto opacity-90",
+    logoClassName: "h-7 w-auto max-w-[200px] opacity-90",
   },
   {
     id: "alnser",

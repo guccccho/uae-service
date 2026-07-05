@@ -90,7 +90,7 @@ export const ZONE_MEDIA: Record<"dmcc" | "rakez", ZoneMediaConfig> = {
     },
   },
   rakez: {
-    logo: "/rakez-logo.svg",
+    logo: "/rakez-logo-lockup.svg",
     logoAlt: "RAKEZ",
     homepageUrl: "https://rakez.com",
     facilitiesUrl: "https://rakez.com/en/about-us/facilities",
