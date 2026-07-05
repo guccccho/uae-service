@@ -22,6 +22,7 @@ import {
   hasVisaQuota,
   rankZonesByActivity,
   HINODEYA_SERVICE_NOTE,
+  RAKEZ_PRICING_NOTE,
   type BankAccountOption,
   type FreeZone,
   type Relocation,
@@ -81,6 +82,8 @@ const TEXT = {
       license: "ライセンス / パッケージ",
       registration: "登録・定款費用",
       establishment: "エスタブリッシュメントカード",
+      governmentExtras: "政府・移民局手続き（E-channel等）",
+      directCost: "フリーゾーン・政府費用（小計）",
       visas: "ビザ関連費用",
       office: "オフィス追加費用",
       relocation: "リロケーションサポート",
@@ -138,6 +141,8 @@ const TEXT = {
       license: "Licence / package",
       registration: "Registration & MOA",
       establishment: "Establishment card",
+      governmentExtras: "Government / immigration (E-channel etc.)",
+      directCost: "Zone & government subtotal",
       visas: "Visa-related",
       office: "Office upgrade",
       relocation: "Relocation support",
@@ -246,6 +251,7 @@ function buildMailto(
     lang === "jp" ? "■ シミュレーション結果" : "■ Simulation result",
     `${lang === "jp" ? "フリーゾーン" : "Free zone"}: ${FREE_ZONE_LABELS[freeZone]}`,
     `${lang === "jp" ? "推定合計" : "Estimated total"}: ${formatAED(Math.round(breakdown.total))} AED (≈ ${formatJPY(Math.round(breakdown.total * aedToJpy))} JPY)`,
+    `${lang === "jp" ? "フリーゾーン・政府費用" : "Zone & government subtotal"}: ${formatAED(Math.round(breakdown.directCost))} AED`,
     `${lang === "jp" ? "HINODEYAサービス料" : "HINODEYA service fee"}: ${formatAED(Math.round(breakdown.hinodeyaServiceFee))} AED`,
     breakdown.visaProcessingDays > 0
       ? `${lang === "jp" ? "ビザ取得目安" : "Visa timeline"}: ${breakdown.visaProcessingDays} ${lang === "jp" ? "営業日" : "business days"}${selections.visaSpeed === "vip" ? " (VIP)" : ""}`
@@ -602,27 +608,50 @@ export default function SimulatorPage() {
               <div className="mt-6 space-y-4 text-sm">
                 {[
                   { label: t.breakdown.license, value: breakdown.license },
-                  { label: t.breakdown.registration, value: breakdown.registration },
-                  { label: t.breakdown.establishment, value: breakdown.establishment },
-                  { label: t.breakdown.visas, value: breakdown.visas },
+                  ...(breakdown.registration > 0
+                    ? [{ label: t.breakdown.registration, value: breakdown.registration }]
+                    : []),
+                  ...(breakdown.establishment > 0
+                    ? [{ label: t.breakdown.establishment, value: breakdown.establishment }]
+                    : []),
+                  ...(breakdown.governmentExtras > 0
+                    ? [{ label: t.breakdown.governmentExtras, value: breakdown.governmentExtras }]
+                    : []),
+                  ...(breakdown.visas > 0
+                    ? [{ label: t.breakdown.visas, value: breakdown.visas }]
+                    : []),
                   ...(breakdown.visaSpeedCost > 0
                     ? [{ label: t.breakdown.visaVip, value: breakdown.visaSpeedCost }]
                     : []),
-                  { label: t.breakdown.office, value: breakdown.office },
-                  { label: t.breakdown.relocation, value: breakdown.relocationCost },
+                  ...(breakdown.office > 0
+                    ? [{ label: t.breakdown.office, value: breakdown.office }]
+                    : []),
+                  ...(breakdown.relocationCost > 0
+                    ? [{ label: t.breakdown.relocation, value: breakdown.relocationCost }]
+                    : []),
                   ...(breakdown.bankAccountCost > 0
                     ? [{ label: t.breakdown.bankAccount, value: breakdown.bankAccountCost }]
                     : []),
-                  { label: t.breakdown.hinodeyaService, value: breakdown.hinodeyaServiceFee },
                 ].map((row) => (
                   <div key={row.label} className="flex items-center justify-between">
                     <span className="text-slate-600">{row.label}</span>
                     <span className="font-medium text-slate-900">{formatAED(Math.round(row.value))} AED</span>
                   </div>
                 ))}
+                <div className="flex items-center justify-between border-t border-dashed border-slate-200 pt-3">
+                  <span className="font-medium text-slate-700">{t.breakdown.directCost}</span>
+                  <span className="font-semibold text-slate-900">{formatAED(Math.round(breakdown.directCost))} AED</span>
+                </div>
+                <div className="flex items-center justify-between">
+                  <span className="text-slate-600">{t.breakdown.hinodeyaService}</span>
+                  <span className="font-medium text-slate-900">{formatAED(Math.round(breakdown.hinodeyaServiceFee))} AED</span>
+                </div>
                 <p className="text-[11px] leading-relaxed text-slate-400">
                   {HINODEYA_SERVICE_NOTE[lang]}
                 </p>
+                {freeZone === "rakez" && visaQuotaActive && (
+                  <p className="text-[11px] leading-relaxed text-amber-700/90">{RAKEZ_PRICING_NOTE[lang]}</p>
+                )}
                 {breakdown.visaProcessingDays > 0 && (
                   <div className="rounded-xl bg-slate-50 px-4 py-3 text-xs text-slate-600 ring-1 ring-slate-100">
                     <span className="font-medium text-slate-800">{t.visaTimeline}: </span>

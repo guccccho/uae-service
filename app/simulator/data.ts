@@ -25,6 +25,10 @@ export type VisaPackageOption = {
   visaCount: number;
   licensePackageFee: number;
   visaProcessingEach: number;
+  /** SME-style bundles that already include establishment card in licensePackageFee */
+  includesEstablishment?: boolean;
+  /** E-channel, medical, Emirates ID, and other government steps billed outside headline package price */
+  governmentExtras?: number;
 };
 
 export type OfficeOption = {
@@ -592,34 +596,40 @@ export const FREE_ZONE_CONFIGS: Record<FreeZone, FreeZoneConfig> = {
         id: "1",
         label: { jp: "1名（SMEオールイン）", en: "1 visa (SME all-in)" },
         description: {
-          jp: "SME Business Set-Up 1 Visa: AED 14,320/年（ビザ込み）",
-          en: "SME Business Set-Up 1 visa: AED 14,320/yr all-in",
+          jp: "公式パッケージ AED 14,320/年（ライセンス・EC・ビザ・保険込み）＋ E-channel等で初年度実費は約 AED 17,000",
+          en: "Official package AED 14,320/yr (licence, EC, visa, insurance) + E-channel etc.; first-year direct cost ~AED 17,000",
         },
         visaCount: 1,
         licensePackageFee: 14320,
         visaProcessingEach: 0,
+        includesEstablishment: true,
+        governmentExtras: 2680,
       },
       {
         id: "2_3",
         label: { jp: "2名", en: "2 visas" },
         description: {
-          jp: "SME 2 Visas: AED 18,640/年。追加ビザは AED 4,000/名。",
-          en: "SME 2 visas: AED 18,640/yr. Additional visas AED 4,000 each.",
+          jp: "SME 2 Visas: AED 18,640/年（オールインクルーシブ）。追加枠は AED 4,000/名。",
+          en: "SME 2 visas: AED 18,640/yr all-inclusive. Extra quota AED 4,000 each.",
         },
         visaCount: 2,
         licensePackageFee: 18640,
-        visaProcessingEach: 4000,
+        visaProcessingEach: 0,
+        includesEstablishment: true,
+        governmentExtras: 2680,
       },
       {
         id: "5_plus",
         label: { jp: "4名", en: "4 visas" },
         description: {
-          jp: "SME 4 Visas: AED 27,280/年。",
-          en: "SME 4 visas: AED 27,280/yr.",
+          jp: "SME 4 Visas: AED 27,280/年（オールインクルーシブ）。",
+          en: "SME 4 visas: AED 27,280/yr all-inclusive.",
         },
         visaCount: 4,
         licensePackageFee: 27280,
-        visaProcessingEach: 4000,
+        visaProcessingEach: 0,
+        includesEstablishment: true,
+        governmentExtras: 2680,
       },
     ],
     officeTypes: [
@@ -892,6 +902,12 @@ export const HINODEYA_SERVICE_NOTE: LangCopy = {
   en: "HINODEYA service fee covering strategy, documentation, government liaison, and Japanese-language support (government fees are separate).",
 };
 
+/** RAKEZ SME packages list AED 14,320 but E-channel (AED 2,200) is billed separately per official FAQ. */
+export const RAKEZ_PRICING_NOTE: LangCopy = {
+  jp: "※ SMEパッケージ（AED 14,320）はライセンス・エスタブリッシュメントカード・ビザ・保険を含みます。E-channel登録（AED 2,200）などが別途かかり、ご自身で設立した場合の初年度実費は AED 17,000 前後が一般的です。E-channel保証金（AED 5,050・返金可）は見積もりに含みません。",
+  en: "SME package (AED 14,320) includes licence, establishment card, visa, and insurance. E-channel registration (AED 2,200) and similar steps are billed separately; self-setup first-year direct costs are typically around AED 17,000. Refundable E-channel deposit (AED 5,050) is not included.",
+};
+
 export type Relocation = "yes" | "no";
 export type VisaSpeed = "standard" | "vip";
 export type BankAccountOption = "yes" | "no";
@@ -959,10 +975,13 @@ export type CostBreakdown = {
   visas: number;
   office: number;
   establishment: number;
+  governmentExtras: number;
   relocationCost: number;
   visaSpeedCost: number;
   bankAccountCost: number;
   hinodeyaServiceFee: number;
+  /** Zone and government fees before HINODEYA service fee */
+  directCost: number;
   visaProcessingDays: number;
   total: number;
 };
@@ -1056,7 +1075,11 @@ export function calculateZoneCost(
   const officeFee =
     office.id === zone.officeTypes[0].id ? 0 : office.annualFee;
 
-  const establishment = zone.establishmentCard;
+  const establishment =
+    visaPkg.includesEstablishment || visaPkg.visaCount === 0
+      ? 0
+      : zone.establishmentCard;
+  const governmentExtras = visaPkg.governmentExtras ?? 0;
   const relocationCost = RELOCATION_COST[selections.relocation];
 
   const visaQuotaActive = visaPkg.visaCount > 0;
@@ -1070,16 +1093,18 @@ export function calculateZoneCost(
   const bankAccountCost = BANK_ACCOUNT_CONFIG[selections.bankAccount].cost;
   const hinodeyaServiceFee = calculateHinodeyaServiceFee(zoneId, selections);
 
-  const total =
+  const directCost =
     license +
     registration +
     visas +
     officeFee +
     establishment +
+    governmentExtras +
     relocationCost +
     visaSpeedCost +
-    bankAccountCost +
-    hinodeyaServiceFee;
+    bankAccountCost;
+
+  const total = directCost + hinodeyaServiceFee;
 
   return {
     license,
@@ -1087,10 +1112,12 @@ export function calculateZoneCost(
     visas,
     office: officeFee,
     establishment,
+    governmentExtras,
     relocationCost,
     visaSpeedCost,
     bankAccountCost,
     hinodeyaServiceFee,
+    directCost,
     visaProcessingDays,
     total,
   };
