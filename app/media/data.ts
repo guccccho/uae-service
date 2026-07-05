@@ -152,6 +152,33 @@ export const mediaItems: MediaItem[] = [
     imageUrl: "/okasanlivic-ogp.png",
     websiteUrl: "https://www.okasanlivic.co.jp",
   },
+  {
+    slug: "optiqb-ai-3d-display",
+    sector: {
+      jp: "AI / ディスプレイテック",
+      en: "AI / Display Technology",
+      ar: "الذكاء الاصطناعي / تقنية العرض",
+    },
+    title: {
+      jp: "光影立方（Optiqb）— 裸視3D・Edge AIソリューション",
+      en: "Optiqb – Naked-Eye 3D & Edge AI Solutions",
+      ar: "Optiqb – حلول العرض ثلاثي الأبعاد بدون نظارات والذكاء الاصطناعي الطرفي",
+    },
+    summary: {
+      jp: "台湾発のハイテク新創。Edge AIで2D映像をリアルタイムに裸視3Dへ変換するエンジンとスマート光学保護フィルムを開発。電信・コンテンツ・小売向けにSDKライセンスも展開し、中東・GCC市場への進出をチームHINODEYAと推進。",
+      en: "A Taiwan-based deep-tech startup developing an Edge AI engine that converts 2D video to naked-eye 3D in real time, paired with smart optical screen protectors and SDK licensing for telcos and content platforms — exploring GCC expansion with Team HINODEYA.",
+      ar: "شركة ناشئة تايوانية متخصصة في محرك Edge AI يحوّل الفيديو ثنائي الأبعاد إلى عرض ثلاثي الأبعاد بدون نظارات في الوقت الفعلي، مع واقيات شاشة بصرية ذكية وتراخيص SDK لمشغلي الاتصالات ومنصات المحتوى — تستكشف التوسع في دول مجلس التعاون مع فريق HINODEYA.",
+    },
+    location: "Taipei, Taiwan",
+    stage: {
+      jp: "グローバル展開",
+      en: "Global rollout",
+      ar: "الإطلاق العالمي",
+    },
+    year: "2025",
+    imageUrl: "/optiqb-hero.webp",
+    websiteUrl: "https://optiqb.com",
+  },
 ];
 
 export function getMediaItemsForLang(lang: Lang) {
