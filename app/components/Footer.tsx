@@ -29,10 +29,10 @@ export function SiteFooter() {
             </div>
             <div>
               <a
-                href="mailto:contact@omogroup.com"
+                href="mailto:contact@hinodeya.ae"
                 className="underline-offset-4 hover:text-slate-600 hover:underline"
               >
-                contact@omogroup.com
+                contact@hinodeya.ae
               </a>
             </div>
           </div>

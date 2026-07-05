@@ -114,7 +114,7 @@ export default function PartnersPage() {
                   : "We help you decide which parts should be covered by your existing advisors and where our network can fill gaps."}
               </p>
               <a
-                href="mailto:contact@example.com"
+                href="mailto:contact@hinodeya.ae"
                 className="mt-2 inline-flex items-center justify-center rounded-full bg-[#c9a86c] px-10 py-3 text-xs font-semibold uppercase tracking-[0.2em] text-white shadow-[0_18px_45px_rgba(15,23,42,0.18)] transition-colors hover:bg-[#b89455]"
               >
                 {ctaLabel}

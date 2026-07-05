@@ -64,7 +64,7 @@ export default function BusinessSetupPage() {
               </p>
               <div className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row">
                 <a
-                  href="mailto:contact@example.com"
+                  href="mailto:contact@hinodeya.ae"
                   className="inline-flex items-center justify-center rounded-full bg-[#c9a86c] px-10 py-3.5 text-xs font-semibold uppercase tracking-[0.2em] text-white shadow-[0_18px_45px_rgba(15,23,42,0.18)] transition-colors hover:bg-[#b89455]"
                 >
                   {ctaPrimary}
@@ -226,7 +226,7 @@ export default function BusinessSetupPage() {
               </p>
               <div className="flex flex-col items-center gap-4 sm:flex-row sm:justify-center">
                 <a
-                  href="mailto:contact@example.com"
+                  href="mailto:contact@hinodeya.ae"
                   className="inline-flex items-center justify-center rounded-full bg-[#c9a86c] px-12 py-3.5 text-xs font-semibold uppercase tracking-[0.2em] text-white shadow-[0_18px_45px_rgba(15,23,42,0.18)] transition-colors hover:bg-[#b89455]"
                 >
                   {isJP ? "無料相談を予約" : "Book Free Consultation"}

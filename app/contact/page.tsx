@@ -72,12 +72,12 @@ export default function ContactPage() {
 
             <div className="mt-10 flex flex-col items-center gap-3">
               <a
-                href="mailto:contact@example.com"
+                href="mailto:contact@hinodeya.ae"
                 className="inline-flex items-center justify-center rounded-full bg-[#c9a86c] px-12 py-3.5 text-xs font-semibold uppercase tracking-[0.2em] text-white shadow-[0_18px_45px_rgba(15,23,42,0.18)] transition-colors hover:bg-[#b89455]"
               >
                 {ctaLabel}
               </a>
-              <p className="text-sm text-slate-500">contact@example.com</p>
+              <p className="text-sm text-slate-500">contact@hinodeya.ae</p>
             </div>
           </div>
         </section>

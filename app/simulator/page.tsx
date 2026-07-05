@@ -531,7 +531,7 @@ export default function SimulatorPage() {
               className="mt-8 space-y-4"
               onSubmit={(e) => {
                 e.preventDefault();
-                window.location.href = "mailto:contact@omogroup.com";
+                window.location.href = "mailto:contact@hinodeya.ae";
               }}
             >
               <div className="grid gap-4 sm:grid-cols-2">
@@ -551,7 +551,7 @@ export default function SimulatorPage() {
                   <input
                     type="email"
                     className="mt-2 w-full rounded-2xl border border-slate-200 bg-white px-4 py-3 text-sm text-slate-900 shadow-sm outline-none placeholder:text-slate-400 focus:border-slate-300"
-                    placeholder="contact@omogroup.com"
+                    placeholder="contact@hinodeya.ae"
                   />
                 </label>
               </div>

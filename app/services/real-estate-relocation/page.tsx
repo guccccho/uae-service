@@ -114,7 +114,7 @@ export default function RealEstateRelocationPage() {
                   : "Share headcount, timing, and family profile, and we will outline a realistic relocation plan and cost expectations."}
               </p>
               <a
-                href="mailto:contact@example.com"
+                href="mailto:contact@hinodeya.ae"
                 className="mt-2 inline-flex items-center justify-center rounded-full bg-[#c9a86c] px-10 py-3 text-xs font-semibold uppercase tracking-[0.2em] text-white shadow-[0_18px_45px_rgba(15,23,42,0.18)] transition-colors hover:bg-[#b89455]"
               >
                 {ctaLabel}
