@@ -95,7 +95,7 @@ const content = {
         },
         {
           q: "どのような規模・業種の企業が対象ですか？",
-          a: "日本の中堅〜大企業を中心に、製造業、商社、テクノロジー企業など、BtoBビジネスを展開されている企業様からのご相談が多いです。その他の業種についても、お気軽にご相談ください。",
+          a: "ひとり社長から中堅、大企業まで様々な業種に対応しております。",
         },
       ],
     },
@@ -198,7 +198,7 @@ const content = {
         },
         {
           q: "What types of companies do you usually work with?",
-          a: "We primarily work with mid-sized and large Japanese and global companies in manufacturing, trading, and technology. If you are unsure whether your case fits, feel free to reach out and we can discuss it.",
+          a: "We support a wide range of industries — from sole founders and owner-managers to mid-sized and large enterprises.",
         },
       ],
     },
@@ -301,7 +301,7 @@ const content = {
         },
         {
           q: "ما أنواع الشركات التي تعملون معها عادةً؟",
-          a: "نعمل بشكل أساسي مع شركات يابانية وعالمية متوسطة وكبيرة في التصنيع والتجارة والتكنولوجيا. إذا لم تكونوا متأكدين من ملاءمة حالتكم، تواصلوا معنا لمناقشة ذلك.",
+          a: "ندعم مجموعة واسعة من القطاعات — من المؤسسين الفرديين ومديري الشركات إلى الشركات المتوسطة والكبيرة.",
         },
       ],
     },
@@ -677,11 +677,13 @@ export default function Home() {
                   key={item.q}
                   className="rounded-2xl bg-white/90 p-6 sm:p-7 shadow-[0_18px_45px_rgba(15,23,42,0.04)] ring-1 ring-slate-100/70 text-left"
                 >
-                  <h3 className="text-sm font-semibold tracking-[-0.01em] text-slate-900">
-                    {item.q}
+                  <h3 className="flex gap-1.5 text-sm font-semibold tracking-[-0.01em] text-slate-900">
+                    <span className="shrink-0 text-[#c9a86c]">Q.</span>
+                    <span>{item.q}</span>
                   </h3>
-                  <p className="mt-3 text-sm leading-[1.9] text-slate-600">
-                    {item.a}
+                  <p className="mt-3 flex gap-1.5 text-sm leading-[1.9] text-slate-600">
+                    <span className="shrink-0 font-semibold text-[#c9a86c]">A.</span>
+                    <span>{item.a}</span>
                   </p>
                 </div>
               ))}
