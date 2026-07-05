@@ -6,7 +6,7 @@ import { mediaItems } from "./media/data";
 
 const content = {
   jp: {
-    logo: "OMO GROUP",
+    logo: "HINODEYA",
     logoSub: "UAE Business Consulting",
     hero: {
       title: "UAE進出を、戦略から実行まで",
@@ -110,7 +110,7 @@ const content = {
     },
   },
   en: {
-    logo: "OMO GROUP",
+    logo: "HINODEYA",
     logoSub: "UAE Business Consulting",
     hero: {
       title: "Strategic UAE Market Entry",
@@ -314,7 +314,7 @@ export default function Home() {
               <p className="mt-8 text-sm leading-[2] text-slate-100/90 sm:text-base">
                 {isJP ? (
                   <>
-                    私たちOMO GROUPは、
+                    私たちHINODEYAは、
                     <br />
                     日本が誇る伝統と品質を世界へ届けるために
                     <br />
@@ -322,7 +322,7 @@ export default function Home() {
                   </>
                 ) : (
                   <>
-                    OMO GROUP exists to bring Japan&apos;s craftsmanship and
+                    HINODEYA exists to bring Japan&apos;s craftsmanship and
                     quality to customers around the world.
                     <br />
                     From brands rooted in tradition to new innovations, we
