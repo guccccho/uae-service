@@ -1036,8 +1036,71 @@ export const FREE_ZONE_LABELS: Record<FreeZone, string> = {
 };
 
 export const RELOCATION_COST = { yes: 9000, no: 0 } as const;
-export const BANK_ACCOUNT_OPENING_COST = 5000;
-export const VISA_VIP_OPTION_COST = 5000;
+export const BANK_ACCOUNT_CORPORATE_COST = 6000;
+export const BANK_ACCOUNT_PERSONAL_COST = 5000;
+
+export type BankAccountOption = "no" | "corporate" | "personal";
+
+export const BANK_ACCOUNT_OPTIONS_NO_VISA: BankAccountOption[] = [
+  "no",
+  "corporate",
+];
+export const BANK_ACCOUNT_OPTIONS_WITH_VISA: BankAccountOption[] = [
+  "no",
+  "corporate",
+  "personal",
+];
+
+export function getBankAccountOptions(hasVisaQuota: boolean): BankAccountOption[] {
+  return hasVisaQuota
+    ? BANK_ACCOUNT_OPTIONS_WITH_VISA
+    : BANK_ACCOUNT_OPTIONS_NO_VISA;
+}
+
+export const BANK_ACCOUNT_CONFIG: Record<
+  BankAccountOption,
+  { cost: number; label: LangCopy; description: LangCopy }
+> = {
+  no: {
+    cost: 0,
+    label: {
+      jp: "口座サポートなし",
+      en: "No account support",
+      ar: "بدون دعم فتح حساب",
+    },
+    description: {
+      jp: "口座開設サポートは含みません。",
+      en: "Bank account opening support not included.",
+      ar: "دعم فتح الحساب البنكي غير مشمول.",
+    },
+  },
+  corporate: {
+    cost: BANK_ACCOUNT_CORPORATE_COST,
+    label: {
+      jp: "法人口座",
+      en: "Corporate account",
+      ar: "حساب الشركة",
+    },
+    description: {
+      jp: "法人口座開設のサポート付き。追加 AED 6,000。",
+      en: "Corporate bank account opening support. Additional AED 6,000.",
+      ar: "دعم فتح حساب بنكي للشركة. 6,000 درهم إضافية.",
+    },
+  },
+  personal: {
+    cost: BANK_ACCOUNT_PERSONAL_COST,
+    label: {
+      jp: "個人口座",
+      en: "Personal account",
+      ar: "حساب شخصي",
+    },
+    description: {
+      jp: "個人口座開設のサポート付き。追加 AED 5,000。※ビザ枠が1名以上必要です。",
+      en: "Personal bank account opening support. Additional AED 5,000. Requires at least one visa quota.",
+      ar: "دعم فتح حساب بنكي شخصي. 5,000 درهم إضافية. يتطلب حصة تأشيرة واحدة على الأقل.",
+    },
+  },
+};
 
 /** HINODEYA professional service fee (excl. government pass-through). Mid-market vs typical AED 3,000–8,000 setup consulting. */
 export const HINODEYA_SERVICE_BASE: Record<FreeZone, number> = {
@@ -1070,9 +1133,10 @@ export const RAKEZ_PRICING_NOTE: LangCopy = {
   ar: "حزمة SME (14,320 درهم) تشمل الترخيص وبطاقة التأسيس والتأشيرة والتأمين. تسجيل E-channel (2,200 درهم) وخطوات مماثلة تُفوتر بشكل منفصل؛ التكاليف المباشرة للسنة الأولى عند التأسيس الذاتي عادة حوالي 17,000 درهم. وديعة E-channel القابلة للاسترداد (5,050 درهم) غير مشمولة.",
 };
 
+export const VISA_VIP_OPTION_COST = 5000;
+
 export type Relocation = "yes" | "no";
 export type VisaSpeed = "standard" | "vip";
-export type BankAccountOption = "yes" | "no";
 
 export const VISA_SPEED_CONFIG = {
   standard: {
@@ -1105,29 +1169,6 @@ export const VISA_SPEED_CONFIG = {
       en: "Priority processing option. Additional AED 5,000.",
 
       ar: "خيار المعالجة الأولوية. 5,000 درهم إضافية.",
-    },
-  },
-} as const;
-
-export const BANK_ACCOUNT_CONFIG = {
-  yes: {
-    cost: BANK_ACCOUNT_OPENING_COST,
-    label: { jp: "口座開設サポートあり", en: "Bank account opening support", ar: "دعم فتح الحساب البنكي" },
-    description: {
-      jp: "法人口座開設のサポート付き。追加 AED 5,000。",
-      en: "Corporate bank account opening support. Additional AED 5,000.",
-
-      ar: "دعم فتح حساب بنكي للشركة. 5,000 درهم إضافية.",
-    },
-  },
-  no: {
-    cost: 0,
-    label: { jp: "なし", en: "Not included", ar: "غير مشمول" },
-    description: {
-      jp: "口座開設サポートは含みません。",
-      en: "Bank account opening support not included.",
-
-      ar: "دعم فتح الحساب البنكي غير مشمول.",
     },
   },
 } as const;

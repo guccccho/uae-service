@@ -17,6 +17,7 @@ import {
 } from "./activities";
 import {
   BANK_ACCOUNT_CONFIG,
+  getBankAccountOptions,
   FREE_ZONE_CONFIGS,
   FREE_ZONE_LABELS,
   VISA_SPEED_CONFIG,
@@ -26,7 +27,6 @@ import {
   rankZonesByActivity,
   HINODEYA_SERVICE_NOTE,
   RAKEZ_PRICING_NOTE,
-  type BankAccountOption,
   type FreeZone,
   type Relocation,
   type SimulatorSelections,
@@ -406,8 +406,8 @@ function buildMailto(
     breakdown.visaProcessingDays > 0
       ? `${l.visa}: ${breakdown.visaProcessingDays} ${l.days}${selections.visaSpeed === "vip" ? " (VIP)" : ""}`
       : "",
-    selections.bankAccount === "yes"
-      ? `${l.bank}: +${formatAED(BANK_ACCOUNT_CONFIG.yes.cost)} AED`
+    selections.bankAccount !== "no"
+      ? `${l.bank}: ${pickLang(BANK_ACCOUNT_CONFIG[selections.bankAccount].label, lang)} (+${formatAED(BANK_ACCOUNT_CONFIG[selections.bankAccount].cost)} AED)`
       : "",
     localAttend ? `${l.attend}: ${l.attendYes}` : "",
   ]
@@ -526,10 +526,18 @@ export default function SimulatorPage() {
     }
   }, [visaQuotaActive, selections.visaSpeed]);
 
+  useEffect(() => {
+    if (!visaQuotaActive && selections.bankAccount === "personal") {
+      setSelections((p) => ({ ...p, bankAccount: "no" }));
+    }
+  }, [visaQuotaActive, selections.bankAccount]);
+
   const optimizedZones = useMemo(
     () => rankZonesByActivity(selections),
     [selections],
   );
+
+  const bankAccountOptions = getBankAccountOptions(visaQuotaActive);
 
   const selectedLicenseType = zoneConfig.licenseTypes.find(
     (l) => l.id === selections.companyType,
@@ -731,13 +739,22 @@ export default function SimulatorPage() {
                   <div>
                     <p className="text-xs font-semibold uppercase tracking-[0.16em] text-slate-500">{t.labels.bankAccount}</p>
                     <div className="mt-3 flex flex-wrap gap-2">
-                      {(["no", "yes"] as BankAccountOption[]).map((k) => (
+                      {bankAccountOptions.map((k) => (
                         <PillButton key={k} active={selections.bankAccount === k} onClick={() => updateSelection("bankAccount", k)}>
                           {pickLang(BANK_ACCOUNT_CONFIG[k].label, lang)}
                         </PillButton>
                       ))}
                     </div>
                     <OptionDescription description={BANK_ACCOUNT_CONFIG[selections.bankAccount].description} />
+                    {!visaQuotaActive && (
+                      <p className="mt-2 text-[11px] leading-relaxed text-slate-500">
+                        {lang === "jp"
+                          ? "※ビザ枠なしの場合、個人口座は開設できません。"
+                          : lang === "ar"
+                            ? "※بدون حصة تأشيرة، لا يمكن فتح حساب شخصي."
+                            : "※Without a visa quota, a personal account cannot be opened."}
+                      </p>
+                    )}
                   </div>
                 </div>
                 <p className="mt-8 text-[11px] leading-relaxed text-slate-400">{t.sourceNote}</p>
@@ -779,7 +796,10 @@ export default function SimulatorPage() {
                     ? [{ label: t.breakdown.relocation, value: breakdown.relocationCost }]
                     : []),
                   ...(breakdown.bankAccountCost > 0
-                    ? [{ label: t.breakdown.bankAccount, value: breakdown.bankAccountCost }]
+                    ? [{
+                        label: pickLang(BANK_ACCOUNT_CONFIG[selections.bankAccount].label, lang),
+                        value: breakdown.bankAccountCost,
+                      }]
                     : []),
                 ].map((row) => (
                   <div key={row.label} className="flex items-center justify-between">
