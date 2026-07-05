@@ -1,16 +1,19 @@
 "use client";
 
-import React, { useMemo, useRef, useState } from "react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 import { useLang } from "../lang-context";
+import {
+  AED_TO_JPY,
+  FREE_ZONE_CONFIGS,
+  FREE_ZONE_LABELS,
+  calculateZoneCost,
+  getDefaultSelections,
+  rankZonesByCost,
+  type FreeZone,
+  type Relocation,
+  type SimulatorSelections,
+} from "./data";
 
-type FreeZone = "dmcc" | "ifza" | "meydan" | "rakez" | "spc";
-type CompanyType = "freeZone" | "mainland" | "branch";
-type VisaOption = "1" | "2_3" | "5_plus";
-type OfficeType = "flex" | "small" | "full";
-type BusinessType = "consulting" | "trading" | "it" | "restaurant" | "startup";
-type Relocation = "yes" | "no";
-
-const AED_TO_JPY = 40;
 const GOLD = "#C8A46A";
 
 const TEXT = {
@@ -19,6 +22,7 @@ const TEXT = {
     freeZoneDescription:
       "フリーゾーンによってライセンス費用、オフィス条件、ビザ費用が異なります。",
     conditionsTitle: "前提条件を選択してください",
+    sourceNote: "料金は各フリーゾーン公式情報（2024〜2026年）に基づく概算です。",
     labels: {
       companyType: "法人形態",
       visas: "ビザ人数",
@@ -28,10 +32,11 @@ const TEXT = {
     },
     resultTitle: "推定設立費用",
     breakdown: {
-      license: "ライセンス費用",
-      registration: "レジストレーション費用",
+      license: "ライセンス / パッケージ",
+      registration: "登録・定款費用",
+      establishment: "エスタブリッシュメントカード",
       visas: "ビザ関連費用",
-      office: "オフィス費用",
+      office: "オフィス追加費用",
       relocation: "リロケーションサポート",
       total: "推定合計コスト",
     },
@@ -43,36 +48,37 @@ const TEXT = {
     ctaButton: "この条件で無料相談する",
     contact: {
       title: "無料相談フォーム",
-      body:
-        "シミュレーション結果を前提に、条件整理・必要書類・進出スケジュールの目安をご案内します。",
+      body: "シミュレーション結果を前提に、条件整理・必要書類・進出スケジュールの目安をご案内します。",
       submit: "送信（メールを起動）",
-      note:
-        "※送信ボタンを押すとメールアプリが起動します（フォーム送信の保存は行いません）。",
+      note: "※送信ボタンを押すとメールアプリが起動します（フォーム送信の保存は行いません）。",
       fields: {
         name: "お名前",
         email: "メールアドレス",
         message: "ご相談内容（任意）",
       },
     },
+    relocation: { yes: "必要", no: "不要" },
   },
   en: {
     freeZoneTitle: "Select a Free Zone",
     freeZoneDescription:
       "Costs vary by free zone, including license fees, office requirements, and visa-related expenses.",
     conditionsTitle: "Select your setup assumptions",
+    sourceNote: "Estimates based on each free zone's official pricing (2024–2026).",
     labels: {
-      companyType: "Entity type",
-      visas: "Number of visas",
+      companyType: "Legal entity type",
+      visas: "Visa quota",
       office: "Office type",
-      business: "Business type",
+      business: "Business activity",
       relocation: "Relocation support",
     },
     resultTitle: "Estimated setup cost",
     breakdown: {
-      license: "License",
-      registration: "Registration",
+      license: "Licence / package",
+      registration: "Registration & MOA",
+      establishment: "Establishment card",
       visas: "Visa-related",
-      office: "Office",
+      office: "Office upgrade",
       relocation: "Relocation support",
       total: "Estimated total",
     },
@@ -84,130 +90,18 @@ const TEXT = {
     ctaButton: "Book a free consultation",
     contact: {
       title: "Free consultation",
-      body:
-        "Using your simulation result as a baseline, we can help clarify requirements, documents, and a high-level timeline.",
+      body: "Using your simulation result as a baseline, we can help clarify requirements, documents, and a high-level timeline.",
       submit: "Send (opens email)",
-      note:
-        "Submitting opens your email client. We do not store form submissions on this website.",
+      note: "Submitting opens your email client. We do not store form submissions on this website.",
       fields: {
         name: "Name",
         email: "Email",
         message: "Message (optional)",
       },
     },
+    relocation: { yes: "Yes", no: "No" },
   },
 } as const;
-
-const LABELS = {
-  freeZones: {
-    dmcc: "DMCC",
-    ifza: "IFZA",
-    meydan: "Meydan",
-    rakez: "RAKEZ",
-    spc: "SPC",
-  },
-  companyType: {
-    jp: {
-      freeZone: "フリーゾーンカンパニー",
-      mainland: "メインランド",
-      branch: "支店（ブランチ）",
-    },
-    en: {
-      freeZone: "Free zone company",
-      mainland: "Mainland",
-      branch: "Branch",
-    },
-  },
-  visas: {
-    jp: {
-      "1": "1名",
-      "2_3": "2〜3名",
-      "5_plus": "5名以上",
-    },
-    en: {
-      "1": "1",
-      "2_3": "2–3",
-      "5_plus": "5+",
-    },
-  },
-  office: {
-    jp: {
-      flex: "フレキシデスク",
-      small: "小規模オフィス",
-      full: "プライベートオフィス",
-    },
-    en: {
-      flex: "Flex desk",
-      small: "Small office",
-      full: "Private office",
-    },
-  },
-  business: {
-    jp: {
-      consulting: "コンサルティング",
-      trading: "トレーディング",
-      it: "IT / テック",
-      restaurant: "レストラン",
-      startup: "スタートアップ",
-    },
-    en: {
-      consulting: "Consulting",
-      trading: "Trading",
-      it: "IT / Tech",
-      restaurant: "Restaurant",
-      startup: "Startup",
-    },
-  },
-  relocation: {
-    jp: {
-      yes: "必要",
-      no: "不要",
-    },
-    en: {
-      yes: "Yes",
-      no: "No",
-    },
-  },
-} as const;
-
-const COSTS = {
-  dmcc: { license: 20000, registration: 9000, office: 20000, visa: 6000 },
-  ifza: { license: 12000, registration: 0, office: 8000, visa: 4500 },
-  meydan: { license: 15000, registration: 0, office: 10000, visa: 5000 },
-  rakez: { license: 11000, registration: 0, office: 6000, visa: 4000 },
-  spc: { license: 10500, registration: 0, office: 5500, visa: 4000 },
-} as const satisfies Record<
-  FreeZone,
-  { license: number; registration: number; office: number; visa: number }
->;
-
-const COMPANY_TYPE_ADJ: Record<CompanyType, number> = {
-  freeZone: 0,
-  mainland: 5000,
-  branch: 3000,
-};
-
-const VISA_MULTIPLIER: Record<VisaOption, number> = {
-  "1": 1,
-  "2_3": 2.5,
-  "5_plus": 5,
-};
-
-const OFFICE_MULTIPLIER: Record<OfficeType, number> = {
-  flex: 1,
-  small: 1.6,
-  full: 2.6,
-};
-
-const BUSINESS_ADJ: Record<BusinessType, number> = {
-  consulting: 0,
-  trading: 4000,
-  it: 3000,
-  restaurant: 7000,
-  startup: 2000,
-};
-
-const RELOCATION_COST: Record<Relocation, number> = { yes: 9000, no: 0 };
 
 function formatAED(value: number) {
   return value.toLocaleString("en-US");
@@ -242,46 +136,64 @@ function PillButton({
   );
 }
 
+function OptionDescription({
+  description,
+}: {
+  description: { jp: string; en: string };
+}) {
+  const { lang } = useLang();
+  return (
+    <p className="mt-2 text-xs leading-relaxed text-slate-500">
+      {description[lang]}
+    </p>
+  );
+}
+
 export default function SimulatorPage() {
   const { lang, setLang } = useLang();
   const t = TEXT[lang];
   const contactRef = useRef<HTMLDivElement | null>(null);
 
   const [freeZone, setFreeZone] = useState<FreeZone>("dmcc");
-  const [companyType, setCompanyType] = useState<CompanyType>("freeZone");
-  const [visas, setVisas] = useState<VisaOption>("1");
-  const [officeType, setOfficeType] = useState<OfficeType>("flex");
-  const [businessType, setBusinessType] = useState<BusinessType>("consulting");
-  const [relocation, setRelocation] = useState<Relocation>("no");
+  const [selections, setSelections] = useState<SimulatorSelections>(() =>
+    getDefaultSelections("dmcc"),
+  );
 
-  const calcForZone = (zone: FreeZone) => {
-    const base = COSTS[zone];
-    const license =
-      base.license + COMPANY_TYPE_ADJ[companyType] + BUSINESS_ADJ[businessType];
-    const registration = base.registration;
-    const visa = base.visa * VISA_MULTIPLIER[visas];
-    const office = base.office * OFFICE_MULTIPLIER[officeType];
-    const relocationCost = RELOCATION_COST[relocation];
-    const total = license + registration + visa + office + relocationCost;
-    return { license, registration, visa, office, relocationCost, total };
+  const zoneConfig = FREE_ZONE_CONFIGS[freeZone];
+
+  useEffect(() => {
+    setSelections(getDefaultSelections(freeZone));
+  }, [freeZone]);
+
+  const updateSelection = <K extends keyof SimulatorSelections>(
+    key: K,
+    value: SimulatorSelections[K],
+  ) => {
+    setSelections((prev) => ({ ...prev, [key]: value }));
   };
 
-  const breakdown = useMemo(() => calcForZone(freeZone), [
-    freeZone,
-    companyType,
-    visas,
-    officeType,
-    businessType,
-    relocation,
-  ]);
+  const breakdown = useMemo(
+    () => calculateZoneCost(freeZone, selections),
+    [freeZone, selections],
+  );
 
-  const cheapestZones = useMemo(() => {
-    const zones: FreeZone[] = ["dmcc", "ifza", "meydan", "rakez", "spc"];
-    const ranked = zones
-      .map((z) => ({ zone: z, total: calcForZone(z).total }))
-      .sort((a, b) => a.total - b.total);
-    return ranked.slice(0, 2).map((r) => r.zone);
-  }, [companyType, visas, officeType, businessType, relocation]);
+  const cheapestZones = useMemo(
+    () => rankZonesByCost(selections).slice(0, 2).map((r) => r.zone),
+    [selections],
+  );
+
+  const selectedLicenseType = zoneConfig.licenseTypes.find(
+    (l) => l.id === selections.companyType,
+  );
+  const selectedVisa = zoneConfig.visaPackages.find(
+    (v) => v.id === selections.visas,
+  );
+  const selectedOffice = zoneConfig.officeTypes.find(
+    (o) => o.id === selections.office,
+  );
+  const selectedBusiness = zoneConfig.businessActivities.find(
+    (b) => b.id === selections.business,
+  );
 
   const totalJPY = Math.round(breakdown.total * AED_TO_JPY);
 
@@ -356,15 +268,30 @@ export default function SimulatorPage() {
                   {t.freeZoneTitle}
                 </p>
                 <p className="mt-2 text-xs text-slate-500">
-                  {t.freeZoneDescription}
+                  {zoneConfig.overview[lang]}
                 </p>
                 <div className="mt-4 flex flex-wrap gap-2">
-                  {(Object.keys(LABELS.freeZones) as FreeZone[]).map((z) => (
-                    <PillButton key={z} active={freeZone === z} onClick={() => setFreeZone(z)}>
-                      {LABELS.freeZones[z]}
+                  {(Object.keys(FREE_ZONE_LABELS) as FreeZone[]).map((z) => (
+                    <PillButton
+                      key={z}
+                      active={freeZone === z}
+                      onClick={() => setFreeZone(z)}
+                    >
+                      {FREE_ZONE_LABELS[z]}
                     </PillButton>
                   ))}
                 </div>
+                <p className="mt-3 text-[11px] text-slate-400">
+                  {lang === "jp" ? "出典: " : "Source: "}
+                  <a
+                    href={zoneConfig.sourceUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="underline-offset-2 hover:underline"
+                  >
+                    {zoneConfig.sourceLabel[lang]}
+                  </a>
+                </p>
               </div>
 
               <h2 className="mt-10 text-sm font-semibold tracking-[0.16em] text-slate-900 uppercase">
@@ -377,12 +304,21 @@ export default function SimulatorPage() {
                     {t.labels.companyType}
                   </p>
                   <div className="mt-3 flex flex-wrap gap-2">
-                    {(Object.keys(LABELS.companyType) as CompanyType[]).map((k) => (
-                      <PillButton key={k} active={companyType === k} onClick={() => setCompanyType(k)}>
-                        {LABELS.companyType[lang][k]}
+                    {zoneConfig.licenseTypes.map((option) => (
+                      <PillButton
+                        key={option.id}
+                        active={selections.companyType === option.id}
+                        onClick={() =>
+                          updateSelection("companyType", option.id)
+                        }
+                      >
+                        {option.label[lang]}
                       </PillButton>
                     ))}
                   </div>
+                  {selectedLicenseType && (
+                    <OptionDescription description={selectedLicenseType.description} />
+                  )}
                 </div>
 
                 <div>
@@ -390,12 +326,19 @@ export default function SimulatorPage() {
                     {t.labels.visas}
                   </p>
                   <div className="mt-3 flex flex-wrap gap-2">
-                    {(Object.keys(LABELS.visas) as VisaOption[]).map((k) => (
-                      <PillButton key={k} active={visas === k} onClick={() => setVisas(k)}>
-                        {LABELS.visas[lang][k]}
+                    {zoneConfig.visaPackages.map((option) => (
+                      <PillButton
+                        key={option.id}
+                        active={selections.visas === option.id}
+                        onClick={() => updateSelection("visas", option.id)}
+                      >
+                        {option.label[lang]}
                       </PillButton>
                     ))}
                   </div>
+                  {selectedVisa && (
+                    <OptionDescription description={selectedVisa.description} />
+                  )}
                 </div>
 
                 <div>
@@ -403,12 +346,19 @@ export default function SimulatorPage() {
                     {t.labels.office}
                   </p>
                   <div className="mt-3 flex flex-wrap gap-2">
-                    {(Object.keys(LABELS.office) as OfficeType[]).map((k) => (
-                      <PillButton key={k} active={officeType === k} onClick={() => setOfficeType(k)}>
-                        {LABELS.office[lang][k]}
+                    {zoneConfig.officeTypes.map((option) => (
+                      <PillButton
+                        key={option.id}
+                        active={selections.office === option.id}
+                        onClick={() => updateSelection("office", option.id)}
+                      >
+                        {option.label[lang]}
                       </PillButton>
                     ))}
                   </div>
+                  {selectedOffice && (
+                    <OptionDescription description={selectedOffice.description} />
+                  )}
                 </div>
 
                 <div>
@@ -416,12 +366,19 @@ export default function SimulatorPage() {
                     {t.labels.business}
                   </p>
                   <div className="mt-3 flex flex-wrap gap-2">
-                    {(Object.keys(LABELS.business) as BusinessType[]).map((k) => (
-                      <PillButton key={k} active={businessType === k} onClick={() => setBusinessType(k)}>
-                        {LABELS.business[lang][k]}
+                    {zoneConfig.businessActivities.map((option) => (
+                      <PillButton
+                        key={option.id}
+                        active={selections.business === option.id}
+                        onClick={() => updateSelection("business", option.id)}
+                      >
+                        {option.label[lang]}
                       </PillButton>
                     ))}
                   </div>
+                  {selectedBusiness && (
+                    <OptionDescription description={selectedBusiness.description} />
+                  )}
                 </div>
 
                 <div>
@@ -429,26 +386,38 @@ export default function SimulatorPage() {
                     {t.labels.relocation}
                   </p>
                   <div className="mt-3 flex flex-wrap gap-2">
-                    {(Object.keys(LABELS.relocation) as Relocation[]).map((k) => (
-                      <PillButton key={k} active={relocation === k} onClick={() => setRelocation(k)}>
-                        {LABELS.relocation[lang][k]}
+                    {(["no", "yes"] as Relocation[]).map((k) => (
+                      <PillButton
+                        key={k}
+                        active={selections.relocation === k}
+                        onClick={() => updateSelection("relocation", k)}
+                      >
+                        {t.relocation[k]}
                       </PillButton>
                     ))}
                   </div>
                 </div>
               </div>
+
+              <p className="mt-8 text-[11px] leading-relaxed text-slate-400">
+                {t.sourceNote}
+              </p>
             </div>
 
             <aside className="rounded-2xl bg-white p-6 shadow-[0_18px_45px_rgba(15,23,42,0.06)] ring-1 ring-slate-100/70 sm:p-8 lg:sticky lg:top-6">
               <h2 className="text-sm font-semibold tracking-[0.16em] text-slate-900 uppercase">
                 {t.resultTitle}
               </h2>
+              <p className="mt-2 text-xs text-slate-500">
+                {FREE_ZONE_LABELS[freeZone]} — {zoneConfig.overview[lang]}
+              </p>
 
               <div className="mt-6 space-y-4 text-sm">
                 {[
                   { label: t.breakdown.license, value: breakdown.license },
                   { label: t.breakdown.registration, value: breakdown.registration },
-                  { label: t.breakdown.visas, value: breakdown.visa },
+                  { label: t.breakdown.establishment, value: breakdown.establishment },
+                  { label: t.breakdown.visas, value: breakdown.visas },
                   { label: t.breakdown.office, value: breakdown.office },
                   { label: t.breakdown.relocation, value: breakdown.relocationCost },
                 ].map((row) => (
@@ -480,7 +449,10 @@ export default function SimulatorPage() {
               </div>
 
               <div className="mt-8 rounded-2xl bg-slate-50/60 p-5 ring-1 ring-slate-100/70">
-                <p className="text-xs font-semibold uppercase tracking-[0.16em]" style={{ color: GOLD }}>
+                <p
+                  className="text-xs font-semibold uppercase tracking-[0.16em]"
+                  style={{ color: GOLD }}
+                >
                   {t.recommendationTitle}
                 </p>
                 <p className="mt-3 whitespace-pre-line text-xs leading-relaxed text-slate-600 sm:text-sm">
@@ -492,7 +464,7 @@ export default function SimulatorPage() {
                       key={z}
                       className="rounded-full border border-slate-200 bg-white px-3 py-1 text-xs font-semibold tracking-[0.14em] text-slate-800"
                     >
-                      {LABELS.freeZones[z]}
+                      {FREE_ZONE_LABELS[z]}
                     </span>
                   ))}
                 </div>
@@ -517,7 +489,10 @@ export default function SimulatorPage() {
       <section ref={contactRef} className="border-t border-[#f0ece5] bg-white">
         <div className="mx-auto max-w-6xl px-6 py-16 sm:px-10 lg:px-12">
           <div className="mx-auto max-w-3xl rounded-2xl bg-white p-8 shadow-[0_22px_60px_rgba(15,23,42,0.08)] ring-1 ring-slate-100/70 sm:p-12">
-            <p className="text-xs font-medium uppercase tracking-[0.35em]" style={{ color: GOLD }}>
+            <p
+              className="text-xs font-medium uppercase tracking-[0.35em]"
+              style={{ color: GOLD }}
+            >
               CONTACT
             </p>
             <h2 className="mt-4 text-2xl font-light tracking-[-0.03em] text-slate-900 sm:text-3xl">
