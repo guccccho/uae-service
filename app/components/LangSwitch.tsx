@@ -3,7 +3,7 @@
 import React from "react";
 import { LANGS, type Lang } from "../i18n";
 
-const GOLD = "#c9a86c";
+const BRAND = "#bc002d";
 
 type Props = {
   lang: Lang;
@@ -27,7 +27,7 @@ export function LangSwitch({ lang, setLang, className = "" }: Props) {
                 ? "text-white"
                 : "text-slate-500 hover:text-slate-800"
             }`}
-            style={lang === item.id ? { backgroundColor: GOLD } : undefined}
+            style={lang === item.id ? { backgroundColor: BRAND } : undefined}
             aria-pressed={lang === item.id}
           >
             {item.label}

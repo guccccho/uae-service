@@ -10,7 +10,7 @@ import {
   type ZoneMediaConfig,
 } from "./zone-media";
 
-const GOLD = "#c9a86c";
+const BRAND = "#bc002d";
 
 const OFFICIAL_SITE: LangCopy = {
   jp: "公式サイト →",
@@ -124,7 +124,7 @@ export default function ZoneShowcase({ zone, lang, compact = false }: Props) {
           target="_blank"
           rel="noopener noreferrer"
           className="shrink-0 text-[11px] font-medium underline-offset-2 hover:underline"
-          style={{ color: GOLD }}
+          style={{ color: BRAND }}
         >
           {pickLang(OFFICIAL_SITE, lang)}
         </a>
@@ -137,7 +137,7 @@ export default function ZoneShowcase({ zone, lang, compact = false }: Props) {
             href={image.sourceUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="group overflow-hidden rounded-lg bg-white ring-1 ring-slate-200/80 transition hover:ring-[#c9a86c]/40"
+            className="group overflow-hidden rounded-lg bg-white ring-1 ring-slate-200/80 transition hover:ring-brand/40"
           >
             <div className="aspect-[4/3] overflow-hidden bg-slate-100">
               <img

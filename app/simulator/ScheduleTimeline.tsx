@@ -5,7 +5,7 @@ import { pickLang, type LangCopy } from "../i18n";
 import { getAcquisitionSchedule } from "./schedule";
 import type { VisaSpeed } from "./data";
 
-const GOLD = "#C8A46A";
+const BRAND = "#bc002d";
 
 const ATTEND_DETAIL: LangCopy = {
   jp: "詳細・料金は無料相談時にご案内します。",
@@ -37,7 +37,7 @@ export function VisaAcquisitionSchedule({
     <div className="mt-8 rounded-2xl bg-slate-50/60 p-5 ring-1 ring-slate-100/70">
       <p
         className="text-xs font-semibold uppercase tracking-[0.16em]"
-        style={{ color: GOLD }}
+        style={{ color: BRAND }}
       >
         {pickLang(schedule.title, lang)}
       </p>
@@ -62,7 +62,7 @@ export function VisaAcquisitionSchedule({
                     ? "border border-slate-300 bg-white text-slate-500"
                     : "border border-slate-200 bg-white text-slate-700"
               }`}
-              style={step.highlight ? { backgroundColor: GOLD } : undefined}
+              style={step.highlight ? { backgroundColor: BRAND } : undefined}
             >
               {index + 1}
             </div>
@@ -95,7 +95,7 @@ export function VisaAcquisitionSchedule({
               type="checkbox"
               checked={attendSelected}
               onChange={(e) => onAttendChange(e.target.checked)}
-              className="mt-1 h-4 w-4 rounded border-slate-300 text-[#c9a86c] focus:ring-[#c9a86c]"
+              className="mt-1 h-4 w-4 rounded border-slate-300 text-brand focus:ring-brand"
             />
             <span className="text-xs text-slate-700">
               <span className="font-medium">{pickLang(schedule.attendOption, lang)}</span>

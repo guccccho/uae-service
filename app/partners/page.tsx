@@ -99,7 +99,7 @@ export default function PartnersPage() {
 
   return (
     <div className="min-h-screen bg-white text-slate-900 antialiased">
-      <header className="border-b border-[#f0ece5]">
+      <header className="border-b border-[#f0e4e6]">
         <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-6 sm:px-10 lg:px-12">
           <div className="text-xs font-semibold uppercase tracking-[0.26em] text-slate-800">
             UAE Business Consulting
@@ -130,7 +130,7 @@ export default function PartnersPage() {
                   href={partner.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex min-h-14 min-w-[170px] items-center justify-center rounded-2xl border border-slate-100 bg-slate-50/80 px-6 py-4 transition-colors hover:border-[#c9a86c]/50 hover:bg-white sm:min-w-[190px]"
+                  className="flex min-h-14 min-w-[170px] items-center justify-center rounded-2xl border border-slate-100 bg-slate-50/80 px-6 py-4 transition-colors hover:border-brand/50 hover:bg-white sm:min-w-[190px]"
                   aria-label={partner.name}
                 >
                   <img
@@ -149,7 +149,7 @@ export default function PartnersPage() {
                 key={card.title}
                 className="rounded-2xl bg-white/90 p-7 shadow-[0_18px_45px_rgba(15,23,42,0.05)] ring-1 ring-slate-100/70"
               >
-                <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[#c9a86c]">
+                <p className="text-xs font-semibold uppercase tracking-[0.2em] text-brand">
                   {card.title}
                 </p>
                 <p className="mt-3 text-sm leading-[1.8] text-slate-600">
@@ -162,10 +162,10 @@ export default function PartnersPage() {
 
         <GovernmentPortalsSection lang={lang} />
 
-        <section className="border-t border-[#f0ece5]">
+        <section className="border-t border-[#f0e4e6]">
           <div className="mx-auto max-w-3xl px-6 sm:px-10 lg:px-12 py-14 sm:py-16 lg:py-20">
             <div className="flex flex-col items-center text-center gap-5">
-              <p className="text-xs font-medium uppercase tracking-[0.3em] text-[#c9a86c]">
+              <p className="text-xs font-medium uppercase tracking-[0.3em] text-brand">
                 {t.ctaEyebrow}
               </p>
               <p className="text-base leading-[1.9] text-slate-600">
@@ -173,7 +173,7 @@ export default function PartnersPage() {
               </p>
               <a
                 href="mailto:contact@hinodeya.ae"
-                className="mt-2 inline-flex items-center justify-center rounded-full bg-[#c9a86c] px-10 py-3 text-xs font-semibold uppercase tracking-[0.2em] text-white shadow-[0_18px_45px_rgba(15,23,42,0.18)] transition-colors hover:bg-[#b89455]"
+                className="mt-2 inline-flex items-center justify-center rounded-full bg-brand px-10 py-3 text-xs font-semibold uppercase tracking-[0.2em] text-white shadow-[0_18px_45px_rgba(15,23,42,0.18)] transition-colors hover:bg-brand-hover"
               >
                 {t.ctaLabel}
               </a>

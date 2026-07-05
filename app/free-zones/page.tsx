@@ -320,7 +320,7 @@ export default function FreeZonesPage() {
 
   return (
     <div className="min-h-screen bg-white text-slate-900 antialiased">
-      <header className="border-b border-[#f0ece5]">
+      <header className="border-b border-[#f0e4e6]">
         <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-6 sm:px-10 lg:px-12">
           <div className="text-xs font-semibold uppercase tracking-[0.26em] text-slate-800">
             UAE Business Consulting
@@ -330,7 +330,7 @@ export default function FreeZonesPage() {
       </header>
 
       <main>
-        <section className="border-b border-[#f0ece5] bg-white">
+        <section className="border-b border-[#f0e4e6] bg-white">
           <div className="mx-auto max-w-6xl px-6 sm:px-10 lg:px-12 py-24 sm:py-28 lg:py-32">
             <div className="mx-auto max-w-3xl text-center">
               <h1 className="text-4xl font-light tracking-[-0.05em] text-slate-900 sm:text-5xl lg:text-6xl">
@@ -343,10 +343,10 @@ export default function FreeZonesPage() {
           </div>
         </section>
 
-        <section className="border-b border-[#f0ece5] bg-slate-50/40">
+        <section className="border-b border-[#f0e4e6] bg-slate-50/40">
           <div className="mx-auto max-w-6xl px-6 sm:px-10 lg:px-12 py-20 sm:py-24 lg:py-28">
             <div className="mx-auto max-w-3xl text-center">
-              <p className="text-xs font-medium uppercase tracking-[0.3em] text-[#c9a86c]">
+              <p className="text-xs font-medium uppercase tracking-[0.3em] text-brand">
                 {t.tableEyebrow}
               </p>
               <p className="mt-4 text-sm leading-relaxed text-slate-600 sm:text-base">
@@ -385,11 +385,11 @@ export default function FreeZonesPage() {
           </div>
         </section>
 
-        <section className="border-b border-[#f0ece5] bg-white">
+        <section className="border-b border-[#f0e4e6] bg-white">
           <div className="mx-auto max-w-6xl px-6 sm:px-10 lg:px-12 py-20 sm:py-24 lg:py-28">
             <div className="grid gap-10 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,1fr)] lg:items-center">
               <div>
-                <p className="text-xs font-medium uppercase tracking-[0.3em] text-[#c9a86c]">
+                <p className="text-xs font-medium uppercase tracking-[0.3em] text-brand">
                   DMCC
                 </p>
                 <h2 className="mt-4 text-2xl font-light tracking-[-0.04em] text-slate-900 sm:text-3xl">
@@ -416,11 +416,11 @@ export default function FreeZonesPage() {
           </div>
         </section>
 
-        <section className="border-b border-[#f0ece5] bg-slate-50/40">
+        <section className="border-b border-[#f0e4e6] bg-slate-50/40">
           <div className="mx-auto max-w-6xl px-6 sm:px-10 lg:px-12 py-20 sm:py-24 lg:py-28">
             <div className="grid gap-10 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,1fr)] lg:items-center">
               <div>
-                <p className="text-xs font-medium uppercase tracking-[0.3em] text-[#c9a86c]">
+                <p className="text-xs font-medium uppercase tracking-[0.3em] text-brand">
                   RAKEZ
                 </p>
                 <h2 className="mt-4 text-2xl font-light tracking-[-0.04em] text-slate-900 sm:text-3xl">
@@ -447,10 +447,10 @@ export default function FreeZonesPage() {
           </div>
         </section>
 
-        <section className="border-b border-[#f0ece5] bg-white">
+        <section className="border-b border-[#f0e4e6] bg-white">
           <div className="mx-auto max-w-6xl px-6 sm:px-10 lg:px-12 py-20 sm:py-24 lg:py-28">
             <div className="mx-auto max-w-3xl text-center">
-              <p className="text-xs font-medium uppercase tracking-[0.3em] text-[#c9a86c]">
+              <p className="text-xs font-medium uppercase tracking-[0.3em] text-brand">
                 {t.recommendEyebrow}
               </p>
               <h2 className="mt-4 text-2xl font-light tracking-[-0.04em] text-slate-900 sm:text-3xl">
@@ -469,7 +469,7 @@ export default function FreeZonesPage() {
         <section className="bg-white">
           <div className="mx-auto max-w-5xl px-6 sm:px-10 lg:px-12 py-24 sm:py-28 lg:py-32">
             <div className="flex flex-col items-center text-center gap-6">
-              <p className="text-xs font-medium uppercase tracking-[0.3em] text-[#c9a86c]">
+              <p className="text-xs font-medium uppercase tracking-[0.3em] text-brand">
                 {t.ctaEyebrow}
               </p>
               <p className="max-w-3xl text-base leading-[1.9] text-slate-600 sm:text-lg">
@@ -484,7 +484,7 @@ export default function FreeZonesPage() {
                 </a>
                 <a
                   href="mailto:contact@hinodeya.ae"
-                  className="inline-flex items-center justify-center rounded-full bg-[#c9a86c] px-10 py-3.5 text-xs font-semibold uppercase tracking-[0.2em] text-white shadow-[0_18px_45px_rgba(15,23,42,0.18)] transition-colors hover:bg-[#b89455]"
+                  className="inline-flex items-center justify-center rounded-full bg-brand px-10 py-3.5 text-xs font-semibold uppercase tracking-[0.2em] text-white shadow-[0_18px_45px_rgba(15,23,42,0.18)] transition-colors hover:bg-brand-hover"
                 >
                   {t.ctaConsult}
                 </a>

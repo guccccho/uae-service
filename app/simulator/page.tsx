@@ -35,7 +35,7 @@ import {
 import { VisaAcquisitionSchedule } from "./ScheduleTimeline";
 import ZoneShowcase, { ZoneLogo } from "./ZoneShowcase";
 
-const GOLD = "#C8A46A";
+const BRAND = "#bc002d";
 const FALLBACK_AED_JPY = 40;
 
 type ExchangeRateData = {
@@ -288,7 +288,7 @@ function PillButton({
             ? "text-white"
             : "border-slate-200 bg-white text-slate-700 hover:border-slate-300"
       }`}
-      style={active && !disabled ? { backgroundColor: GOLD, borderColor: GOLD } : undefined}
+      style={active && !disabled ? { backgroundColor: BRAND, borderColor: BRAND } : undefined}
     >
       {children}
     </button>
@@ -545,7 +545,7 @@ export default function SimulatorPage() {
 
   return (
     <main className="min-h-screen bg-white text-slate-900 antialiased">
-      <header className="border-b border-[#f0ece5] bg-white">
+      <header className="border-b border-[#f0e4e6] bg-white">
         <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-6 sm:px-10 lg:px-12">
           <a href="/" className="text-xs font-semibold uppercase tracking-[0.26em] text-slate-800 hover:text-slate-900">
             HINODEYA UAE Consulting
@@ -562,7 +562,7 @@ export default function SimulatorPage() {
         </div>
       </header>
 
-      <section className="border-b border-[#f0ece5] bg-white">
+      <section className="border-b border-[#f0e4e6] bg-white">
         <div className="mx-auto max-w-6xl px-6 py-14 sm:px-10 lg:px-12 lg:py-20">
           <div className="mx-auto max-w-3xl text-center">
             <h1 className="text-3xl font-light tracking-[-0.04em] text-slate-900 sm:text-4xl lg:text-5xl">
@@ -839,7 +839,7 @@ export default function SimulatorPage() {
               </div>
 
               <div className="mt-8 rounded-2xl bg-slate-50/60 p-5 ring-1 ring-slate-100/70">
-                <p className="text-xs font-semibold uppercase tracking-[0.16em]" style={{ color: GOLD }}>{t.recommendationTitle}</p>
+                <p className="text-xs font-semibold uppercase tracking-[0.16em]" style={{ color: BRAND }}>{t.recommendationTitle}</p>
                 <p className="mt-3 text-xs leading-relaxed text-slate-600 sm:text-sm">{t.recommendationBody}</p>
                 <div className="mt-4 space-y-3">
                   {optimizedZones.map((rec) => (
@@ -848,7 +848,7 @@ export default function SimulatorPage() {
                       type="button"
                       onClick={() => setFreeZone(rec.zone)}
                       className={`flex w-full items-center justify-between gap-3 rounded-xl border px-4 py-3 text-left transition-colors ${
-                        freeZone === rec.zone ? "border-[#c9a86c] bg-white" : "border-slate-200 bg-white hover:border-slate-300"
+                        freeZone === rec.zone ? "border-brand bg-white" : "border-slate-200 bg-white hover:border-slate-300"
                       }`}
                     >
                       <div className="min-w-0 flex-1">
@@ -859,7 +859,7 @@ export default function SimulatorPage() {
                           <p className="text-xs font-semibold tracking-[0.14em] text-slate-900">
                             {FREE_ZONE_LABELS[rec.zone]}
                             {rec.rank === 1 && (
-                              <span className="ml-2 rounded-full bg-[#c9a86c]/15 px-2 py-0.5 text-[9px] font-semibold tracking-[0.12em] text-[#9a7a45]">
+                              <span className="ml-2 rounded-full bg-brand/15 px-2 py-0.5 text-[9px] font-semibold tracking-[0.12em] text-brand-hover">
                                 {pickLang(TOP_BADGE, lang)}
                               </span>
                             )}
@@ -878,7 +878,7 @@ export default function SimulatorPage() {
                 type="button"
                 onClick={() => contactRef.current?.scrollIntoView({ behavior: "smooth", block: "start" })}
                 className="mt-8 inline-flex w-full items-center justify-center rounded-full px-10 py-3.5 text-xs font-semibold uppercase tracking-[0.2em] text-white shadow-[0_18px_45px_rgba(15,23,42,0.18)] transition hover:opacity-95"
-                style={{ backgroundColor: GOLD }}
+                style={{ backgroundColor: BRAND }}
               >
                 {t.ctaButton}
               </button>
@@ -887,10 +887,10 @@ export default function SimulatorPage() {
         </div>
       </section>
 
-      <section ref={contactRef} className="border-t border-[#f0ece5] bg-white">
+      <section ref={contactRef} className="border-t border-[#f0e4e6] bg-white">
         <div className="mx-auto max-w-6xl px-6 py-16 sm:px-10 lg:px-12">
           <div className="mx-auto max-w-3xl rounded-2xl bg-white p-8 shadow-[0_22px_60px_rgba(15,23,42,0.08)] ring-1 ring-slate-100/70 sm:p-12">
-            <p className="text-xs font-medium uppercase tracking-[0.35em]" style={{ color: GOLD }}>CONTACT</p>
+            <p className="text-xs font-medium uppercase tracking-[0.35em]" style={{ color: BRAND }}>CONTACT</p>
             <h2 className="mt-4 text-2xl font-light tracking-[-0.03em] text-slate-900 sm:text-3xl">{t.contact.title}</h2>
             <p className="mt-4 text-sm leading-[1.9] text-slate-600 sm:text-base">{t.contact.body}</p>
             <form
@@ -904,7 +904,7 @@ export default function SimulatorPage() {
                 <span className="text-xs font-semibold uppercase tracking-[0.16em] text-slate-500">{t.contact.fields.message}</span>
                 <textarea className={inputClass} rows={5} value={contactMessage} onChange={(e) => setContactMessage(e.target.value)} />
               </label>
-              <button type="submit" className="inline-flex w-full items-center justify-center rounded-full px-10 py-3.5 text-xs font-semibold uppercase tracking-[0.2em] text-white shadow-[0_18px_45px_rgba(15,23,42,0.18)] transition hover:opacity-95" style={{ backgroundColor: GOLD }}>
+              <button type="submit" className="inline-flex w-full items-center justify-center rounded-full px-10 py-3.5 text-xs font-semibold uppercase tracking-[0.2em] text-white shadow-[0_18px_45px_rgba(15,23,42,0.18)] transition hover:opacity-95" style={{ backgroundColor: BRAND }}>
                 {t.contact.submit}
               </button>
               <p className="text-xs leading-relaxed text-slate-500">{t.contact.note}</p>

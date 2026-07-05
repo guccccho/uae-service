@@ -48,7 +48,7 @@ export function SiteFooter() {
   const centerOnMobile = lang === "ar" ? "text-center sm:text-right" : "text-center sm:text-left";
 
   return (
-    <footer className="border-t border-[#f0ece5] bg-white/90">
+    <footer className="border-t border-[#f0e4e6] bg-white/90">
       <div className="mx-auto flex max-w-6xl flex-col gap-8 px-6 py-10 text-sm text-slate-500 sm:flex-row sm:items-start sm:justify-between sm:px-10 lg:px-12 sm:py-12">
         <div className={`space-y-3 ${centerOnMobile}`}>
           <div className="text-xs font-semibold uppercase tracking-[0.26em] text-slate-800">

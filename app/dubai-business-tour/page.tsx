@@ -180,7 +180,7 @@ export default function DubaiBusinessTourPage() {
 
   return (
     <main className="min-h-screen bg-white text-slate-900 antialiased">
-      <header className="border-b border-[#f0ece5] bg-white">
+      <header className="border-b border-[#f0e4e6] bg-white">
         <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-6 sm:px-10 lg:px-12">
           <p className="text-xs font-semibold uppercase tracking-[0.26em] text-slate-800">
             UAE Business Consulting
@@ -189,10 +189,10 @@ export default function DubaiBusinessTourPage() {
         </div>
       </header>
 
-      <section className="border-b border-[#f0ece5] bg-white">
+      <section className="border-b border-[#f0e4e6] bg-white">
         <div className="mx-auto max-w-6xl px-6 py-16 sm:px-10 sm:py-20 lg:px-12 lg:py-24">
           <div className="mx-auto max-w-3xl text-center">
-            <p className="text-xs font-medium uppercase tracking-[0.35em] text-[#c9a86c]">
+            <p className="text-xs font-medium uppercase tracking-[0.35em] text-brand">
               {t.badge}
             </p>
             <h1 className="mt-6 text-4xl font-light leading-tight tracking-[-0.04em] text-slate-900 sm:text-5xl lg:text-6xl">
@@ -204,7 +204,7 @@ export default function DubaiBusinessTourPage() {
             <div className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row">
               <a
                 href="mailto:contact@hinodeya.ae"
-                className="inline-flex items-center justify-center rounded-full bg-[#c9a86c] px-10 py-3.5 text-xs font-semibold uppercase tracking-[0.2em] text-white shadow-[0_18px_45px_rgba(15,23,42,0.18)] transition-colors hover:bg-[#b89455]"
+                className="inline-flex items-center justify-center rounded-full bg-brand px-10 py-3.5 text-xs font-semibold uppercase tracking-[0.2em] text-white shadow-[0_18px_45px_rgba(15,23,42,0.18)] transition-colors hover:bg-brand-hover"
               >
                 {t.primaryCta}
               </a>
@@ -219,7 +219,7 @@ export default function DubaiBusinessTourPage() {
         </div>
       </section>
 
-      <section className="border-b border-[#f0ece5] bg-slate-50/40">
+      <section className="border-b border-[#f0e4e6] bg-slate-50/40">
         <div className="mx-auto max-w-6xl px-6 py-16 sm:px-10 sm:py-20 lg:px-12 lg:py-24">
           <div className="grid gap-8 md:grid-cols-2">
             <div className="rounded-2xl bg-white p-8 shadow-[0_18px_45px_rgba(15,23,42,0.06)] ring-1 ring-slate-100/70">
@@ -227,7 +227,7 @@ export default function DubaiBusinessTourPage() {
               <ul className="mt-6 space-y-4 text-sm leading-7 text-slate-700 md:text-base">
                 {t.overviewItems.map((item) => (
                   <li key={item} className="flex gap-3">
-                    <span className="mt-2 h-2 w-2 rounded-full bg-[#c9a86c]" />
+                    <span className="mt-2 h-2 w-2 rounded-full bg-brand" />
                     <span>{item}</span>
                   </li>
                 ))}
@@ -239,7 +239,7 @@ export default function DubaiBusinessTourPage() {
               <ul className="mt-6 space-y-4 text-sm leading-7 text-slate-700 md:text-base">
                 {t.whoItems.map((item) => (
                   <li key={item} className="flex gap-3">
-                    <span className="mt-2 h-2 w-2 rounded-full bg-[#c9a86c]" />
+                    <span className="mt-2 h-2 w-2 rounded-full bg-brand" />
                     <span>{item}</span>
                   </li>
                 ))}
@@ -249,10 +249,10 @@ export default function DubaiBusinessTourPage() {
         </div>
       </section>
 
-      <section className="border-b border-[#f0ece5] bg-white">
+      <section className="border-b border-[#f0e4e6] bg-white">
         <div className="mx-auto max-w-6xl px-6 py-16 sm:px-10 sm:py-20 lg:px-12 lg:py-24">
           <div className="mx-auto max-w-3xl text-center">
-            <p className="text-xs font-medium uppercase tracking-[0.3em] text-[#c9a86c]">
+            <p className="text-xs font-medium uppercase tracking-[0.3em] text-brand">
               {t.scheduleTitle}
             </p>
           </div>
@@ -272,7 +272,7 @@ export default function DubaiBusinessTourPage() {
                 <ul className="mt-5 space-y-3 text-sm leading-7 text-slate-700">
                   {day.items.map((item) => (
                     <li key={item} className="flex gap-3">
-                      <span className="mt-2 h-2 w-2 rounded-full bg-[#c9a86c]" />
+                      <span className="mt-2 h-2 w-2 rounded-full bg-brand" />
                       <span>{item}</span>
                     </li>
                   ))}
@@ -283,10 +283,10 @@ export default function DubaiBusinessTourPage() {
         </div>
       </section>
 
-      <section className="border-b border-[#f0ece5] bg-slate-50/40">
+      <section className="border-b border-[#f0e4e6] bg-slate-50/40">
         <div className="mx-auto max-w-6xl px-6 py-16 sm:px-10 sm:py-20 lg:px-12 lg:py-24">
           <div className="mx-auto max-w-3xl text-center">
-            <p className="text-xs font-medium uppercase tracking-[0.3em] text-[#c9a86c]">
+            <p className="text-xs font-medium uppercase tracking-[0.3em] text-brand">
               {t.pricingTitle}
             </p>
           </div>
@@ -296,16 +296,16 @@ export default function DubaiBusinessTourPage() {
                 key={card.title}
                 className={`relative rounded-2xl p-8 shadow-[0_18px_45px_rgba(15,23,42,0.06)] ${
                   idx === 1
-                    ? "bg-white ring-2 ring-[#c9a86c]/80"
+                    ? "bg-white ring-2 ring-brand/80"
                     : "bg-white/90 ring-1 ring-slate-100/70"
                 }`}
               >
                 {idx === 1 && (
-                  <span className="absolute -top-3 right-6 rounded-full bg-[#c9a86c] px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.22em] text-white">
+                  <span className="absolute -top-3 right-6 rounded-full bg-brand px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.22em] text-white">
                     {t.recommendedBadge}
                   </span>
                 )}
-                <p className="text-xs font-semibold uppercase tracking-[0.22em] text-[#c9a86c]">
+                <p className="text-xs font-semibold uppercase tracking-[0.22em] text-brand">
                   {t.pricingLabels[idx]}
                 </p>
                 <h3 className="mt-4 text-lg font-medium text-slate-900">
@@ -323,7 +323,7 @@ export default function DubaiBusinessTourPage() {
       <section className="bg-white">
         <div className="mx-auto max-w-5xl px-6 py-16 sm:px-10 sm:py-20 lg:px-12 lg:py-24">
           <div className="rounded-2xl bg-white p-8 text-center shadow-[0_22px_60px_rgba(15,23,42,0.10)] ring-1 ring-slate-100/70 sm:p-12">
-            <p className="text-xs font-medium uppercase tracking-[0.35em] text-[#c9a86c]">
+            <p className="text-xs font-medium uppercase tracking-[0.35em] text-brand">
               {t.ctaEyebrow}
             </p>
             <h2 className="mt-4 text-3xl font-light leading-tight tracking-[-0.03em] text-slate-900 sm:text-4xl lg:text-5xl">
@@ -335,7 +335,7 @@ export default function DubaiBusinessTourPage() {
             <div className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row">
               <a
                 href="mailto:contact@hinodeya.ae"
-                className="inline-flex items-center justify-center rounded-full bg-[#c9a86c] px-10 py-3.5 text-xs font-semibold uppercase tracking-[0.2em] text-white shadow-[0_18px_45px_rgba(15,23,42,0.18)] transition-colors hover:bg-[#b89455]"
+                className="inline-flex items-center justify-center rounded-full bg-brand px-10 py-3.5 text-xs font-semibold uppercase tracking-[0.2em] text-white shadow-[0_18px_45px_rgba(15,23,42,0.18)] transition-colors hover:bg-brand-hover"
               >
                 {t.contactButton}
               </a>

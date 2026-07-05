@@ -182,7 +182,7 @@ export default function BusinessSetupPage() {
 
   return (
     <div className="min-h-screen bg-white text-slate-900 antialiased">
-      <header className="border-b border-[#f0ece5]">
+      <header className="border-b border-[#f0e4e6]">
         <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-6 sm:px-10 lg:px-12">
           <div className="text-xs font-semibold uppercase tracking-[0.26em] text-slate-800">
             UAE Business Consulting
@@ -192,7 +192,7 @@ export default function BusinessSetupPage() {
       </header>
 
       <main>
-        <section className="border-b border-[#f0ece5] bg-white">
+        <section className="border-b border-[#f0e4e6] bg-white">
           <div className="mx-auto max-w-6xl px-6 sm:px-10 lg:px-12 py-24 sm:py-28 lg:py-32">
             <div className="mx-auto max-w-3xl text-center">
               <h1 className="text-4xl font-light tracking-[-0.05em] text-slate-900 sm:text-5xl lg:text-6xl">
@@ -204,7 +204,7 @@ export default function BusinessSetupPage() {
               <div className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row">
                 <a
                   href="mailto:contact@hinodeya.ae"
-                  className="inline-flex items-center justify-center rounded-full bg-[#c9a86c] px-10 py-3.5 text-xs font-semibold uppercase tracking-[0.2em] text-white shadow-[0_18px_45px_rgba(15,23,42,0.18)] transition-colors hover:bg-[#b89455]"
+                  className="inline-flex items-center justify-center rounded-full bg-brand px-10 py-3.5 text-xs font-semibold uppercase tracking-[0.2em] text-white shadow-[0_18px_45px_rgba(15,23,42,0.18)] transition-colors hover:bg-brand-hover"
                 >
                   {t.ctaPrimary}
                 </a>
@@ -219,10 +219,10 @@ export default function BusinessSetupPage() {
           </div>
         </section>
 
-        <section className="border-b border-[#f0ece5] bg-slate-50/40">
+        <section className="border-b border-[#f0e4e6] bg-slate-50/40">
           <div className="mx-auto max-w-6xl px-6 sm:px-10 lg:px-12 py-24 sm:py-28 lg:py-32">
             <div className="mx-auto max-w-3xl text-center">
-              <p className="text-xs font-medium uppercase tracking-[0.3em] text-[#c9a86c]">
+              <p className="text-xs font-medium uppercase tracking-[0.3em] text-brand">
                 {t.overviewEyebrow}
               </p>
               <p className="mt-4 text-sm leading-relaxed text-slate-600 sm:text-base">
@@ -236,7 +236,7 @@ export default function BusinessSetupPage() {
                   key={svc.title}
                   className="rounded-2xl bg-white p-7 shadow-[0_18px_45px_rgba(15,23,42,0.06)] ring-1 ring-slate-100/70"
                 >
-                  <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[#c9a86c]">
+                  <p className="text-xs font-semibold uppercase tracking-[0.2em] text-brand">
                     {svc.title}
                   </p>
                   <p className="mt-3 text-sm leading-[1.8] text-slate-600">
@@ -248,10 +248,10 @@ export default function BusinessSetupPage() {
           </div>
         </section>
 
-        <section className="border-b border-[#f0ece5] bg-white">
+        <section className="border-b border-[#f0e4e6] bg-white">
           <div className="mx-auto max-w-6xl px-6 sm:px-10 lg:px-12 py-24 sm:py-28 lg:py-32">
             <div className="mx-auto max-w-3xl">
-              <p className="text-xs font-medium uppercase tracking-[0.3em] text-[#c9a86c]">
+              <p className="text-xs font-medium uppercase tracking-[0.3em] text-brand">
                 {t.freeZonesEyebrow}
               </p>
               <p className="mt-4 text-sm leading-[1.9] text-slate-600 sm:text-base whitespace-pre-line">
@@ -272,10 +272,10 @@ export default function BusinessSetupPage() {
           </div>
         </section>
 
-        <section className="border-b border-[#f0ece5] bg-slate-50/40">
+        <section className="border-b border-[#f0e4e6] bg-slate-50/40">
           <div className="mx-auto max-w-6xl px-6 sm:px-10 lg:px-12 py-24 sm:py-28 lg:py-32">
             <div className="mx-auto max-w-3xl text-center">
-              <p className="text-xs font-medium uppercase tracking-[0.3em] text-[#c9a86c]">
+              <p className="text-xs font-medium uppercase tracking-[0.3em] text-brand">
                 {t.processEyebrow}
               </p>
             </div>
@@ -285,7 +285,7 @@ export default function BusinessSetupPage() {
                   key={step}
                   className="flex flex-col items-start rounded-2xl bg-white/90 p-4 text-sm leading-relaxed text-slate-700 shadow-[0_12px_30px_rgba(15,23,42,0.05)] ring-1 ring-slate-100/70"
                 >
-                  <span className="mb-2 inline-flex h-7 w-7 items-center justify-center rounded-full bg-[#c9a86c]/10 text-xs font-semibold text-[#c9a86c]">
+                  <span className="mb-2 inline-flex h-7 w-7 items-center justify-center rounded-full bg-brand/10 text-xs font-semibold text-brand">
                     {index + 1}
                   </span>
                   <span>{step}</span>
@@ -298,7 +298,7 @@ export default function BusinessSetupPage() {
         <section className="bg-white">
           <div className="mx-auto max-w-5xl px-6 sm:px-10 lg:px-12 py-24 sm:py-28 lg:py-32">
             <div className="flex flex-col items-center text-center gap-8">
-              <p className="text-xs font-medium uppercase tracking-[0.3em] text-[#c9a86c]">
+              <p className="text-xs font-medium uppercase tracking-[0.3em] text-brand">
                 {t.ctaEyebrow}
               </p>
               <h2 className="max-w-3xl text-2xl font-light tracking-[-0.03em] text-slate-900 sm:text-3xl lg:text-4xl">
@@ -310,7 +310,7 @@ export default function BusinessSetupPage() {
               <div className="flex flex-col items-center gap-4 sm:flex-row sm:justify-center">
                 <a
                   href="mailto:contact@hinodeya.ae"
-                  className="inline-flex items-center justify-center rounded-full bg-[#c9a86c] px-12 py-3.5 text-xs font-semibold uppercase tracking-[0.2em] text-white shadow-[0_18px_45px_rgba(15,23,42,0.18)] transition-colors hover:bg-[#b89455]"
+                  className="inline-flex items-center justify-center rounded-full bg-brand px-12 py-3.5 text-xs font-semibold uppercase tracking-[0.2em] text-white shadow-[0_18px_45px_rgba(15,23,42,0.18)] transition-colors hover:bg-brand-hover"
                 >
                   {t.ctaPrimaryBottom}
                 </a>

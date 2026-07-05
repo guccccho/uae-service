@@ -68,8 +68,7 @@ export const mediaItems: MediaItem[] = [
       ar: "ما بعد الإطلاق",
     },
     year: "2024",
-    imageUrl:
-      "https://images.unsplash.com/photo-1518199266791-5375a83190b3?auto=format&fit=crop&w=1600&q=80",
+    imageUrl: "/media-crossborder-ec.jpg",
   },
   {
     slug: "fintech-remittance-solution",

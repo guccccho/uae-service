@@ -93,7 +93,7 @@ export default function SimulationIntroPage() {
 
   return (
     <div className="min-h-screen bg-white text-slate-900 antialiased">
-      <header className="border-b border-[#f0ece5]">
+      <header className="border-b border-[#f0e4e6]">
         <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-6 sm:px-10 lg:px-12">
           <div className="text-xs font-semibold uppercase tracking-[0.26em] text-slate-800">
             UAE Business Consulting
@@ -103,10 +103,10 @@ export default function SimulationIntroPage() {
       </header>
 
       <main>
-        <section className="border-b border-[#f0ece5] bg-slate-50/40">
+        <section className="border-b border-[#f0e4e6] bg-slate-50/40">
           <div className="mx-auto max-w-5xl px-6 sm:px-10 lg:px-12 py-20 sm:py-28 lg:py-32">
             <div className="max-w-3xl">
-              <p className="text-xs font-medium uppercase tracking-[0.3em] text-[#c9a86c]">
+              <p className="text-xs font-medium uppercase tracking-[0.3em] text-brand">
                 {t.eyebrow}
               </p>
               <h1 className="mt-4 text-3xl font-light tracking-[-0.04em] text-slate-900 sm:text-4xl">
@@ -123,7 +123,7 @@ export default function SimulationIntroPage() {
                   key={card.title}
                   className="rounded-2xl bg-white p-6 shadow-[0_18px_45px_rgba(15,23,42,0.06)] ring-1 ring-slate-100/70"
                 >
-                  <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#c9a86c]">
+                  <p className="text-xs font-semibold uppercase tracking-[0.18em] text-brand">
                     {card.title}
                   </p>
                   <p className="mt-3 text-sm leading-[1.8] text-slate-600">
@@ -136,7 +136,7 @@ export default function SimulationIntroPage() {
             <div className="mt-10 flex flex-col items-start gap-4 sm:flex-row sm:items-center">
               <a
                 href="/simulator"
-                className="inline-flex items-center justify-center rounded-full bg-[#c9a86c] px-10 py-3.5 text-xs font-semibold uppercase tracking-[0.2em] text-white shadow-[0_18px_45px_rgba(15,23,42,0.18)] transition-colors hover:bg-[#b89455]"
+                className="inline-flex items-center justify-center rounded-full bg-brand px-10 py-3.5 text-xs font-semibold uppercase tracking-[0.2em] text-white shadow-[0_18px_45px_rgba(15,23,42,0.18)] transition-colors hover:bg-brand-hover"
               >
                 {t.cta}
               </a>

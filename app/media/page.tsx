@@ -58,7 +58,7 @@ export default function MediaIndexPage() {
 
   return (
     <div className="min-h-screen bg-white text-slate-900 antialiased">
-      <header className="border-b border-[#f0ece5]">
+      <header className="border-b border-[#f0e4e6]">
         <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-6 sm:px-10 lg:px-12">
           <a
             href="/"
@@ -71,7 +71,7 @@ export default function MediaIndexPage() {
       </header>
 
       <main>
-        <section className="border-b border-[#f0ece5] bg-slate-50/40">
+        <section className="border-b border-[#f0e4e6] bg-slate-50/40">
           <div className="mx-auto max-w-6xl px-6 sm:px-10 lg:px-12 py-20 sm:py-28 lg:py-32">
             <div className="mx-auto max-w-3xl text-center">
               <h1 className="text-3xl font-light tracking-[-0.04em] text-slate-900 sm:text-4xl lg:text-5xl">
@@ -80,8 +80,8 @@ export default function MediaIndexPage() {
               <p className="mt-6 text-base leading-[1.9] text-slate-600 sm:text-lg">
                 {t.description}
               </p>
-              <div className="mx-auto mt-10 max-w-2xl rounded-2xl bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 px-8 py-10 shadow-[0_24px_60px_rgba(15,23,42,0.18)] sm:px-12 sm:py-12">
-                <p className="text-[11px] font-semibold uppercase tracking-[0.22em] text-[#c9a86c]">
+              <div className="mx-auto mt-10 max-w-2xl rounded-2xl bg-gradient-to-br from-slate-900 via-slate-800 to-brand px-8 py-10 shadow-[0_24px_60px_rgba(188,0,45,0.22)] sm:px-12 sm:py-12">
+                <p className="text-[11px] font-semibold uppercase tracking-[0.22em] text-brand">
                   {t.matchingEyebrow}
                 </p>
                 <p className="mt-4 text-base leading-[1.9] text-slate-200 sm:text-lg">
@@ -89,7 +89,7 @@ export default function MediaIndexPage() {
                 </p>
                 <Link
                   href="/contact"
-                  className="mt-8 inline-flex items-center justify-center rounded-full bg-[#c9a86c] px-12 py-4 text-xs font-semibold uppercase tracking-[0.2em] text-white shadow-[0_18px_45px_rgba(201,168,108,0.35)] transition-all hover:bg-[#d4b87a] hover:shadow-[0_22px_55px_rgba(201,168,108,0.45)]"
+                  className="mt-8 inline-flex items-center justify-center rounded-full bg-brand px-12 py-4 text-xs font-semibold uppercase tracking-[0.2em] text-white shadow-[0_18px_45px_rgba(188,0,45,0.35)] transition-all hover:bg-brand-hover hover:shadow-[0_22px_55px_rgba(188,0,45,0.45)]"
                 >
                   {t.matchingCta}
                 </Link>
@@ -136,7 +136,7 @@ export default function MediaIndexPage() {
             <div className="mt-16 flex flex-col items-center justify-center gap-4 sm:flex-row">
               <Link
                 href="/contact"
-                className="inline-flex items-center justify-center rounded-full bg-[#c9a86c] px-12 py-4 text-xs font-semibold uppercase tracking-[0.2em] text-white shadow-[0_18px_45px_rgba(15,23,42,0.18)] transition-colors hover:bg-[#b89455]"
+                className="inline-flex items-center justify-center rounded-full bg-brand px-12 py-4 text-xs font-semibold uppercase tracking-[0.2em] text-white shadow-[0_18px_45px_rgba(15,23,42,0.18)] transition-colors hover:bg-brand-hover"
               >
                 {t.matchingCta}
               </Link>

@@ -3,15 +3,19 @@
 :root {
   --background: #ffffff;
   --foreground: #171717;
-  --gold: #b8860b;
-  --gold-hover: #a07609;
+  --brand: #bc002d;
+  --brand-hover: #9a0024;
+  --brand-light: #fdf2f4;
   --cream: #fafaf9;
-  --border: #e8e4dc;
+  --border: #f0e4e6;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
+  --color-brand: #bc002d;
+  --color-brand-hover: #9a0024;
+  --color-brand-light: #fdf2f4;
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 }

@@ -8,6 +8,7 @@ import { mediaItems } from "./media/data";
 import { TRUSTED_PARTNERS } from "./trusted-partners";
 import { GovernmentPortalsSection } from "./components/GovernmentPortalsSection";
 import { MediaCardPreview } from "./components/MediaCardPreview";
+import { HinomaruMark, HinomaruMotif } from "./components/HinomaruMotif";
 
 const content = {
   jp: {
@@ -422,9 +423,11 @@ export default function Home() {
   return (
     <div className="min-h-screen bg-white text-slate-900 antialiased">
       {/* Header */}
-      <header className="border-b border-[#f0ece5]">
-        <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-6 sm:px-10 lg:px-12">
-          <div className="flex items-center gap-6 sm:gap-8">
+      <header className="relative border-b border-[#f0e4e6] bg-gradient-to-r from-white via-brand-light/40 to-white">
+        <HinomaruMotif variant="section" className="inset-0 opacity-70" />
+        <div className="relative mx-auto flex max-w-6xl items-center justify-between px-6 py-6 sm:px-10 lg:px-12">
+          <div className="flex items-center gap-4 sm:gap-5">
+            <HinomaruMark className="h-9 w-9 sm:h-10 sm:w-10" />
             <div className="leading-none">
               <div className="text-xs font-semibold uppercase tracking-[0.26em] text-slate-900">
                 {t.logo}
@@ -440,7 +443,8 @@ export default function Home() {
 
       <main>
         {/* Hero */}
-        <section className="relative border-b border-[#f0ece5] overflow-hidden">
+        <section className="relative border-b border-[#f0e4e6] overflow-hidden">
+          <HinomaruMotif variant="hero" />
           <div className="absolute inset-0">
             <div
               className="h-full w-full bg-cover bg-center"
@@ -450,7 +454,7 @@ export default function Home() {
                 filter: "saturate(1.08) contrast(1.06) brightness(0.92)",
               }}
             />
-            <div className="absolute inset-0 bg-gradient-to-b from-slate-900/35 via-slate-900/25 to-slate-900/45" />
+            <div className="absolute inset-0 bg-gradient-to-b from-slate-900/35 via-slate-900/20 to-brand/20" />
           </div>
           <div className="relative mx-auto flex max-w-6xl flex-col justify-between px-6 py-20 sm:px-10 sm:py-24 lg:px-12 lg:py-28 min-h-[70vh] sm:min-h-[80vh]">
             <div className="max-w-xl text-white">
@@ -543,10 +547,11 @@ export default function Home() {
         </section>
 
         {/* Our Expertise */}
-        <section id="services" className="border-b border-[#f0ece5]">
-          <div className="mx-auto max-w-6xl px-6 sm:px-10 lg:px-12 py-24 sm:py-32 lg:py-40">
+        <section id="services" className="relative border-b border-[#f0e4e6] overflow-hidden">
+          <HinomaruMotif variant="section" className="inset-0" />
+          <div className="relative mx-auto max-w-6xl px-6 sm:px-10 lg:px-12 py-24 sm:py-32 lg:py-40">
             <div className="mx-auto max-w-3xl text-center">
-              <p className="text-xs font-medium uppercase tracking-[0.3em] text-[#c9a86c]">
+              <p className="text-xs font-medium uppercase tracking-[0.3em] text-brand">
                 {t.expertise.title}
               </p>
               <h2 className="mt-6 text-2xl font-light tracking-[-0.03em] text-slate-900 sm:text-3xl">
@@ -559,7 +564,7 @@ export default function Home() {
                   key={card.title}
                   className="rounded-2xl bg-white/90 p-7 shadow-[0_18px_45px_rgba(15,23,42,0.06)] ring-1 ring-slate-100/70"
                 >
-                  <div className="mb-6 inline-flex h-10 w-10 items-center justify-center rounded-full bg-[#c9a86c]/10 text-xs font-semibold uppercase tracking-[0.18em] text-[#c9a86c]">
+                  <div className="mb-6 inline-flex h-10 w-10 items-center justify-center rounded-full bg-brand/10 text-xs font-semibold uppercase tracking-[0.18em] text-brand">
                     {card.code}
                   </div>
                   <h3 className="text-lg font-medium tracking-[-0.01em] text-slate-900">
@@ -575,10 +580,10 @@ export default function Home() {
         </section>
 
         {/* Individual support */}
-        <section className="border-b border-[#f0ece5] bg-slate-50/40">
+        <section className="border-b border-[#f0e4e6] bg-slate-50/40">
           <div className="mx-auto max-w-6xl px-6 sm:px-10 lg:px-12 py-24 sm:py-32 lg:py-40">
             <div className="mx-auto max-w-3xl text-center">
-              <p className="text-xs font-medium uppercase tracking-[0.3em] text-[#c9a86c]">
+              <p className="text-xs font-medium uppercase tracking-[0.3em] text-brand">
                 {t.individual.eyebrow}
               </p>
               <h2 className="mt-6 text-2xl font-light tracking-[-0.03em] text-slate-900 sm:text-3xl">
@@ -594,7 +599,7 @@ export default function Home() {
                   key={card.title}
                   className="rounded-2xl bg-white/90 p-7 shadow-[0_18px_45px_rgba(15,23,42,0.06)] ring-1 ring-slate-100/70"
                 >
-                  <div className="mb-6 inline-flex h-10 w-10 items-center justify-center rounded-full bg-[#c9a86c]/10 text-xs font-semibold uppercase tracking-[0.18em] text-[#c9a86c]">
+                  <div className="mb-6 inline-flex h-10 w-10 items-center justify-center rounded-full bg-brand/10 text-xs font-semibold uppercase tracking-[0.18em] text-brand">
                     {card.code}
                   </div>
                   <h3 className="text-lg font-medium tracking-[-0.01em] text-slate-900">
@@ -609,7 +614,7 @@ export default function Home() {
             <div className="mt-12 flex justify-center">
               <a
                 href="/contact"
-                className="inline-flex items-center justify-center rounded-full bg-[#c9a86c] px-10 py-3.5 text-xs font-semibold uppercase tracking-[0.2em] text-white shadow-[0_18px_45px_rgba(15,23,42,0.18)] transition-colors hover:bg-[#b89455]"
+                className="inline-flex items-center justify-center rounded-full bg-brand px-10 py-3.5 text-xs font-semibold uppercase tracking-[0.2em] text-white shadow-[0_18px_45px_rgba(15,23,42,0.18)] transition-colors hover:bg-brand-hover"
               >
                 {t.individual.cta}
               </a>
@@ -618,10 +623,10 @@ export default function Home() {
         </section>
 
         {/* Simulator teaser */}
-        <section className="border-b border-[#f0ece5] bg-slate-50/40">
+        <section className="border-b border-[#f0e4e6] bg-slate-50/40">
           <div className="mx-auto flex max-w-6xl flex-col items-center gap-6 px-6 py-10 text-center sm:flex-row sm:items-center sm:justify-between sm:px-10 sm:text-left lg:px-12">
             <div className="max-w-xl">
-              <p className="text-xs font-medium uppercase tracking-[0.3em] text-[#c9a86c]">
+              <p className="text-xs font-medium uppercase tracking-[0.3em] text-brand">
                 {isJP ? "コストの目安" : isAr ? "تقدير التكاليف" : "Cost Baseline"}
               </p>
               <p className="mt-3 text-sm leading-[1.9] text-slate-600 sm:text-base">
@@ -634,7 +639,7 @@ export default function Home() {
             </div>
             <a
               href="/simulator"
-              className="inline-flex items-center justify-center rounded-full bg-[#c9a86c] px-8 py-3 text-[11px] font-semibold uppercase tracking-[0.2em] text-white shadow-[0_18px_45px_rgba(15,23,42,0.18)] transition-colors hover:bg-[#b89455]"
+              className="inline-flex items-center justify-center rounded-full bg-brand px-8 py-3 text-[11px] font-semibold uppercase tracking-[0.2em] text-white shadow-[0_18px_45px_rgba(15,23,42,0.18)] transition-colors hover:bg-brand-hover"
             >
               {t.hero.simulatorCta}
             </a>
@@ -642,10 +647,10 @@ export default function Home() {
         </section>
 
         {/* Why UAE */}
-        <section className="border-b border-[#f0ece5]">
+        <section className="border-b border-[#f0e4e6]">
           <div className="mx-auto max-w-6xl px-6 sm:px-10 lg:px-12 py-24 sm:py-32 lg:py-40">
             <div className="mx-auto max-w-3xl text-center">
-              <p className="text-xs font-medium uppercase tracking-[0.3em] text-[#c9a86c]">
+              <p className="text-xs font-medium uppercase tracking-[0.3em] text-brand">
                 {t.why.title}
               </p>
               <h2 className="mt-6 text-2xl font-light tracking-[-0.03em] text-slate-900 sm:text-3xl">
@@ -671,10 +676,10 @@ export default function Home() {
         </section>
 
         {/* Case Studies */}
-        <section className="border-b border-[#f0ece5]">
+        <section className="border-b border-[#f0e4e6]">
           <div className="mx-auto max-w-6xl px-6 sm:px-10 lg:px-12 py-24 sm:py-32 lg:py-40">
             <div className="mx-auto max-w-3xl text-center">
-              <p className="text-xs font-medium uppercase tracking-[0.3em] text-[#c9a86c]">
+              <p className="text-xs font-medium uppercase tracking-[0.3em] text-brand">
                 {t.cases.title}
               </p>
               <h2 className="mt-6 text-2xl font-light tracking-[-0.03em] text-slate-900 sm:text-3xl">
@@ -701,7 +706,7 @@ export default function Home() {
             </div>
             <div className="mt-20">
               <div className="mx-auto max-w-3xl text-center">
-                <p className="text-xs font-medium uppercase tracking-[0.3em] text-[#c9a86c]">
+                <p className="text-xs font-medium uppercase tracking-[0.3em] text-brand">
                   {isJP
                     ? "相談企業のプロダクト"
                     : isAr
@@ -725,8 +730,8 @@ export default function Home() {
               </div>
 
               <div className="mx-auto mt-10 max-w-3xl">
-                <div className="rounded-2xl bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 px-8 py-10 text-center shadow-[0_24px_60px_rgba(15,23,42,0.18)] sm:px-12 sm:py-12">
-                  <p className="text-[11px] font-semibold uppercase tracking-[0.22em] text-[#c9a86c]">
+                <div className="rounded-2xl bg-gradient-to-br from-slate-900 via-slate-800 to-brand px-8 py-10 text-center shadow-[0_24px_60px_rgba(188,0,45,0.22)] sm:px-12 sm:py-12">
+                  <p className="text-[11px] font-semibold uppercase tracking-[0.22em] text-red-100">
                     {isJP
                       ? "Team HINODEYA"
                       : isAr
@@ -742,7 +747,7 @@ export default function Home() {
                   </p>
                   <a
                     href="/contact"
-                    className="mt-8 inline-flex items-center justify-center rounded-full bg-[#c9a86c] px-12 py-4 text-xs font-semibold uppercase tracking-[0.2em] text-white shadow-[0_18px_45px_rgba(201,168,108,0.35)] transition-all hover:bg-[#d4b87a] hover:shadow-[0_22px_55px_rgba(201,168,108,0.45)]"
+                    className="mt-8 inline-flex items-center justify-center rounded-full bg-brand px-12 py-4 text-xs font-semibold uppercase tracking-[0.2em] text-white shadow-[0_18px_45px_rgba(188,0,45,0.35)] transition-all hover:bg-brand-hover hover:shadow-[0_22px_55px_rgba(188,0,45,0.45)]"
                   >
                     {isJP
                       ? "チームHINODEYAでビジネスマッチングに参加する"
@@ -797,7 +802,7 @@ export default function Home() {
         </section>
 
         {/* Trusted by */}
-        <section className="border-b border-[#f0ece5]">
+        <section className="border-b border-[#f0e4e6]">
           <div className="mx-auto max-w-6xl px-6 sm:px-10 lg:px-12 py-14 sm:py-16 lg:py-20">
             <div className="flex flex-col gap-8">
               <p className="text-center text-xs font-medium uppercase tracking-[0.25em] text-slate-400">
@@ -810,7 +815,7 @@ export default function Home() {
                     href={partner.href}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex min-h-14 min-w-[170px] items-center justify-center rounded-full border border-slate-100 bg-slate-50/80 px-5 py-3 transition-colors hover:border-[#c9a86c]/50 hover:bg-white sm:min-w-[190px] sm:px-6"
+                    className="flex min-h-14 min-w-[170px] items-center justify-center rounded-full border border-slate-100 bg-slate-50/80 px-5 py-3 transition-colors hover:border-brand/50 hover:bg-white sm:min-w-[190px] sm:px-6"
                     aria-label={partner.name}
                   >
                     <img
@@ -828,10 +833,10 @@ export default function Home() {
         <GovernmentPortalsSection lang={lang} />
 
         {/* FAQ */}
-        <section className="border-b border-[#f0ece5] bg-slate-50/40">
+        <section className="border-b border-[#f0e4e6] bg-slate-50/40">
           <div className="mx-auto max-w-5xl px-6 sm:px-10 lg:px-12 py-20 sm:py-24 lg:py-28">
             <div className="mx-auto max-w-3xl text-center">
-              <p className="text-xs font-medium uppercase tracking-[0.3em] text-[#c9a86c]">
+              <p className="text-xs font-medium uppercase tracking-[0.3em] text-brand">
                 {t.faq.title}
               </p>
             </div>
@@ -842,11 +847,11 @@ export default function Home() {
                   className="rounded-2xl bg-white/90 p-6 sm:p-7 shadow-[0_18px_45px_rgba(15,23,42,0.04)] ring-1 ring-slate-100/70 text-left"
                 >
                   <h3 className="flex gap-1.5 text-sm font-semibold tracking-[-0.01em] text-slate-900">
-                    <span className="shrink-0 text-[#c9a86c]">Q.</span>
+                    <span className="shrink-0 text-brand">Q.</span>
                     <span>{item.q}</span>
                   </h3>
                   <p className="mt-3 flex gap-1.5 text-sm leading-[1.9] text-slate-600">
-                    <span className="shrink-0 font-semibold text-[#c9a86c]">A.</span>
+                    <span className="shrink-0 font-semibold text-brand">A.</span>
                     <span>{item.a}</span>
                   </p>
                 </div>
@@ -859,7 +864,7 @@ export default function Home() {
         <section id="contact">
           <div className="mx-auto max-w-5xl px-6 sm:px-10 lg:px-12 py-24 sm:py-32 lg:py-40">
             <div className="flex flex-col items-center text-center gap-8">
-              <p className="text-xs font-medium uppercase tracking-[0.3em] text-[#c9a86c]">
+              <p className="text-xs font-medium uppercase tracking-[0.3em] text-brand">
                 {t.cta.label}
               </p>
               <h2 className="max-w-3xl text-3xl font-light tracking-[-0.03em] text-slate-900 sm:text-4xl lg:text-5xl">
@@ -870,7 +875,7 @@ export default function Home() {
               </p>
               <a
                 href="mailto:contact@hinodeya.ae"
-                className="inline-flex items-center justify-center rounded-full bg-[#c9a86c] px-12 py-3.5 text-xs font-semibold uppercase tracking-[0.2em] text-white shadow-[0_18px_45px_rgba(15,23,42,0.18)] transition-colors hover:bg-[#b89455]"
+                className="inline-flex items-center justify-center rounded-full bg-brand px-12 py-3.5 text-xs font-semibold uppercase tracking-[0.2em] text-white shadow-[0_18px_45px_rgba(15,23,42,0.18)] transition-colors hover:bg-brand-hover"
               >
                 {t.cta.button}
               </a>
