@@ -868,8 +868,58 @@ export const FREE_ZONE_LABELS: Record<FreeZone, string> = {
 };
 
 export const RELOCATION_COST = { yes: 9000, no: 0 } as const;
+export const BANK_ACCOUNT_OPENING_COST = 5000;
+export const VISA_VIP_OPTION_COST = 5000;
 
 export type Relocation = "yes" | "no";
+export type VisaSpeed = "standard" | "vip";
+export type BankAccountOption = "yes" | "no";
+
+export const VISA_SPEED_CONFIG = {
+  standard: {
+    businessDays: 6,
+    extraCost: 0,
+    label: {
+      jp: "通常（営業日6日）",
+      en: "Standard (6 business days)",
+    },
+    description: {
+      jp: "標準的なビザ処理スケジュール。追加費用なし。",
+      en: "Standard visa processing timeline. No additional fee.",
+    },
+  },
+  vip: {
+    businessDays: 3,
+    extraCost: VISA_VIP_OPTION_COST,
+    label: {
+      jp: "VIP（営業日3日）",
+      en: "VIP (3 business days)",
+    },
+    description: {
+      jp: "優先処理オプション。追加 AED 5,000。",
+      en: "Priority processing option. Additional AED 5,000.",
+    },
+  },
+} as const;
+
+export const BANK_ACCOUNT_CONFIG = {
+  yes: {
+    cost: BANK_ACCOUNT_OPENING_COST,
+    label: { jp: "口座開設サポートあり", en: "Bank account opening support" },
+    description: {
+      jp: "法人口座開設のサポート付き。追加 AED 5,000。",
+      en: "Corporate bank account opening support. Additional AED 5,000.",
+    },
+  },
+  no: {
+    cost: 0,
+    label: { jp: "なし", en: "Not included" },
+    description: {
+      jp: "口座開設サポートは含みません。",
+      en: "Bank account opening support not included.",
+    },
+  },
+} as const;
 
 export type SimulatorSelections = {
   majorActivity: string;
@@ -878,6 +928,8 @@ export type SimulatorSelections = {
   visas: string;
   office: string;
   relocation: Relocation;
+  visaSpeed: VisaSpeed;
+  bankAccount: BankAccountOption;
 };
 
 export type CostBreakdown = {
@@ -887,6 +939,9 @@ export type CostBreakdown = {
   office: number;
   establishment: number;
   relocationCost: number;
+  visaSpeedCost: number;
+  bankAccountCost: number;
+  visaProcessingDays: number;
   total: number;
 };
 
@@ -903,7 +958,19 @@ export function getDefaultSelections(
     visas: config.visaPackages[0].id,
     office: config.officeTypes[0].id,
     relocation: "no",
+    visaSpeed: "standard",
+    bankAccount: "no",
   };
+}
+
+export function hasVisaQuota(
+  zoneId: FreeZone,
+  visaSelectionId: string,
+): boolean {
+  const pkg = FREE_ZONE_CONFIGS[zoneId].visaPackages.find(
+    (v) => v.id === visaSelectionId,
+  );
+  return (pkg?.visaCount ?? 0) > 0;
 }
 
 export function calculateZoneCost(
@@ -943,8 +1010,25 @@ export function calculateZoneCost(
   const establishment = zone.establishmentCard;
   const relocationCost = RELOCATION_COST[selections.relocation];
 
+  const visaQuotaActive = visaPkg.visaCount > 0;
+  const visaSpeedCost =
+    visaQuotaActive && selections.visaSpeed === "vip"
+      ? VISA_SPEED_CONFIG.vip.extraCost
+      : 0;
+  const visaProcessingDays = visaQuotaActive
+    ? VISA_SPEED_CONFIG[selections.visaSpeed].businessDays
+    : 0;
+  const bankAccountCost = BANK_ACCOUNT_CONFIG[selections.bankAccount].cost;
+
   const total =
-    license + registration + visas + officeFee + establishment + relocationCost;
+    license +
+    registration +
+    visas +
+    officeFee +
+    establishment +
+    relocationCost +
+    visaSpeedCost +
+    bankAccountCost;
 
   return {
     license,
@@ -953,6 +1037,9 @@ export function calculateZoneCost(
     office: officeFee,
     establishment,
     relocationCost,
+    visaSpeedCost,
+    bankAccountCost,
+    visaProcessingDays,
     total,
   };
 }

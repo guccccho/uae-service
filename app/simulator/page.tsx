@@ -13,14 +13,19 @@ import {
   type CustomerProfile,
 } from "./activities";
 import {
+  BANK_ACCOUNT_CONFIG,
   FREE_ZONE_CONFIGS,
   FREE_ZONE_LABELS,
+  VISA_SPEED_CONFIG,
   calculateZoneCost,
   getDefaultSelections,
+  hasVisaQuota,
   rankZonesByActivity,
+  type BankAccountOption,
   type FreeZone,
   type Relocation,
   type SimulatorSelections,
+  type VisaSpeed,
 } from "./data";
 
 const GOLD = "#C8A46A";
@@ -60,6 +65,8 @@ const TEXT = {
       visas: "ビザ人数",
       office: "オフィスタイプ",
       relocation: "リロケーションサポート",
+      visaSpeed: "ビザ取得スピード",
+      bankAccount: "口座開設サポート",
       companyName: "会社名（予定）",
       contactName: "ご担当者名",
       email: "メールアドレス",
@@ -75,8 +82,12 @@ const TEXT = {
       visas: "ビザ関連費用",
       office: "オフィス追加費用",
       relocation: "リロケーションサポート",
+      visaVip: "ビザVIP優先処理",
+      bankAccount: "口座開設サポート",
       total: "推定合計コスト",
     },
+    visaTimeline: "ビザ取得目安",
+    businessDays: "営業日",
     recommendationTitle: "最適なフリーゾーン",
     recommendationBody:
       "選択したライセンスアクティビティと設立条件に基づき、適合性とコストのバランスから推奨します。",
@@ -110,6 +121,8 @@ const TEXT = {
       visas: "Visa quota",
       office: "Office type",
       relocation: "Relocation support",
+      visaSpeed: "Visa processing speed",
+      bankAccount: "Bank account support",
       companyName: "Company name (planned)",
       contactName: "Contact name",
       email: "Email",
@@ -125,8 +138,12 @@ const TEXT = {
       visas: "Visa-related",
       office: "Office upgrade",
       relocation: "Relocation support",
+      visaVip: "Visa VIP priority",
+      bankAccount: "Bank account support",
       total: "Estimated total",
     },
+    visaTimeline: "Visa processing estimate",
+    businessDays: "business days",
     recommendationTitle: "Optimal free zones",
     recommendationBody:
       "Recommended based on activity eligibility and cost under your selected assumptions.",
@@ -224,7 +241,15 @@ function buildMailto(
     lang === "jp" ? "■ シミュレーション結果" : "■ Simulation result",
     `${lang === "jp" ? "フリーゾーン" : "Free zone"}: ${FREE_ZONE_LABELS[freeZone]}`,
     `${lang === "jp" ? "推定合計" : "Estimated total"}: ${formatAED(Math.round(breakdown.total))} AED (≈ ${formatJPY(Math.round(breakdown.total * aedToJpy))} JPY)`,
-  ].join("\n");
+    breakdown.visaProcessingDays > 0
+      ? `${lang === "jp" ? "ビザ取得目安" : "Visa timeline"}: ${breakdown.visaProcessingDays} ${lang === "jp" ? "営業日" : "business days"}${selections.visaSpeed === "vip" ? " (VIP)" : ""}`
+      : "",
+    selections.bankAccount === "yes"
+      ? `${lang === "jp" ? "口座開設サポート" : "Bank account support"}: +${formatAED(BANK_ACCOUNT_CONFIG.yes.cost)} AED`
+      : "",
+  ]
+    .filter(Boolean)
+    .join("\n");
 
   return `mailto:contact@hinodeya.ae?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
 }
@@ -325,6 +350,14 @@ export default function SimulatorPage() {
     () => calculateZoneCost(freeZone, selections),
     [freeZone, selections],
   );
+
+  const visaQuotaActive = hasVisaQuota(freeZone, selections.visas);
+
+  useEffect(() => {
+    if (!visaQuotaActive && selections.visaSpeed !== "standard") {
+      setSelections((p) => ({ ...p, visaSpeed: "standard" }));
+    }
+  }, [visaQuotaActive, selections.visaSpeed]);
 
   const optimizedZones = useMemo(
     () => rankZonesByActivity(selections).slice(0, 3),
@@ -520,6 +553,32 @@ export default function SimulatorPage() {
                       ))}
                     </div>
                   </div>
+
+                  {visaQuotaActive && (
+                    <div>
+                      <p className="text-xs font-semibold uppercase tracking-[0.16em] text-slate-500">{t.labels.visaSpeed}</p>
+                      <div className="mt-3 flex flex-wrap gap-2">
+                        {(["standard", "vip"] as VisaSpeed[]).map((k) => (
+                          <PillButton key={k} active={selections.visaSpeed === k} onClick={() => updateSelection("visaSpeed", k)}>
+                            {VISA_SPEED_CONFIG[k].label[lang]}
+                          </PillButton>
+                        ))}
+                      </div>
+                      <OptionDescription description={VISA_SPEED_CONFIG[selections.visaSpeed].description} />
+                    </div>
+                  )}
+
+                  <div>
+                    <p className="text-xs font-semibold uppercase tracking-[0.16em] text-slate-500">{t.labels.bankAccount}</p>
+                    <div className="mt-3 flex flex-wrap gap-2">
+                      {(["no", "yes"] as BankAccountOption[]).map((k) => (
+                        <PillButton key={k} active={selections.bankAccount === k} onClick={() => updateSelection("bankAccount", k)}>
+                          {BANK_ACCOUNT_CONFIG[k].label[lang]}
+                        </PillButton>
+                      ))}
+                    </div>
+                    <OptionDescription description={BANK_ACCOUNT_CONFIG[selections.bankAccount].description} />
+                  </div>
                 </div>
                 <p className="mt-8 text-[11px] leading-relaxed text-slate-400">{t.sourceNote}</p>
               </div>
@@ -536,14 +595,27 @@ export default function SimulatorPage() {
                   { label: t.breakdown.registration, value: breakdown.registration },
                   { label: t.breakdown.establishment, value: breakdown.establishment },
                   { label: t.breakdown.visas, value: breakdown.visas },
+                  ...(breakdown.visaSpeedCost > 0
+                    ? [{ label: t.breakdown.visaVip, value: breakdown.visaSpeedCost }]
+                    : []),
                   { label: t.breakdown.office, value: breakdown.office },
                   { label: t.breakdown.relocation, value: breakdown.relocationCost },
+                  ...(breakdown.bankAccountCost > 0
+                    ? [{ label: t.breakdown.bankAccount, value: breakdown.bankAccountCost }]
+                    : []),
                 ].map((row) => (
                   <div key={row.label} className="flex items-center justify-between">
                     <span className="text-slate-600">{row.label}</span>
                     <span className="font-medium text-slate-900">{formatAED(Math.round(row.value))} AED</span>
                   </div>
                 ))}
+                {breakdown.visaProcessingDays > 0 && (
+                  <div className="rounded-xl bg-slate-50 px-4 py-3 text-xs text-slate-600 ring-1 ring-slate-100">
+                    <span className="font-medium text-slate-800">{t.visaTimeline}: </span>
+                    {breakdown.visaProcessingDays} {t.businessDays}
+                    {selections.visaSpeed === "vip" ? " (VIP)" : ""}
+                  </div>
+                )}
                 <div className="mt-4 border-t border-dashed border-slate-200 pt-4">
                   <div className="flex items-start justify-between">
                     <span className="font-semibold text-slate-800">{t.breakdown.total}</span>
