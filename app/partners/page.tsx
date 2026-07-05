@@ -5,6 +5,7 @@ import { useLang } from "../lang-context";
 import { LangSwitch } from "../components/LangSwitch";
 import type { Lang } from "../i18n";
 import { TRUSTED_PARTNERS } from "../trusted-partners";
+import { GovernmentPortalsSection } from "../components/GovernmentPortalsSection";
 
 const content: Record<
   Lang,
@@ -158,6 +159,8 @@ export default function PartnersPage() {
             ))}
           </div>
         </section>
+
+        <GovernmentPortalsSection lang={lang} />
 
         <section className="border-t border-[#f0ece5]">
           <div className="mx-auto max-w-3xl px-6 sm:px-10 lg:px-12 py-14 sm:py-16 lg:py-20">

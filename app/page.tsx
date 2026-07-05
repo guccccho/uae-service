@@ -6,6 +6,7 @@ import { pickLang } from "./i18n";
 import { useLang } from "./lang-context";
 import { mediaItems } from "./media/data";
 import { TRUSTED_PARTNERS } from "./trusted-partners";
+import { GovernmentPortalsSection } from "./components/GovernmentPortalsSection";
 
 const content = {
   jp: {
@@ -662,6 +663,8 @@ export default function Home() {
             </div>
           </div>
         </section>
+
+        <GovernmentPortalsSection lang={lang} />
 
         {/* FAQ */}
         <section className="border-b border-[#f0ece5] bg-slate-50/40">
