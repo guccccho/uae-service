@@ -1,3 +1,11 @@
+import {
+  getActivityLicenseAdj,
+  getAllowedZones,
+  getRecommendationReason,
+  getSubActivity,
+  type ZoneRecommendation,
+} from "./activities";
+
 export type FreeZone = "dmcc" | "ifza" | "meydan" | "rakez" | "spc";
 
 export type LangCopy = { jp: string; en: string };
@@ -864,10 +872,11 @@ export const RELOCATION_COST = { yes: 9000, no: 0 } as const;
 export type Relocation = "yes" | "no";
 
 export type SimulatorSelections = {
+  majorActivity: string;
+  subActivity: string;
   companyType: string;
   visas: string;
   office: string;
-  business: string;
   relocation: Relocation;
 };
 
@@ -881,13 +890,18 @@ export type CostBreakdown = {
   total: number;
 };
 
-export function getDefaultSelections(zone: FreeZone): SimulatorSelections {
+export function getDefaultSelections(
+  zone: FreeZone,
+  majorActivity = "consulting",
+  subActivity = "management_consulting",
+): SimulatorSelections {
   const config = FREE_ZONE_CONFIGS[zone];
   return {
+    majorActivity,
+    subActivity,
     companyType: config.licenseTypes[0].id,
     visas: config.visaPackages[0].id,
     office: config.officeTypes[0].id,
-    business: config.businessActivities[0].id,
     relocation: "no",
   };
 }
@@ -906,14 +920,15 @@ export function calculateZoneCost(
   const office =
     zone.officeTypes.find((o) => o.id === selections.office) ??
     zone.officeTypes[0];
-  const business =
-    zone.businessActivities.find((b) => b.id === selections.business) ??
-    zone.businessActivities[0];
+
+  const activityAdj = getActivityLicenseAdj(
+    selections.majorActivity,
+    selections.subActivity,
+    zoneId,
+  );
 
   const license =
-    visaPkg.licensePackageFee +
-    licenseType.licenseAdj +
-    business.licenseAdj;
+    visaPkg.licensePackageFee + licenseType.licenseAdj + activityAdj;
   const registration = zone.registrationFee + licenseType.registrationAdj;
 
   const billableVisas =
@@ -942,10 +957,38 @@ export function calculateZoneCost(
   };
 }
 
+export function rankZonesByActivity(
+  selections: SimulatorSelections,
+): ZoneRecommendation[] {
+  const sub = getSubActivity(selections.majorActivity, selections.subActivity);
+  const allowed = getAllowedZones(selections.majorActivity, selections.subActivity);
+
+  const ranked = allowed
+    .map((zone) => ({
+      zone,
+      total: calculateZoneCost(zone, selections).total,
+      recIndex: sub?.recommendedZones.indexOf(zone) ?? 99,
+    }))
+    .sort((a, b) => a.recIndex - b.recIndex || a.total - b.total);
+
+  return ranked.map((item, index) => ({
+    zone: item.zone,
+    total: item.total,
+    rank: index + 1,
+    isRecommended: index < 2,
+    reason:
+      sub != null
+        ? getRecommendationReason(item.zone, sub, item.total, "jp")
+        : { jp: "", en: "" },
+  }));
+}
+
+/** @deprecated Use rankZonesByActivity for activity-aware ranking */
 export function rankZonesByCost(
   selections: SimulatorSelections,
 ): { zone: FreeZone; total: number }[] {
-  return (Object.keys(FREE_ZONE_CONFIGS) as FreeZone[])
+  const allowed = getAllowedZones(selections.majorActivity, selections.subActivity);
+  return allowed
     .map((zone) => ({
       zone,
       total: calculateZoneCost(zone, selections).total,
