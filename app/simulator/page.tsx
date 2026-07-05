@@ -3,7 +3,6 @@
 import React, { useEffect, useMemo, useRef, useState } from "react";
 import { useLang } from "../lang-context";
 import {
-  AED_TO_JPY,
   FREE_ZONE_CONFIGS,
   FREE_ZONE_LABELS,
   calculateZoneCost,
@@ -15,6 +14,13 @@ import {
 } from "./data";
 
 const GOLD = "#C8A46A";
+const FALLBACK_AED_JPY = 40;
+
+type ExchangeRateData = {
+  rate: number;
+  date: string;
+  label: { jp: string; en: string };
+};
 
 const TEXT = {
   jp: {
@@ -158,8 +164,39 @@ export default function SimulatorPage() {
   const [selections, setSelections] = useState<SimulatorSelections>(() =>
     getDefaultSelections("dmcc"),
   );
+  const [exchangeRate, setExchangeRate] = useState<ExchangeRateData | null>(
+    null,
+  );
 
   const zoneConfig = FREE_ZONE_CONFIGS[freeZone];
+
+  useEffect(() => {
+    let cancelled = false;
+
+    fetch("/api/exchange-rate")
+      .then((res) => res.json())
+      .then((data: ExchangeRateData) => {
+        if (!cancelled && typeof data.rate === "number") {
+          setExchangeRate(data);
+        }
+      })
+      .catch(() => {
+        if (!cancelled) {
+          setExchangeRate({
+            rate: FALLBACK_AED_JPY,
+            date: new Date().toISOString().slice(0, 10),
+            label: {
+              jp: "レート取得不可（参考値）",
+              en: "Rate unavailable (fallback)",
+            },
+          });
+        }
+      });
+
+    return () => {
+      cancelled = true;
+    };
+  }, []);
 
   useEffect(() => {
     setSelections(getDefaultSelections(freeZone));
@@ -195,7 +232,8 @@ export default function SimulatorPage() {
     (b) => b.id === selections.business,
   );
 
-  const totalJPY = Math.round(breakdown.total * AED_TO_JPY);
+  const aedToJpy = exchangeRate?.rate ?? FALLBACK_AED_JPY;
+  const totalJPY = Math.round(breakdown.total * aedToJpy);
 
   const scrollToContact = () => {
     contactRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
@@ -213,7 +251,12 @@ export default function SimulatorPage() {
           </a>
           <div className="flex items-center gap-5">
             <p className="hidden text-xs font-medium tracking-[0.18em] text-slate-500 sm:block">
-              1 AED = {AED_TO_JPY} JPY
+              1 AED = {aedToJpy.toFixed(2)} JPY
+              {exchangeRate && (
+                <span className="ml-1 text-slate-400">
+                  ({exchangeRate.label[lang]})
+                </span>
+              )}
             </p>
             <div className="flex items-center gap-2 text-[11px] font-semibold tracking-[0.18em]">
               <button
@@ -443,6 +486,11 @@ export default function SimulatorPage() {
                           ? `約 ${formatJPY(totalJPY)} 円`
                           : `≈ ${formatJPY(totalJPY)} JPY`}
                       </div>
+                      {exchangeRate && (
+                        <div className="mt-1 text-[10px] text-slate-400">
+                          1 AED = {aedToJpy.toFixed(2)} JPY · {exchangeRate.label[lang]}
+                        </div>
+                      )}
                     </div>
                   </div>
                 </div>

@@ -859,7 +859,6 @@ export const FREE_ZONE_LABELS: Record<FreeZone, string> = {
   spc: "SPC",
 };
 
-export const AED_TO_JPY = 40;
 export const RELOCATION_COST = { yes: 9000, no: 0 } as const;
 
 export type Relocation = "yes" | "no";
