@@ -2,7 +2,7 @@
 
 import { useLang } from "../lang-context";
 import { pickLang, type LangCopy } from "../i18n";
-import { getAcquisitionSchedule } from "./schedule";
+import { getAcquisitionSchedule, ATTEND_PROGRAM_STEPS, ATTEND_PROGRAM_TITLE } from "./schedule";
 import type { VisaSpeed } from "./data";
 
 const BRAND = "#bc002d";
@@ -110,6 +110,51 @@ export function VisaAcquisitionSchedule({
           >
             {pickLang(TOUR_LINK, lang)}
           </a>
+          {attendSelected && (
+            <div className="mt-5 border-t border-dashed border-slate-200 pt-5">
+              <p
+                className="text-xs font-semibold uppercase tracking-[0.16em]"
+                style={{ color: BRAND }}
+              >
+                {pickLang(ATTEND_PROGRAM_TITLE, lang)}
+              </p>
+              <ol className="mt-4 space-y-0">
+                {ATTEND_PROGRAM_STEPS.map((step, index) => (
+                  <li key={step.id} className="relative flex gap-4 pb-6 last:pb-0">
+                    {index < ATTEND_PROGRAM_STEPS.length - 1 && (
+                      <span
+                        className="absolute left-[11px] top-6 h-[calc(100%-12px)] w-px bg-slate-200"
+                        aria-hidden
+                      />
+                    )}
+                    <div
+                      className={`relative z-10 mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full text-[10px] font-semibold ${
+                        step.highlight
+                          ? "text-white"
+                          : step.optional
+                            ? "border border-slate-300 bg-white text-slate-500"
+                            : "border border-slate-200 bg-white text-slate-700"
+                      }`}
+                      style={step.highlight ? { backgroundColor: BRAND } : undefined}
+                    >
+                      {index + 1}
+                    </div>
+                    <div className="min-w-0 flex-1">
+                      <p className="text-[10px] font-semibold uppercase tracking-[0.14em] text-slate-400">
+                        {pickLang(step.phase, lang)}
+                      </p>
+                      <p className="mt-1 text-sm font-medium text-slate-900">
+                        {pickLang(step.title, lang)}
+                      </p>
+                      <p className="mt-1 text-xs leading-relaxed text-slate-600">
+                        {pickLang(step.body, lang)}
+                      </p>
+                    </div>
+                  </li>
+                ))}
+              </ol>
+            </div>
+          )}
         </div>
       )}
     </div>
