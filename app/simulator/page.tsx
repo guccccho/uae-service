@@ -16,8 +16,10 @@ import {
   type CustomerProfile,
 } from "./activities";
 import {
-  BANK_ACCOUNT_CONFIG,
-  getBankAccountOptions,
+  BANK_ACCOUNT_NONE_DESCRIPTION,
+  BANK_ACCOUNT_NONE_LABEL,
+  BANK_ACCOUNT_SUPPORT_CONFIG,
+  hasBankAccountSupport,
   FREE_ZONE_CONFIGS,
   FREE_ZONE_LABELS,
   VISA_SPEED_CONFIG,
@@ -406,9 +408,11 @@ function buildMailto(
     breakdown.visaProcessingDays > 0
       ? `${l.visa}: ${breakdown.visaProcessingDays} ${l.days}${selections.visaSpeed === "vip" ? " (VIP)" : ""}`
       : "",
-    selections.bankAccount !== "no"
-      ? `${l.bank}: ${pickLang(BANK_ACCOUNT_CONFIG[selections.bankAccount].label, lang)} (+${formatAED(BANK_ACCOUNT_CONFIG[selections.bankAccount].cost)} AED)`
-      : "",
+    ...(breakdown.bankAccountLines.length > 0
+      ? breakdown.bankAccountLines.map((line) =>
+          `${pickLang(BANK_ACCOUNT_SUPPORT_CONFIG[line.type].label, lang)}: +${formatAED(line.cost)} AED`,
+        )
+      : []),
     localAttend ? `${l.attend}: ${l.attendYes}` : "",
   ]
     .filter(Boolean)
@@ -527,17 +531,35 @@ export default function SimulatorPage() {
   }, [visaQuotaActive, selections.visaSpeed]);
 
   useEffect(() => {
-    if (!visaQuotaActive && selections.bankAccount === "personal") {
-      setSelections((p) => ({ ...p, bankAccount: "no" }));
+    if (!visaQuotaActive && selections.bankAccount.personal) {
+      setSelections((p) => ({
+        ...p,
+        bankAccount: { ...p.bankAccount, personal: false },
+      }));
     }
-  }, [visaQuotaActive, selections.bankAccount]);
+  }, [visaQuotaActive, selections.bankAccount.personal]);
 
   const optimizedZones = useMemo(
     () => rankZonesByActivity(selections),
     [selections],
   );
 
-  const bankAccountOptions = getBankAccountOptions(visaQuotaActive);
+  const toggleBankAccountSupport = (type: "corporate" | "personal") => {
+    setSelections((prev) => ({
+      ...prev,
+      bankAccount: {
+        ...prev.bankAccount,
+        [type]: !prev.bankAccount[type],
+      },
+    }));
+  };
+
+  const clearBankAccountSupport = () => {
+    setSelections((prev) => ({
+      ...prev,
+      bankAccount: { corporate: false, personal: false },
+    }));
+  };
 
   const selectedLicenseType = zoneConfig.licenseTypes.find(
     (l) => l.id === selections.companyType,
@@ -739,20 +761,64 @@ export default function SimulatorPage() {
                   <div>
                     <p className="text-xs font-semibold uppercase tracking-[0.16em] text-slate-500">{t.labels.bankAccount}</p>
                     <div className="mt-3 flex flex-wrap gap-2">
-                      {bankAccountOptions.map((k) => (
-                        <PillButton key={k} active={selections.bankAccount === k} onClick={() => updateSelection("bankAccount", k)}>
-                          {pickLang(BANK_ACCOUNT_CONFIG[k].label, lang)}
+                      <PillButton
+                        active={!hasBankAccountSupport(selections.bankAccount)}
+                        onClick={clearBankAccountSupport}
+                      >
+                        {pickLang(BANK_ACCOUNT_NONE_LABEL, lang)}
+                      </PillButton>
+                      <PillButton
+                        active={selections.bankAccount.corporate}
+                        onClick={() => toggleBankAccountSupport("corporate")}
+                      >
+                        {pickLang(BANK_ACCOUNT_SUPPORT_CONFIG.corporate.label, lang)}
+                      </PillButton>
+                      {visaQuotaActive && (
+                        <PillButton
+                          active={selections.bankAccount.personal}
+                          onClick={() => toggleBankAccountSupport("personal")}
+                        >
+                          {pickLang(BANK_ACCOUNT_SUPPORT_CONFIG.personal.label, lang)}
                         </PillButton>
-                      ))}
+                      )}
                     </div>
-                    <OptionDescription description={BANK_ACCOUNT_CONFIG[selections.bankAccount].description} />
+                    {hasBankAccountSupport(selections.bankAccount) ? (
+                      <div className="mt-2 space-y-1">
+                        {(
+                          [
+                            selections.bankAccount.corporate ? "corporate" : null,
+                            selections.bankAccount.personal && visaQuotaActive
+                              ? "personal"
+                              : null,
+                          ] as const
+                        )
+                          .filter((k): k is "corporate" | "personal" => k != null)
+                          .map((k) => (
+                            <OptionDescription
+                              key={k}
+                              description={BANK_ACCOUNT_SUPPORT_CONFIG[k].description}
+                            />
+                          ))}
+                      </div>
+                    ) : (
+                      <OptionDescription description={BANK_ACCOUNT_NONE_DESCRIPTION} />
+                    )}
                     {!visaQuotaActive && (
                       <p className="mt-2 text-[11px] leading-relaxed text-slate-500">
                         {lang === "jp"
-                          ? "※ビザ枠なしの場合、個人口座は開設できません。"
+                          ? "※ビザ枠なしの場合、個人口座は開設できません。法人口座と個人口座は複数選択できます。"
                           : lang === "ar"
-                            ? "※بدون حصة تأشيرة، لا يمكن فتح حساب شخصي."
-                            : "※Without a visa quota, a personal account cannot be opened."}
+                            ? "※بدون حصة تأشيرة، لا يمكن فتح حساب شخصي. يمكن اختيار حساب الشركة والحساب الشخصي معاً."
+                            : "※Without a visa quota, a personal account cannot be opened. Corporate and personal can be selected together."}
+                      </p>
+                    )}
+                    {visaQuotaActive && (
+                      <p className="mt-2 text-[11px] leading-relaxed text-slate-500">
+                        {lang === "jp"
+                          ? "※法人口座と個人口座は複数選択できます。"
+                          : lang === "ar"
+                            ? "※يمكن اختيار حساب الشركة والحساب الشخصي معاً."
+                            : "※Corporate and personal accounts can be selected together."}
                       </p>
                     )}
                   </div>
@@ -795,12 +861,10 @@ export default function SimulatorPage() {
                   ...(breakdown.relocationCost > 0
                     ? [{ label: t.breakdown.relocation, value: breakdown.relocationCost }]
                     : []),
-                  ...(breakdown.bankAccountCost > 0
-                    ? [{
-                        label: pickLang(BANK_ACCOUNT_CONFIG[selections.bankAccount].label, lang),
-                        value: breakdown.bankAccountCost,
-                      }]
-                    : []),
+                  ...breakdown.bankAccountLines.map((line) => ({
+                    label: pickLang(BANK_ACCOUNT_SUPPORT_CONFIG[line.type].label, lang),
+                    value: line.cost,
+                  })),
                 ].map((row) => (
                   <div key={row.label} className="flex items-center justify-between">
                     <span className="text-slate-600">{row.label}</span>
