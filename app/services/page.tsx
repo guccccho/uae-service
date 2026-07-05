@@ -11,6 +11,9 @@ const content: Record<
     title: string;
     description: string;
     cards: { title: string; body: string }[];
+    individualEyebrow: string;
+    individualTitle: string;
+    individualCards: { title: string; body: string }[];
     ctaEyebrow: string;
     ctaBody: string;
     ctaLabel: string;
@@ -19,7 +22,7 @@ const content: Record<
   jp: {
     title: "コンサルティングサービス一覧",
     description:
-      "UAE進出の検討段階から、法人設立、拠点展開、現地パートナーシップ構築まで。日本企業の状況に合わせて、必要なサービスだけを組み合わせてご提案します。",
+      "法人のUAE進出から、個人の決済・不動産購入・移住まで。企業・個人それぞれの状況に合わせて、必要なサービスだけを組み合わせてご提案します。",
     cards: [
       {
         title: "戦略・市場分析",
@@ -34,6 +37,22 @@ const content: Record<
         body: "販売・調達・アライアンスなど、現地パートナーとの関係構築と収益モデル設計を支援します。",
       },
     ],
+    individualEyebrow: "個人のお客様へ",
+    individualTitle: "決済・不動産・移住など個人支援",
+    individualCards: [
+      {
+        title: "決済・金融ソリューション",
+        body: "UAE口座開設、国際送金、決済インフラの選定など、個人・小規模事業の資金管理をサポートします。",
+      },
+      {
+        title: "不動産購入・投資",
+        body: "住宅購入、賃貸、投資物件の選定から契約・登記まで、ドバイ・ラスアルハイマで伴走します。",
+      },
+      {
+        title: "移住・ビザ・生活設計",
+        body: "ゴールデンビザ、居住ビザ、学校・医療・生活インフラまで、UAEでの新生活の立ち上げを支援します。",
+      },
+    ],
     ctaEyebrow: "次のステップ",
     ctaBody:
       "貴社の検討段階・想定タイムラインを共有いただければ、最適なサービスの組み合わせをご提案いたします。",
@@ -42,7 +61,7 @@ const content: Record<
   en: {
     title: "Advisory Services Overview",
     description:
-      "From initial UAE market assessment to company setup, local presence, and strategic partnerships, we assemble only the services your organization truly needs at each stage.",
+      "From corporate UAE market entry to personal payments, property purchase, and relocation — we assemble only the services you need at each stage.",
     cards: [
       {
         title: "Strategy & Market",
@@ -57,6 +76,22 @@ const content: Record<
         body: "We support commercial rollout, partner selection, and revenue model design with trusted local counterparts.",
       },
     ],
+    individualEyebrow: "For Individuals",
+    individualTitle: "Personal support — payments, property & relocation",
+    individualCards: [
+      {
+        title: "Payments & Financial Solutions",
+        body: "UAE bank accounts, cross-border transfers, and payment infrastructure for personal and small-business use.",
+      },
+      {
+        title: "Property Purchase & Investment",
+        body: "Residential and investment property in Dubai and Ras Al Khaimah — from shortlisting to contract and registration.",
+      },
+      {
+        title: "Relocation, Visa & Lifestyle",
+        body: "Golden Visa, residence permits, schools, healthcare, and daily infrastructure for your new life in the UAE.",
+      },
+    ],
     ctaEyebrow: "Next Step",
     ctaBody:
       "Share your current stage and target timeline, and we will propose a focused combination of services for you.",
@@ -65,7 +100,7 @@ const content: Record<
   ar: {
     title: "نظرة عامة على خدمات الاستشارات",
     description:
-      "من تقييم السوق الأولي في الإمارات إلى تأسيس الشركات والتواجد المحلي والشراكات الاستراتيجية، نجمع فقط الخدمات التي تحتاجها مؤسستكم في كل مرحلة.",
+      "من دخول الشركات إلى الإمارات إلى المدفوعات الشخصية وشراء العقارات وإعادة التوطين — نجمع فقط الخدمات التي تحتاجونها في كل مرحلة.",
     cards: [
       {
         title: "الاستراتيجية وتحليل السوق",
@@ -78,6 +113,22 @@ const content: Record<
       {
         title: "التوسع التجاري والشركاء",
         body: "ندعم الإطلاق التجاري واختيار الشركاء وتصميم نموذج الإيرادات مع نظرائنا المحليين الموثوقين.",
+      },
+    ],
+    individualEyebrow: "للأفراد",
+    individualTitle: "دعم شخصي — مدفوعات وعقارات وإعادة توطين",
+    individualCards: [
+      {
+        title: "حلول الدفع والخدمات المالية",
+        body: "حسابات مصرفية في الإمارات وتحويلات دولية وبنية مدفوعات للاستخدام الشخصي والأعمال الصغيرة.",
+      },
+      {
+        title: "شراء العقارات والاستثمار",
+        body: "عقارات سكنية واستثمارية في دبي ورأس الخيمة — من الاختيار إلى العقد والتسجيل.",
+      },
+      {
+        title: "إعادة التوطين والتأشيرة ونمط الحياة",
+        body: "التأشيرة الذهبية وتصاريح الإقامة والمدارس والرعاية الصحية والبنية التحتية لحياتكم الجديدة.",
       },
     ],
     ctaEyebrow: "الخطوة التالية",
@@ -127,6 +178,32 @@ export default function ServicesPage() {
                 </p>
               </div>
             ))}
+          </div>
+
+          <div className="mt-24 border-t border-[#f0ece5] pt-20">
+            <div className="mx-auto max-w-3xl text-center">
+              <p className="text-xs font-medium uppercase tracking-[0.3em] text-[#c9a86c]">
+                {t.individualEyebrow}
+              </p>
+              <h2 className="mt-6 text-2xl font-light tracking-[-0.03em] text-slate-900 sm:text-3xl">
+                {t.individualTitle}
+              </h2>
+            </div>
+            <div className="mt-12 grid gap-8 sm:grid-cols-3">
+              {t.individualCards.map((card) => (
+                <div
+                  key={card.title}
+                  className="rounded-2xl bg-slate-50/60 p-7 ring-1 ring-slate-100/70"
+                >
+                  <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[#c9a86c]">
+                    {card.title}
+                  </p>
+                  <p className="mt-3 text-sm leading-[1.8] text-slate-600">
+                    {card.body}
+                  </p>
+                </div>
+              ))}
+            </div>
           </div>
         </section>
 
