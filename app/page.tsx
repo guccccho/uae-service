@@ -64,6 +64,31 @@ const content = {
       ],
       cta: "個人向けのご相談はこちら",
     },
+    tour: {
+      eyebrow: "ドバイ視察プログラム",
+      title: "UAE進出のための現地視察",
+      subtitle:
+        "法人設立・不動産・商業物件・現地パートナーまで、短期間で確認できる視察プログラムです。",
+      cards: [
+        {
+          title: "相談のみ",
+          price: "¥50,000〜",
+          body: "オンラインでの進出戦略相談・フリーゾーン比較",
+        },
+        {
+          title: "現地同行プログラム",
+          price: "¥500,000〜",
+          body: "ドバイ現地でのフリーゾーン説明・不動産視察など",
+        },
+        {
+          title: "プレミアム視察",
+          price: "¥800,000〜¥1,200,000",
+          body: "JV候補紹介・商業物件視察までフルサポート",
+        },
+      ],
+      recommended: "おすすめ",
+      cta: "視察プログラムの詳細を見る",
+    },
     why: {
       title: "UAEが選ばれる理由",
       subtitle: "日本企業の成長を加速させるグローバル拠点としてのUAE。",
@@ -189,6 +214,31 @@ const content = {
       ],
       cta: "Consult for personal support",
     },
+    tour: {
+      eyebrow: "Dubai Business Tour",
+      title: "On-the-ground UAE exploration",
+      subtitle:
+        "A curated program to explore company formation, real estate, commercial spaces, and local partners in a short visit.",
+      cards: [
+        {
+          title: "Consultation only",
+          price: "From ¥50,000",
+          body: "Online entry strategy session and free zone comparison",
+        },
+        {
+          title: "On-site advisory program",
+          price: "From ¥500,000",
+          body: "In-person free zone briefings and property tours in Dubai",
+        },
+        {
+          title: "Premium exploration",
+          price: "¥800,000–¥1,200,000",
+          body: "Full support including JV introductions and commercial site visits",
+        },
+      ],
+      recommended: "Recommended",
+      cta: "View tour program details",
+    },
     why: {
       title: "Why UAE",
       subtitle: "A strategic base for regional and global growth.",
@@ -313,6 +363,31 @@ const content = {
         },
       ],
       cta: "استشارة للأفراد",
+    },
+    tour: {
+      eyebrow: "جولة الأعمال في دبي",
+      title: "استكشاف ميداني لدخول الإمارات",
+      subtitle:
+        "برنامج منظم لاستكشاف تأسيس الشركات والعقارات والمساحات التجارية والشركاء المحليين خلال زيارة قصيرة.",
+      cards: [
+        {
+          title: "استشارة فقط",
+          price: "من ¥50,000",
+          body: "جلسة استراتيجية عبر الإنترنت ومقارنة المناطق الحرة",
+        },
+        {
+          title: "برنامج استشاري ميداني",
+          price: "من ¥500,000",
+          body: "إحاطات المناطق الحرة وجولات عقارية في دبي",
+        },
+        {
+          title: "استكشاف متميز",
+          price: "¥800,000–¥1,200,000",
+          body: "دعم كامل يشمل تعريف المشاريع المشتركة ومعاينة المواقع التجارية",
+        },
+      ],
+      recommended: "موصى به",
+      cta: "عرض تفاصيل برنامج الجولة",
     },
     why: {
       title: "لماذا الإمارات",
@@ -595,6 +670,58 @@ export default function Home() {
                 className="inline-flex items-center justify-center rounded-full bg-brand px-10 py-3.5 text-xs font-semibold uppercase tracking-[0.2em] text-white shadow-[0_18px_45px_rgba(15,23,42,0.18)] transition-colors hover:bg-brand-hover"
               >
                 {t.individual.cta}
+              </a>
+            </div>
+          </div>
+        </section>
+
+        {/* Dubai business tour pricing */}
+        <section className="border-b border-[#f0e4e6] bg-white">
+          <div className="mx-auto max-w-6xl px-6 sm:px-10 lg:px-12 py-24 sm:py-32 lg:py-40">
+            <div className="mx-auto max-w-3xl text-center">
+              <p className="text-xs font-medium uppercase tracking-[0.3em] text-brand">
+                {t.tour.eyebrow}
+              </p>
+              <h2 className="mt-6 text-2xl font-light tracking-[-0.03em] text-slate-900 sm:text-3xl">
+                {t.tour.title}
+              </h2>
+              <p className="mt-6 text-base leading-[1.9] text-slate-600 sm:text-lg">
+                {t.tour.subtitle}
+              </p>
+            </div>
+            <div className="mt-16 grid gap-8 sm:grid-cols-3">
+              {t.tour.cards.map((card, idx) => (
+                <div
+                  key={card.title}
+                  className={`relative rounded-2xl p-7 shadow-[0_18px_45px_rgba(15,23,42,0.06)] ${
+                    idx === 1
+                      ? "bg-white ring-2 ring-brand/80"
+                      : "bg-white/90 ring-1 ring-slate-100/70"
+                  }`}
+                >
+                  {idx === 1 && (
+                    <span className="absolute -top-3 right-6 rounded-full bg-brand px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.22em] text-white">
+                      {t.tour.recommended}
+                    </span>
+                  )}
+                  <h3 className="text-lg font-medium tracking-[-0.01em] text-slate-900">
+                    {card.title}
+                  </h3>
+                  <p className="mt-4 text-3xl font-light tracking-[-0.02em] text-slate-900">
+                    {card.price}
+                  </p>
+                  <p className="mt-3 text-sm leading-[1.8] text-slate-600">
+                    {card.body}
+                  </p>
+                </div>
+              ))}
+            </div>
+            <div className="mt-12 flex justify-center">
+              <a
+                href="/dubai-business-tour"
+                className="inline-flex items-center justify-center rounded-full border border-slate-200 bg-white px-10 py-3.5 text-xs font-semibold uppercase tracking-[0.2em] text-slate-700 transition-colors hover:bg-slate-50"
+              >
+                {t.tour.cta}
               </a>
             </div>
           </div>

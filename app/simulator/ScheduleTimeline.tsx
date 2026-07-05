@@ -8,9 +8,9 @@ import type { VisaSpeed } from "./data";
 const BRAND = "#bc002d";
 
 const ATTEND_DETAIL: LangCopy = {
-  jp: "詳細・料金は無料相談時にご案内します。",
-  en: "Details and pricing provided during your free consultation.",
-  ar: "التفاصيل والأسعار تُقدَّم خلال استشارتك المجانية.",
+  jp: "現地同行プログラム ¥500,000〜（詳細は視察プログラムページをご覧ください）",
+  en: "On-site advisory program from ¥500,000 (see the tour program page for details).",
+  ar: "برنامج استشاري ميداني من ¥500,000 (راجع صفحة برنامج الجولة للتفاصيل).",
 };
 
 const TOUR_LINK: LangCopy = {
