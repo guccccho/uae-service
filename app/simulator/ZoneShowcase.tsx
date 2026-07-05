@@ -68,9 +68,14 @@ function MediaEmbed({
   );
 }
 
+const ZONE_LOGO_CLASS: Record<HinodeyaSimulatorZone, string> = {
+  dmcc: "h-7 w-auto max-w-[140px] object-contain",
+  rakez: "h-8 w-auto max-w-[220px] object-contain",
+};
+
 export function ZoneLogo({
   zone,
-  className = "h-7 w-auto",
+  className,
 }: {
   zone: HinodeyaSimulatorZone;
   className?: string;
@@ -80,7 +85,7 @@ export function ZoneLogo({
     <img
       src={media.logo}
       alt={media.logoAlt}
-      className={className}
+      className={className ?? ZONE_LOGO_CLASS[zone]}
     />
   );
 }
@@ -94,7 +99,14 @@ export default function ZoneShowcase({ zone, lang, compact = false }: Props) {
   if (compact) {
     return (
       <div className="flex items-center gap-3">
-        <ZoneLogo zone={zone} className="h-6 w-auto max-w-[100px] object-contain" />
+        <ZoneLogo
+          zone={zone}
+          className={
+            zone === "rakez"
+              ? "h-7 w-auto max-w-[160px] object-contain"
+              : "h-6 w-auto max-w-[100px] object-contain"
+          }
+        />
         <p className="text-[11px] leading-relaxed text-slate-500">{pickLang(media.overview, lang)}</p>
       </div>
     );
@@ -104,7 +116,7 @@ export default function ZoneShowcase({ zone, lang, compact = false }: Props) {
     <div className="mt-6 space-y-5 rounded-xl border border-slate-100 bg-slate-50/50 p-4 sm:p-5">
       <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
         <div className="flex items-center gap-4">
-          <ZoneLogo zone={zone} className="h-8 w-auto max-w-[140px] object-contain" />
+          <ZoneLogo zone={zone} />
           <p className="text-xs leading-relaxed text-slate-600">{pickLang(media.overview, lang)}</p>
         </div>
         <a
