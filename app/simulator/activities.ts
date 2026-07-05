@@ -25,6 +25,9 @@ const ALL_ZONES: FreeZone[] = ["dmcc", "ifza", "meydan", "rakez", "spc"];
 const DUBAI_ZONES: FreeZone[] = ["dmcc", "ifza", "meydan"];
 const BUDGET_ZONES: FreeZone[] = ["rakez", "spc", "ifza", "meydan"];
 
+/** HINODEYAがサポートするシミュレーター対象フリーゾーン */
+export const HINODEYA_SIMULATOR_ZONES: FreeZone[] = ["dmcc", "rakez"];
+
 export const MAJOR_ACTIVITIES: MajorActivity[] = [
   {
     id: "financial",
@@ -519,7 +522,43 @@ export function getActivityLicenseAdj(
 }
 
 export function getAllowedZones(majorId: string, subId: string): FreeZone[] {
-  return getSubActivity(majorId, subId)?.allowedZones ?? ALL_ZONES;
+  const activityZones =
+    getSubActivity(majorId, subId)?.allowedZones ?? ALL_ZONES;
+  const filtered = HINODEYA_SIMULATOR_ZONES.filter((z) =>
+    activityZones.includes(z),
+  );
+  return filtered.length > 0 ? filtered : [...HINODEYA_SIMULATOR_ZONES];
+}
+
+/** DMCC / RAKEZ の推奨順（アクティビティ適合性ベース） */
+export function getHinodeyaZonePriority(
+  majorId: string,
+  subId: string,
+): FreeZone[] {
+  const sub = getSubActivity(majorId, subId);
+  const allowed = getAllowedZones(majorId, subId);
+  if (allowed.length <= 1) return allowed;
+
+  if (!sub) return [...HINODEYA_SIMULATOR_ZONES];
+
+  if (sub.regulated) {
+    return HINODEYA_SIMULATOR_ZONES.filter((z) => allowed.includes(z));
+  }
+
+  const fromRec = sub.recommendedZones.filter((z) => allowed.includes(z));
+  if (fromRec.length > 0) {
+    const order = [...fromRec];
+    for (const z of allowed) {
+      if (!order.includes(z)) order.push(z);
+    }
+    return order;
+  }
+
+  const budgetOrigins = ["rakez", "spc", "ifza", "meydan"];
+  if (budgetOrigins.includes(sub.recommendedZones[0])) {
+    return (["rakez", "dmcc"] as const).filter((z) => allowed.includes(z));
+  }
+  return (["dmcc", "rakez"] as const).filter((z) => allowed.includes(z));
 }
 
 export type ZoneRecommendation = {
@@ -547,26 +586,31 @@ export function getRecommendationReason(
   }
   if (sub.allowedZones.length === 1) {
     return {
-      jp: `「${sub.label.jp}」は${zone.toUpperCase()}のみ対応`,
-      en: `${sub.label.en} is only available in ${zone.toUpperCase()}`,
+      jp: `「${sub.label.jp}」は${zone.toUpperCase()}が最適`,
+      en: `${sub.label.en} is best suited to ${zone.toUpperCase()}`,
     };
   }
   if (isPrimary) {
-    return {
-      jp: "アクティビティ適合・コストのバランスが最良",
-      en: "Best balance of activity fit and cost",
-    };
+    return zone === "rakez"
+      ? {
+          jp: "コスト効率と設立スピードのバランスが最良",
+          en: "Best balance of cost efficiency and setup speed",
+        }
+      : {
+          jp: "信頼性・ブランド力とアクティビティ適合性が最良",
+          en: "Best balance of credibility and activity fit",
+        };
   }
-  if (BUDGET_ZONES.includes(zone) && total < 25000) {
+  if (zone === "rakez") {
     return {
-      jp: "コスト効率が高い選択肢",
-      en: "Cost-efficient option",
+      jp: "初年度コストを抑えたい場合の候補",
+      en: "Cost-efficient option for first-year setup",
     };
   }
   if (zone === "dmcc") {
     return {
-      jp: "信頼性・金融・コモディティ向け",
-      en: "Strong credibility for finance and commodities",
+      jp: "金融・コモディティ・ブランド重視の候補",
+      en: "Strong option for finance, commodities, and brand credibility",
     };
   }
   return {

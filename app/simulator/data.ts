@@ -1,6 +1,7 @@
 import {
   getActivityLicenseAdj,
   getAllowedZones,
+  getHinodeyaZonePriority,
   getRecommendationReason,
   getSubActivity,
   type ZoneRecommendation,
@@ -1127,13 +1128,20 @@ export function rankZonesByActivity(
   selections: SimulatorSelections,
 ): ZoneRecommendation[] {
   const sub = getSubActivity(selections.majorActivity, selections.subActivity);
-  const allowed = getAllowedZones(selections.majorActivity, selections.subActivity);
+  const allowed = getAllowedZones(
+    selections.majorActivity,
+    selections.subActivity,
+  );
+  const priority = getHinodeyaZonePriority(
+    selections.majorActivity,
+    selections.subActivity,
+  );
 
   const ranked = allowed
     .map((zone) => ({
       zone,
       total: calculateZoneCost(zone, selections).total,
-      recIndex: sub?.recommendedZones.indexOf(zone) ?? 99,
+      recIndex: priority.indexOf(zone),
     }))
     .sort((a, b) => a.recIndex - b.recIndex || a.total - b.total);
 
@@ -1141,7 +1149,7 @@ export function rankZonesByActivity(
     zone: item.zone,
     total: item.total,
     rank: index + 1,
-    isRecommended: index < 2,
+    isRecommended: index === 0,
     reason:
       sub != null
         ? getRecommendationReason(item.zone, sub, item.total, "jp")

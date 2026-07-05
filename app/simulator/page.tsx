@@ -10,6 +10,7 @@ import {
   getAllowedZones,
   getMajorActivity,
   getSubActivity,
+  HINODEYA_SIMULATOR_ZONES,
   type CustomerProfile,
 } from "./activities";
 import {
@@ -52,14 +53,14 @@ const EMPTY_CUSTOMER: CustomerProfile = {
 const TEXT = {
   jp: {
     freeZoneDescription:
-      "ライセンスアクティビティと顧客条件から、設立に適したフリーゾーンを最適化します。",
+      "HINODEYAがサポートするDMCC・RAKEZの2ゾーンから、ライセンスアクティビティと設立条件に最適な方を自動で提案します。",
     customerTitle: "お客様情報",
     customerNote: "シミュレーション結果とあわせて無料相談に活用できます。",
     activityTitle: "ライセンスアクティビティ",
     majorActivity: "大業種",
     subActivity: "中業種（ライセンスアクティビティ）",
-    freeZoneTitle: "フリーゾーン",
-    freeZoneFiltered: "選択中のアクティビティで設立可能なゾーンのみ表示しています。",
+    freeZoneTitle: "フリーゾーン（DMCC / RAKEZ）",
+    freeZoneFiltered: "HINODEYA対応ゾーン。アクティビティに応じて最適なゾーンが自動選択されます。",
     freeZoneUnavailable: "このアクティビティには非対応",
     conditionsTitle: "設立条件",
     sourceNote: "料金は各フリーゾーン公式情報（2024〜2026年）に基づく概算です。",
@@ -94,9 +95,9 @@ const TEXT = {
     },
     visaTimeline: "ビザ取得目安",
     businessDays: "営業日",
-    recommendationTitle: "最適なフリーゾーン",
+    recommendationTitle: "推奨フリーゾーン（DMCC / RAKEZ）",
     recommendationBody:
-      "選択したライセンスアクティビティと設立条件に基づき、適合性とコストのバランスから推奨します。",
+      "選択したアクティビティと設立条件に基づき、DMCCまたはRAKEZのうち最適なゾーンを推奨します。",
     recommendationNote:
       "※金融・暗号資産など規制対象アクティビティは、フリーゾーン選定に加え追加の規制当局認可が必要です。",
     ctaButton: "この条件で無料相談する",
@@ -111,14 +112,14 @@ const TEXT = {
   },
   en: {
     freeZoneDescription:
-      "We optimise the free zone based on your licence activity and setup profile.",
+      "HINODEYA supports DMCC and RAKEZ. We automatically recommend the best fit for your licence activity and setup profile.",
     customerTitle: "Your profile",
     customerNote: "Used together with the simulation for your free consultation.",
     activityTitle: "Licence activity",
     majorActivity: "Major sector",
     subActivity: "Sub-sector (licence activity)",
-    freeZoneTitle: "Free zone",
-    freeZoneFiltered: "Showing only zones eligible for the selected activity.",
+    freeZoneTitle: "Free zone (DMCC / RAKEZ)",
+    freeZoneFiltered: "HINODEYA-supported zones. The best match is auto-selected from your activity.",
     freeZoneUnavailable: "Not eligible for this activity",
     conditionsTitle: "Setup assumptions",
     sourceNote: "Estimates based on each free zone's official pricing (2024–2026).",
@@ -153,9 +154,9 @@ const TEXT = {
     },
     visaTimeline: "Visa processing estimate",
     businessDays: "business days",
-    recommendationTitle: "Optimal free zones",
+    recommendationTitle: "Recommended free zone (DMCC / RAKEZ)",
     recommendationBody:
-      "Recommended based on activity eligibility and cost under your selected assumptions.",
+      "Based on your activity and setup assumptions, we recommend either DMCC or RAKEZ as the best fit.",
     recommendationNote:
       "Note: Regulated activities (finance, crypto, etc.) may require additional regulator approvals beyond free-zone licensing.",
     ctaButton: "Book a free consultation",
@@ -275,9 +276,9 @@ export default function SimulatorPage() {
   const contactRef = useRef<HTMLDivElement | null>(null);
 
   const [customer, setCustomer] = useState<CustomerProfile>(EMPTY_CUSTOMER);
-  const [freeZone, setFreeZone] = useState<FreeZone>("ifza");
+  const [freeZone, setFreeZone] = useState<FreeZone>("rakez");
   const [selections, setSelections] = useState<SimulatorSelections>(() =>
-    getDefaultSelections("ifza"),
+    getDefaultSelections("rakez"),
   );
   const [exchangeRate, setExchangeRate] = useState<ExchangeRateData | null>(null);
   const [contactMessage, setContactMessage] = useState("");
@@ -314,13 +315,16 @@ export default function SimulatorPage() {
   }, []);
 
   useEffect(() => {
+    const top = rankZonesByActivity(selections)[0]?.zone;
+    if (top) setFreeZone(top);
+  }, [selections.majorActivity, selections.subActivity]);
+
+  useEffect(() => {
     if (!allowedZones.includes(freeZone)) {
-      const next = subActivity?.recommendedZones.find((z) =>
-        allowedZones.includes(z),
-      ) ?? allowedZones[0];
-      setFreeZone(next);
+      const top = rankZonesByActivity(selections)[0]?.zone ?? allowedZones[0];
+      if (top) setFreeZone(top);
     }
-  }, [allowedZones, freeZone, subActivity]);
+  }, [allowedZones, freeZone, selections]);
 
   useEffect(() => {
     setSelections((prev) => getDefaultSelections(freeZone, prev.majorActivity, prev.subActivity));
@@ -376,7 +380,7 @@ export default function SimulatorPage() {
   }, [visaQuotaActive, selections.visaSpeed]);
 
   const optimizedZones = useMemo(
-    () => rankZonesByActivity(selections).slice(0, 3),
+    () => rankZonesByActivity(selections),
     [selections],
   );
 
@@ -521,7 +525,7 @@ export default function SimulatorPage() {
                 <p className="text-xs font-semibold uppercase tracking-[0.16em] text-slate-500">{t.freeZoneTitle}</p>
                 <p className="mt-2 text-xs text-slate-500">{t.freeZoneFiltered}</p>
                 <div className="mt-4 flex flex-wrap gap-2">
-                  {(Object.keys(FREE_ZONE_LABELS) as FreeZone[]).map((z) => {
+                  {HINODEYA_SIMULATOR_ZONES.map((z) => {
                     const eligible = allowedZones.includes(z);
                     return (
                       <PillButton key={z} active={freeZone === z} disabled={!eligible} onClick={() => eligible && setFreeZone(z)}>
