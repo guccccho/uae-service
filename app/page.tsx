@@ -27,7 +27,7 @@ const content = {
     },
     expertise: {
       title: "サービス内容",
-      subtitle: "法人の進出支援から、個人の決済・不動産・移住まで、UAEでのビジネスと生活を一括サポートします。",
+      subtitle: "法人の進出支援から、個人の決済・不動産・移住まで、UAEでのビジネスと生活を一括サポートします",
       cards: [
         {
           title: "市場参入戦略",
@@ -70,7 +70,7 @@ const content = {
     },
     why: {
       title: "UAEが選ばれる理由",
-      subtitle: "日本企業の成長を加速させるグローバル拠点としてのUAE。",
+      subtitle: "日本企業の成長を加速させるグローバル拠点としてのUAE",
       cards: [
         {
           title: "グローバル金融ハブ",
@@ -88,7 +88,7 @@ const content = {
     },
     cases: {
       title: "事例紹介",
-      subtitle: "業界別の具体的な支援事例。",
+      subtitle: "業界別の具体的な支援事例",
       cards: [
         {
           tag: "製造業",
@@ -156,7 +156,7 @@ const content = {
     },
     expertise: {
       title: "Our Expertise",
-      subtitle: "From corporate market entry to personal payments, property, and relocation — we support business and life in the UAE.",
+      subtitle: "From corporate market entry to personal payments, property, and relocation — we support business and life in the UAE",
       cards: [
         {
           title: "Market Entry Strategy",
@@ -199,7 +199,7 @@ const content = {
     },
     why: {
       title: "Why UAE",
-      subtitle: "A strategic base for regional and global growth.",
+      subtitle: "A strategic base for regional and global growth",
       cards: [
         {
           title: "Global financial hub",
@@ -217,7 +217,7 @@ const content = {
     },
     cases: {
       title: "Case Studies",
-      subtitle: "Selected engagements with Japanese and global clients.",
+      subtitle: "Selected engagements with Japanese and global clients",
       cards: [
         {
           tag: "Manufacturing",
@@ -285,7 +285,7 @@ const content = {
     },
     expertise: {
       title: "خبراتنا",
-      subtitle: "من دخول الشركات إلى المدفوعات الشخصية والعقارات وإعادة التوطين — ندعم الأعمال والحياة في الإمارات.",
+      subtitle: "من دخول الشركات إلى المدفوعات الشخصية والعقارات وإعادة التوطين — ندعم الأعمال والحياة في الإمارات",
       cards: [
         {
           title: "استراتيجية دخول السوق",
@@ -328,7 +328,7 @@ const content = {
     },
     why: {
       title: "لماذا الإمارات",
-      subtitle: "قاعدة استراتيجية للنمو الإقليمي والعالمي.",
+      subtitle: "قاعدة استراتيجية للنمو الإقليمي والعالمي",
       cards: [
         {
           title: "مركز مالي عالمي",
@@ -346,7 +346,7 @@ const content = {
     },
     cases: {
       title: "دراسات حالة",
-      subtitle: "مشاريع مختارة مع عملاء يابانيين وعالميين.",
+      subtitle: "مشاريع مختارة مع عملاء يابانيين وعالميين",
       cards: [
         {
           tag: "التصنيع",
