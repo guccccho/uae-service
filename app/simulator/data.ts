@@ -644,7 +644,7 @@ export const FREE_ZONE_CONFIGS: Record<FreeZone, FreeZoneConfig> = {
 
       ar: "رأس الخيمة. من Biz Starter (بدون تأشيرة) إلى حزم SME الشاملة.",
     },
-    registrationFee: 0,
+    registrationFee: 3500,
     establishmentCard: 1300,
     licenseTypes: [
       {
@@ -663,13 +663,13 @@ export const FREE_ZONE_CONFIGS: Record<FreeZone, FreeZoneConfig> = {
         id: "fz_llc",
         label: { jp: "FZ-LLC（複数株主）", en: "FZ-LLC (multiple shareholders)", ar: "FZ-LLC (مساهمون متعددون)" },
         description: {
-          jp: "複数株主の有限責任会社。",
-          en: "Multi-shareholder limited liability company.",
+          jp: "複数株主の有限責任会社。定款（MOA）費用が追加されます。",
+          en: "Multi-shareholder limited liability company. MOA drafting fee applies.",
 
-          ar: "شركة ذات مسؤولية محدودة متعددة المساهمين.",
+          ar: "شركة ذات مسؤولية محدودة متعددة المساهمين. تُطبق رسوم صياغة عقد التأسيس.",
         },
         licenseAdj: 0,
-        registrationAdj: 0,
+        registrationAdj: 1500,
       },
       {
         id: "branch",
