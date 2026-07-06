@@ -1148,7 +1148,7 @@ export const HINODEYA_SERVICE_NOTE: LangCopy = {
 
 /** RAKEZ SME packages list AED 14,320 but E-channel (AED 2,200) is billed separately per official FAQ. */
 export const RAKEZ_PRICING_NOTE: LangCopy = {
-  jp: "※ SMEパッケージ（AED 14,320）はライセンス・エスタブリッシュメントカード・ビザ・保険を含みます。E-channel登録（AED 2,200）などが別途かかり、ご自身で設立した場合の初年度実費は AED 17,000 前後が一般的です。E-channel保証金（AED 5,050・返金可）は見積もりに含みません。",
+  jp: "※ SMEパッケージ（AED 14,320）はライセンス・エスタブリッシュメントカード・ビザ・保険を含みます。E-channel登録（AED 2,200）などが別途かかります。",
   en: "SME package (AED 14,320) includes licence, establishment card, visa, and insurance. E-channel registration (AED 2,200) and similar steps are billed separately; self-setup first-year direct costs are typically around AED 17,000. Refundable E-channel deposit (AED 5,050) is not included.",
 
   ar: "حزمة SME (14,320 درهم) تشمل الترخيص وبطاقة التأسيس والتأشيرة والتأمين. تسجيل E-channel (2,200 درهم) وخطوات مماثلة تُفوتر بشكل منفصل؛ التكاليف المباشرة للسنة الأولى عند التأسيس الذاتي عادة حوالي 17,000 درهم. وديعة E-channel القابلة للاسترداد (5,050 درهم) غير مشمولة.",
