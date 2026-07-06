@@ -1126,18 +1126,14 @@ export function calculateBankAccountCost(
   return { total, lines };
 }
 
-/** Target HINODEYA profit on registration fee (≈ ¥1,000,000 at prevailing AED/JPY). */
-export const HINODEYA_PROFIT_TARGET_JPY = 1_000_000;
-
-export function getHinodeyaServiceFeeAed(aedToJpy = DEFAULT_AED_JPY): number {
-  return Math.ceil(HINODEYA_PROFIT_TARGET_JPY / aedToJpy / 100) * 100;
-}
+/** HINODEYA administrative handling fee (fixed). */
+export const HINODEYA_ADMIN_FEE_AED = 15_000;
 
 export const HINODEYA_SERVICE_NOTE: LangCopy = {
-  jp: "概算利益 ¥1,000,000 相当の登録手数料です（為替レートで換算。政府料金は別途）。",
-  en: "Registration fee sized to ~¥1,000,000 profit at the current exchange rate (government fees are separate).",
+  jp: "書類作成・当局手続き代行などを含む事務手数料です（政府料金は別途）。",
+  en: "Administrative fee covering documentation and government liaison (government fees are separate).",
 
-  ar: "رسوم تسجيل بما يعادل ربحاً تقريبياً 1,000,000 ين بسعر الصرف الحالي (الرسوم الحكومية منفصلة).",
+  ar: "رسوم إدارية تشمل إعداد الوثائق والتنسيق مع الجهات (الرسوم الحكومية منفصلة).",
 };
 
 /** RAKEZ SME packages list AED 14,320; some government steps may be billed separately. */
@@ -1250,9 +1246,8 @@ export function hasVisaQuota(
 export function calculateHinodeyaServiceFee(
   _zoneId: FreeZone,
   _selections: SimulatorSelections,
-  aedToJpy = DEFAULT_AED_JPY,
 ): number {
-  return getHinodeyaServiceFeeAed(aedToJpy);
+  return HINODEYA_ADMIN_FEE_AED;
 }
 
 export function calculateZoneCost(
@@ -1309,11 +1304,7 @@ export function calculateZoneCost(
     : 0;
   const { total: bankAccountCost, lines: bankAccountLines } =
     calculateBankAccountCost(selections.bankAccount, visaQuotaActive);
-  const hinodeyaServiceFee = calculateHinodeyaServiceFee(
-    zoneId,
-    selections,
-    aedToJpy,
-  );
+  const hinodeyaServiceFee = calculateHinodeyaServiceFee(zoneId, selections);
 
   const directCost =
     license +
