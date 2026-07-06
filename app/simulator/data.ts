@@ -1050,10 +1050,6 @@ export function getPackageMarkupAed(aedToJpy = DEFAULT_AED_JPY): number {
   return Math.ceil(PACKAGE_MARKUP_JPY / aedToJpy / 100) * 100;
 }
 
-export function getVisaPackageHeadlineFee(licensePackageFee: number): number {
-  return licensePackageFee + VISA_PACKAGE_SURCHARGE_AED;
-}
-
 export type BankAccountSupportType = "corporate" | "personal";
 
 export type BankAccountSelection = {
@@ -1130,14 +1126,18 @@ export function calculateBankAccountCost(
   return { total, lines };
 }
 
-/** Registration handling fee — 90% of the selected visa package headline price. */
-export const REGISTRATION_FEE_RATE = 0.9;
+/** Target HINODEYA profit on registration fee (≈ ¥1,000,000 at prevailing AED/JPY). */
+export const HINODEYA_PROFIT_TARGET_JPY = 1_000_000;
+
+export function getHinodeyaServiceFeeAed(aedToJpy = DEFAULT_AED_JPY): number {
+  return Math.ceil(HINODEYA_PROFIT_TARGET_JPY / aedToJpy / 100) * 100;
+}
 
 export const HINODEYA_SERVICE_NOTE: LangCopy = {
-  jp: "ビザパッケージ料金（上乗せ AED 5,000 込）の90%です（政府料金は別途）。",
-  en: "90% of the visa package fee including the AED 5,000 surcharge (government fees are separate).",
+  jp: "概算利益 ¥1,000,000 相当の登録手数料です（為替レートで換算。政府料金は別途）。",
+  en: "Registration fee sized to ~¥1,000,000 profit at the current exchange rate (government fees are separate).",
 
-  ar: "90% من رسوم حزمة التأشيرة شاملة الإضافة 5,000 درهم (الرسوم الحكومية منفصلة).",
+  ar: "رسوم تسجيل بما يعادل ربحاً تقريبياً 1,000,000 ين بسعر الصرف الحالي (الرسوم الحكومية منفصلة).",
 };
 
 /** RAKEZ SME packages list AED 14,320; some government steps may be billed separately. */
@@ -1248,16 +1248,11 @@ export function hasVisaQuota(
 }
 
 export function calculateHinodeyaServiceFee(
-  zoneId: FreeZone,
-  selections: SimulatorSelections,
+  _zoneId: FreeZone,
+  _selections: SimulatorSelections,
+  aedToJpy = DEFAULT_AED_JPY,
 ): number {
-  const visaPkg = FREE_ZONE_CONFIGS[zoneId].visaPackages.find(
-    (v) => v.id === selections.visas,
-  );
-  if (!visaPkg) return 0;
-  return Math.round(
-    getVisaPackageHeadlineFee(visaPkg.licensePackageFee) * REGISTRATION_FEE_RATE,
-  );
+  return getHinodeyaServiceFeeAed(aedToJpy);
 }
 
 export function calculateZoneCost(
@@ -1314,7 +1309,11 @@ export function calculateZoneCost(
     : 0;
   const { total: bankAccountCost, lines: bankAccountLines } =
     calculateBankAccountCost(selections.bankAccount, visaQuotaActive);
-  const hinodeyaServiceFee = calculateHinodeyaServiceFee(zoneId, selections);
+  const hinodeyaServiceFee = calculateHinodeyaServiceFee(
+    zoneId,
+    selections,
+    aedToJpy,
+  );
 
   const directCost =
     license +
