@@ -1130,10 +1130,10 @@ export function calculateBankAccountCost(
 export const HINODEYA_ADMIN_FEE_AED = 15_000;
 
 export const HINODEYA_SERVICE_NOTE: LangCopy = {
-  jp: "書類作成・当局手続き代行などを含む事務手数料です（政府料金は別途）。",
-  en: "Administrative fee covering documentation and government liaison (government fees are separate).",
+  jp: "書類作成・当局手続き代行などを含む事務手数料（概算 AED 15,000。政府料金は別途）。",
+  en: "Estimated administrative fee of AED 15,000 covering documentation and government liaison (government fees are separate).",
 
-  ar: "رسوم إدارية تشمل إعداد الوثائق والتنسيق مع الجهات (الرسوم الحكومية منفصلة).",
+  ar: "رسوم إدارية تقديرية 15,000 درهم تشمل إعداد الوثائق والتنسيق مع الجهات (الرسوم الحكومية منفصلة).",
 };
 
 /** RAKEZ SME packages list AED 14,320; some government steps may be billed separately. */
