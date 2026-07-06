@@ -29,7 +29,7 @@ export type VisaPackageOption = {
   visaProcessingEach: number;
   /** SME-style bundles that already include establishment card in licensePackageFee */
   includesEstablishment?: boolean;
-  /** E-channel, medical, Emirates ID, and other government steps billed outside headline package price */
+  /** Medical, Emirates ID, and other government steps billed outside headline package price */
   governmentExtras?: number;
 };
 
@@ -1140,12 +1140,12 @@ export const HINODEYA_SERVICE_NOTE: LangCopy = {
   ar: "90% من رسوم حزمة التأشيرة شاملة الإضافة 5,000 درهم (الرسوم الحكومية منفصلة).",
 };
 
-/** RAKEZ SME packages list AED 14,320 but E-channel (AED 2,200) is billed separately per official FAQ. */
+/** RAKEZ SME packages list AED 14,320; some government steps may be billed separately. */
 export const RAKEZ_PRICING_NOTE: LangCopy = {
-  jp: "※ SMEパッケージ（AED 14,320）はライセンス・エスタブリッシュメントカード・ビザ・保険を含みます。E-channel登録（AED 2,200）などが別途かかります。",
-  en: "SME package (AED 14,320) includes licence, establishment card, visa, and insurance. E-channel registration (AED 2,200) and similar steps are billed separately.",
+  jp: "※ SMEパッケージ（AED 14,320）はライセンス・エスタブリッシュメントカード・ビザ・保険を含みます。一部手続きは別途かかります。",
+  en: "SME package (AED 14,320) includes licence, establishment card, visa, and insurance. Some procedures are billed separately.",
 
-  ar: "حزمة SME (14,320 درهم) تشمل الترخيص وبطاقة التأسيس والتأشيرة والتأمين. تسجيل E-channel (2,200 درهم) وخطوات مماثلة تُفوتر بشكل منفصل.",
+  ar: "حزمة SME (14,320 درهم) تشمل الترخيص وبطاقة التأسيس والتأشيرة والتأمين. بعض الإجراءات تُفوتر بشكل منفصل.",
 };
 
 export const VISA_VIP_OPTION_COST = 5000;
