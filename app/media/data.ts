@@ -209,6 +209,34 @@ export const mediaItems: MediaItem[] = [
     homepageUrl: "https://rembo.jp/",
     websiteUrl: "https://rembo.jp",
   },
+  {
+    slug: "sportsbacks",
+    sector: {
+      jp: "スポーツ / マネジメント",
+      en: "Sports / Management",
+      ar: "الرياضة / الإدارة",
+    },
+    title: {
+      jp: "スポーツバックス（SPORTS BACKS）— アスリートマネジメント",
+      en: "SPORTS BACKS – Athlete Management & Sports Facility Consulting",
+      ar: "SPORTS BACKS – إدارة الرياضيين واستشارات المرافق الرياضية",
+    },
+    summary: {
+      jp: "「DESIGN A SPORT」を掲げ、アスリート・スポーツ関係者のマネジメントと、スポーツ施設のコンセプト設計から設計コンサルまでを手がける。上原浩治、鈴木誠也、畠山愛理ら多数のアスリートをマネジメントし、公式ECでもグッズを展開。中東・GCC展開をチームHINODEYAとともに推進。",
+      en: "Under the vision “Design a Sport,” SPORTS BACKS manages athletes and consults on sports facility concepts and design — representing stars including Koji Uehara, Seiya Suzuki, and Airi Hatakeyama, with an official merchandise store. Exploring GCC expansion with Team HINODEYA.",
+      ar: "تحت رؤية «Design a Sport»، تدير SPORTS BACKS الرياضيين وتستشير في مفاهيم وتصميم المرافق الرياضية — تمثل نجوماً من بينهم كوجي أويهارا وسييا سوزوكي وآيري هاتاكياما، مع متجر رسمي للمنتجات. تستكشف التوسع في دول مجلس التعاون مع فريق HINODEYA.",
+    },
+    location: "Japan",
+    stage: {
+      jp: "海外展開",
+      en: "International expansion",
+      ar: "التوسع الدولي",
+    },
+    year: "2025",
+    imageUrl: "/media-previews/sportsbacks.png",
+    homepageUrl: "https://sportsbacks.com/",
+    websiteUrl: "https://sportsbacks.com",
+  },
 ];
 
 export function getMediaItemsForLang(lang: Lang) {
