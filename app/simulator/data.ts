@@ -29,7 +29,7 @@ export type VisaPackageOption = {
   visaProcessingEach: number;
   /** SME-style bundles that already include establishment card in licensePackageFee */
   includesEstablishment?: boolean;
-  /** E-channel, medical, Emirates ID, and other government steps billed outside headline package price */
+  /** Medical, Emirates ID, and other government steps billed outside headline package price */
   governmentExtras?: number;
 };
 
@@ -644,7 +644,7 @@ export const FREE_ZONE_CONFIGS: Record<FreeZone, FreeZoneConfig> = {
 
       ar: "رأس الخيمة. من Biz Starter (بدون تأشيرة) إلى حزم SME الشاملة.",
     },
-    registrationFee: 0,
+    registrationFee: 3500,
     establishmentCard: 1300,
     licenseTypes: [
       {
@@ -663,13 +663,13 @@ export const FREE_ZONE_CONFIGS: Record<FreeZone, FreeZoneConfig> = {
         id: "fz_llc",
         label: { jp: "FZ-LLC（複数株主）", en: "FZ-LLC (multiple shareholders)", ar: "FZ-LLC (مساهمون متعددون)" },
         description: {
-          jp: "複数株主の有限責任会社。",
-          en: "Multi-shareholder limited liability company.",
+          jp: "複数株主の有限責任会社。定款（MOA）費用が追加されます。",
+          en: "Multi-shareholder limited liability company. MOA drafting fee applies.",
 
-          ar: "شركة ذات مسؤولية محدودة متعددة المساهمين.",
+          ar: "شركة ذات مسؤولية محدودة متعددة المساهمين. تُطبق رسوم صياغة عقد التأسيس.",
         },
         licenseAdj: 0,
-        registrationAdj: 0,
+        registrationAdj: 1500,
       },
       {
         id: "branch",
@@ -702,10 +702,10 @@ export const FREE_ZONE_CONFIGS: Record<FreeZone, FreeZoneConfig> = {
         id: "1",
         label: { jp: "1名（SMEオールイン）", en: "1 visa (SME all-in)", ar: "تأشيرة واحدة (SME شاملة)" },
         description: {
-          jp: "公式パッケージ AED 14,320/年（ライセンス・EC・ビザ・保険込み）＋ E-channel等で初年度実費は約 AED 17,000",
-          en: "Official package AED 14,320/yr (licence, EC, visa, insurance) + E-channel etc.; first-year direct cost ~AED 17,000",
+          jp: "公式パッケージ AED 14,320/年（ライセンス・EC・ビザ・保険込み）",
+          en: "Official package AED 14,320/yr (licence, EC, visa, insurance)",
 
-          ar: "الحزمة الرسمية 14,320 درهم/سنة (ترخيص، بطاقة تأسيس، تأشيرة، تأمين) + E-channel وغيرها؛ التكلفة المباشرة للسنة الأولى ~17,000 درهم",
+          ar: "الحزمة الرسمية 14,320 درهم/سنة (ترخيص، بطاقة تأسيس، تأشيرة، تأمين)",
         },
         visaCount: 1,
         licensePackageFee: 14320,
@@ -1043,6 +1043,9 @@ export const BANK_ACCOUNT_PERSONAL_COST = 5000;
 export const PACKAGE_MARKUP_JPY = 500_000;
 export const DEFAULT_AED_JPY = 40;
 
+/** Fixed surcharge added to every visa package headline price. */
+export const VISA_PACKAGE_SURCHARGE_AED = 5000;
+
 export function getPackageMarkupAed(aedToJpy = DEFAULT_AED_JPY): number {
   return Math.ceil(PACKAGE_MARKUP_JPY / aedToJpy / 100) * 100;
 }
@@ -1123,35 +1126,22 @@ export function calculateBankAccountCost(
   return { total, lines };
 }
 
-/** HINODEYA professional service fee (excl. government pass-through). Mid-market vs typical AED 3,000–8,000 setup consulting. */
-export const HINODEYA_SERVICE_BASE: Record<FreeZone, number> = {
-  rakez: 4200,
-  spc: 4500,
-  ifza: 5500,
-  meydan: 5800,
-  dmcc: 7500,
-};
-
-export const HINODEYA_SERVICE_ADDONS = {
-  regulatedActivity: 1500,
-  branchEntity: 700,
-  visaCoordinationPerPerson: 350,
-  visaCoordinationMax: 1050,
-} as const;
+/** HINODEYA administrative handling fee (fixed). */
+export const HINODEYA_ADMIN_FEE_AED = 15_000;
 
 export const HINODEYA_SERVICE_NOTE: LangCopy = {
-  jp: "進出戦略整理、書類作成、当局手続き代行、日本語サポートを含むサービス料です（政府料金は別途）。",
-  en: "Service fee covering strategy, documentation, government liaison, and Japanese-language support (government fees are separate).",
+  jp: "書類作成・当局手続き代行などを含む事務手数料（概算 AED 15,000。政府料金は別途）。",
+  en: "Estimated administrative fee of AED 15,000 covering documentation and government liaison (government fees are separate).",
 
-  ar: "رسوم الخدمة تشمل الاستراتيجية والوثائق والتنسيق الحكومي والدعم باللغة اليابانية (الرسوم الحكومية منفصلة).",
+  ar: "رسوم إدارية تقديرية 15,000 درهم تشمل إعداد الوثائق والتنسيق مع الجهات (الرسوم الحكومية منفصلة).",
 };
 
-/** RAKEZ SME packages list AED 14,320 but E-channel (AED 2,200) is billed separately per official FAQ. */
+/** RAKEZ SME packages list AED 14,320; some government steps may be billed separately. */
 export const RAKEZ_PRICING_NOTE: LangCopy = {
-  jp: "※ SMEパッケージ（AED 14,320）はライセンス・エスタブリッシュメントカード・ビザ・保険を含みます。E-channel登録（AED 2,200）などが別途かかり、ご自身で設立した場合の初年度実費は AED 17,000 前後が一般的です。E-channel保証金（AED 5,050・返金可）は見積もりに含みません。",
-  en: "SME package (AED 14,320) includes licence, establishment card, visa, and insurance. E-channel registration (AED 2,200) and similar steps are billed separately; self-setup first-year direct costs are typically around AED 17,000. Refundable E-channel deposit (AED 5,050) is not included.",
+  jp: "※ SMEパッケージ（AED 14,320）はライセンス・エスタブリッシュメントカード・ビザ・保険を含みます。一部手続きは別途かかります。",
+  en: "SME package (AED 14,320) includes licence, establishment card, visa, and insurance. Some procedures are billed separately.",
 
-  ar: "حزمة SME (14,320 درهم) تشمل الترخيص وبطاقة التأسيس والتأشيرة والتأمين. تسجيل E-channel (2,200 درهم) وخطوات مماثلة تُفوتر بشكل منفصل؛ التكاليف المباشرة للسنة الأولى عند التأسيس الذاتي عادة حوالي 17,000 درهم. وديعة E-channel القابلة للاسترداد (5,050 درهم) غير مشمولة.",
+  ar: "حزمة SME (14,320 درهم) تشمل الترخيص وبطاقة التأسيس والتأشيرة والتأمين. بعض الإجراءات تُفوتر بشكل منفصل.",
 };
 
 export const VISA_VIP_OPTION_COST = 5000;
@@ -1217,6 +1207,7 @@ export type CostBreakdown = {
   bankAccountCost: number;
   bankAccountLines: { type: BankAccountSupportType; cost: number }[];
   packageMarkup: number;
+  visaPackageSurcharge: number;
   hinodeyaServiceFee: number;
   /** Zone and government fees before HINODEYA service fee */
   directCost: number;
@@ -1253,30 +1244,10 @@ export function hasVisaQuota(
 }
 
 export function calculateHinodeyaServiceFee(
-  zoneId: FreeZone,
-  selections: SimulatorSelections,
+  _zoneId: FreeZone,
+  _selections: SimulatorSelections,
 ): number {
-  const sub = getSubActivity(selections.majorActivity, selections.subActivity);
-  const visaPkg = FREE_ZONE_CONFIGS[zoneId].visaPackages.find(
-    (v) => v.id === selections.visas,
-  );
-
-  let fee = HINODEYA_SERVICE_BASE[zoneId];
-
-  if (sub?.regulated) {
-    fee += HINODEYA_SERVICE_ADDONS.regulatedActivity;
-  }
-  if (selections.companyType === "branch") {
-    fee += HINODEYA_SERVICE_ADDONS.branchEntity;
-  }
-  if (visaPkg && visaPkg.visaCount > 0) {
-    fee += Math.min(
-      visaPkg.visaCount * HINODEYA_SERVICE_ADDONS.visaCoordinationPerPerson,
-      HINODEYA_SERVICE_ADDONS.visaCoordinationMax,
-    );
-  }
-
-  return fee;
+  return HINODEYA_ADMIN_FEE_AED;
 }
 
 export function calculateZoneCost(
@@ -1303,6 +1274,7 @@ export function calculateZoneCost(
 
   const license =
     visaPkg.licensePackageFee + licenseType.licenseAdj + activityAdj;
+  const visaPackageSurcharge = VISA_PACKAGE_SURCHARGE_AED;
   const packageMarkup = getPackageMarkupAed(aedToJpy);
   const registration = zone.registrationFee + licenseType.registrationAdj;
 
@@ -1336,6 +1308,7 @@ export function calculateZoneCost(
 
   const directCost =
     license +
+    visaPackageSurcharge +
     packageMarkup +
     registration +
     visas +
@@ -1360,6 +1333,7 @@ export function calculateZoneCost(
     bankAccountCost,
     bankAccountLines,
     packageMarkup,
+    visaPackageSurcharge,
     hinodeyaServiceFee,
     directCost,
     visaProcessingDays,
