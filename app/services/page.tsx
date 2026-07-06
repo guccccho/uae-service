@@ -46,7 +46,7 @@ const content: Record<
       },
       {
         title: "不動産購入・投資",
-        body: "住宅購入、賃貸、投資物件の選定から契約・登記まで、ドバイ・ラスアルハイマで伴走します。",
+        body: "住宅購入、賃貸、投資物件の選定から契約・登記まで、ドバイ、アブダビからラスアルハイマまで伴走します。",
       },
       {
         title: "移住・ビザ・生活設計",
@@ -85,7 +85,7 @@ const content: Record<
       },
       {
         title: "Property Purchase & Investment",
-        body: "Residential and investment property in Dubai and Ras Al Khaimah — from shortlisting to contract and registration.",
+        body: "From Dubai and Abu Dhabi to Ras Al Khaimah — residential purchase, rental, and investment property from shortlisting to contract and registration.",
       },
       {
         title: "Relocation, Visa & Lifestyle",
@@ -124,7 +124,7 @@ const content: Record<
       },
       {
         title: "شراء العقارات والاستثمار",
-        body: "عقارات سكنية واستثمارية في دبي ورأس الخيمة — من الاختيار إلى العقد والتسجيل.",
+        body: "من دبي وأبوظبي إلى رأس الخيمة — عقارات سكنية وإيجار واستثمارية من الاختيار إلى العقد والتسجيل.",
       },
       {
         title: "إعادة التوطين والتأشيرة ونمط الحياة",
