@@ -1043,8 +1043,15 @@ export const BANK_ACCOUNT_PERSONAL_COST = 5000;
 export const PACKAGE_MARKUP_JPY = 500_000;
 export const DEFAULT_AED_JPY = 40;
 
+/** Fixed surcharge added to every visa package headline price. */
+export const VISA_PACKAGE_SURCHARGE_AED = 5000;
+
 export function getPackageMarkupAed(aedToJpy = DEFAULT_AED_JPY): number {
   return Math.ceil(PACKAGE_MARKUP_JPY / aedToJpy / 100) * 100;
+}
+
+export function getVisaPackageHeadlineFee(licensePackageFee: number): number {
+  return licensePackageFee + VISA_PACKAGE_SURCHARGE_AED;
 }
 
 export type BankAccountSupportType = "corporate" | "personal";
@@ -1127,10 +1134,10 @@ export function calculateBankAccountCost(
 export const REGISTRATION_FEE_RATE = 0.9;
 
 export const HINODEYA_SERVICE_NOTE: LangCopy = {
-  jp: "選択したビザパッケージ料金の90%です（政府料金は別途）。",
-  en: "90% of the selected visa package fee (government fees are separate).",
+  jp: "ビザパッケージ料金（上乗せ AED 5,000 込）の90%です（政府料金は別途）。",
+  en: "90% of the visa package fee including the AED 5,000 surcharge (government fees are separate).",
 
-  ar: "90% من رسوم حزمة التأشيرة المختارة (الرسوم الحكومية منفصلة).",
+  ar: "90% من رسوم حزمة التأشيرة شاملة الإضافة 5,000 درهم (الرسوم الحكومية منفصلة).",
 };
 
 /** RAKEZ SME packages list AED 14,320 but E-channel (AED 2,200) is billed separately per official FAQ. */
@@ -1204,6 +1211,7 @@ export type CostBreakdown = {
   bankAccountCost: number;
   bankAccountLines: { type: BankAccountSupportType; cost: number }[];
   packageMarkup: number;
+  visaPackageSurcharge: number;
   hinodeyaServiceFee: number;
   /** Zone and government fees before HINODEYA service fee */
   directCost: number;
@@ -1247,7 +1255,9 @@ export function calculateHinodeyaServiceFee(
     (v) => v.id === selections.visas,
   );
   if (!visaPkg) return 0;
-  return Math.round(visaPkg.licensePackageFee * REGISTRATION_FEE_RATE);
+  return Math.round(
+    getVisaPackageHeadlineFee(visaPkg.licensePackageFee) * REGISTRATION_FEE_RATE,
+  );
 }
 
 export function calculateZoneCost(
@@ -1274,6 +1284,7 @@ export function calculateZoneCost(
 
   const license =
     visaPkg.licensePackageFee + licenseType.licenseAdj + activityAdj;
+  const visaPackageSurcharge = VISA_PACKAGE_SURCHARGE_AED;
   const packageMarkup = getPackageMarkupAed(aedToJpy);
   const registration = zone.registrationFee + licenseType.registrationAdj;
 
@@ -1307,6 +1318,7 @@ export function calculateZoneCost(
 
   const directCost =
     license +
+    visaPackageSurcharge +
     packageMarkup +
     registration +
     visas +
@@ -1331,6 +1343,7 @@ export function calculateZoneCost(
     bankAccountCost,
     bankAccountLines,
     packageMarkup,
+    visaPackageSurcharge,
     hinodeyaServiceFee,
     directCost,
     visaProcessingDays,

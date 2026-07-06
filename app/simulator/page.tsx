@@ -86,6 +86,7 @@ const TEXT = {
     resultTitle: "推定設立費用",
     breakdown: {
       license: "ライセンス / パッケージ",
+      visaPackageSurcharge: "ビザパッケージ上乗せ",
       packageMarkup: "パッケージ手数料（概算）",
       registration: "登録・定款費用",
       establishment: "エスタブリッシュメントカード",
@@ -146,6 +147,7 @@ const TEXT = {
     resultTitle: "Estimated setup cost",
     breakdown: {
       license: "Licence / package",
+      visaPackageSurcharge: "Visa package surcharge",
       packageMarkup: "Package markup (estimate)",
       registration: "Registration & MOA",
       establishment: "Establishment card",
@@ -206,6 +208,7 @@ const TEXT = {
     resultTitle: "تكلفة التأسيس المقدرة",
     breakdown: {
       license: "الترخيص / الحزمة",
+      visaPackageSurcharge: "رسوم إضافية على حزمة التأشيرة",
       packageMarkup: "رسوم الحزمة (تقديرية)",
       registration: "التسجيل وعقد التأسيس",
       establishment: "بطاقة التأسيس",
@@ -844,6 +847,10 @@ export default function SimulatorPage() {
               <div className="mt-6 space-y-4 text-sm">
                 {[
                   { label: t.breakdown.license, value: breakdown.license },
+                  {
+                    label: t.breakdown.visaPackageSurcharge,
+                    value: breakdown.visaPackageSurcharge,
+                  },
                   { label: t.breakdown.packageMarkup, value: breakdown.packageMarkup },
                   ...(breakdown.registration > 0
                     ? [{ label: t.breakdown.registration, value: breakdown.registration }]
