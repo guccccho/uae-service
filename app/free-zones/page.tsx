@@ -123,7 +123,7 @@ const content: Record<
     rakezBestFor:
       "コスト効率と現場オペレーションのしやすさを優先しつつ、UAEに実務拠点を持ちたい企業。",
     recommendEyebrow: "どのフリーゾーンを選ぶべきか？",
-    recommendTitle: "ブランド重視か、コスト効率重視かで最適解が変わります。",
+    recommendTitle: "ブランド重視か、コスト効率重視かで最適解が変わります",
     recommendBody1:
       "ブランド性・対外的信頼性・国際的な印象を重視する場合はDMCC、コスト効率・実務性・リーンな立ち上げを重視する場合はRAKEZが有力な選択肢となります。",
     recommendBody2:
@@ -213,7 +213,7 @@ const content: Record<
       "Companies prioritizing cost efficiency and operational practicality, while still securing a functional base in the UAE.",
     recommendEyebrow: "Which Free Zone Should You Choose?",
     recommendTitle:
-      "The right answer depends on whether you prioritize brand or cost efficiency.",
+      "The right answer depends on whether you prioritize brand or cost efficiency",
     recommendBody1:
       "If you emphasize brand prestige, external credibility, and international perception, DMCC is often the better fit. If you emphasize cost efficiency, practicality, and a lean setup, RAKEZ is typically more suitable.",
     recommendBody2:
@@ -303,7 +303,7 @@ const content: Record<
       "الشركات التي تولي أولوية لكفاءة التكلفة والعملية التشغيلية مع تأمين قاعدة عملية في الإمارات.",
     recommendEyebrow: "أي منطقة حرة يجب اختيارها؟",
     recommendTitle:
-      "الإجابة الصحيحة تعتمد على ما إذا كنتم تولون أولوية للمكانة أو كفاءة التكلفة.",
+      "الإجابة الصحيحة تعتمد على ما إذا كنتم تولون أولوية للمكانة أو كفاءة التكلفة",
     recommendBody1:
       "إذا ركزتم على المكانة التجارية والمصداقية الخارجية والانطباع الدولي، فغالباً ما تكون DMCC الخيار الأفضل. وإذا ركزتم على كفاءة التكلفة والعملية والتأسيس المرن، فعادة ما تكون RAKEZ أكثر ملاءمة.",
     recommendBody2:
