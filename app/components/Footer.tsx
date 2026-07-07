@@ -30,6 +30,16 @@ const footerCopy = {
     en: "Consulting Clients' Products",
     ar: "منتجات الشركات المستشارة",
   },
+  tour: {
+    jp: "ドバイ視察プログラム",
+    en: "Dubai Business Tour",
+    ar: "جولة الأعمال في دبي",
+  },
+  simulator: {
+    jp: "コストシミュレーター",
+    en: "Cost Simulator",
+    ar: "محاكي التكاليف",
+  },
   contact: {
     jp: "お問い合わせ",
     en: "Contact",
@@ -88,6 +98,12 @@ export function SiteFooter() {
               </a>
               <a href="/media" className="transition-colors hover:text-slate-800">
                 {pickLang(footerCopy.media, lang)}
+              </a>
+              <a href="/dubai-business-tour" className="transition-colors hover:text-slate-800">
+                {pickLang(footerCopy.tour, lang)}
+              </a>
+              <a href="/simulator" className="transition-colors hover:text-slate-800">
+                {pickLang(footerCopy.simulator, lang)}
               </a>
               <a href="/contact" className="transition-colors hover:text-slate-800">
                 {pickLang(footerCopy.contact, lang)}
