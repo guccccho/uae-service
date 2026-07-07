@@ -35,6 +35,7 @@ import {
   type VisaSpeed,
 } from "./data";
 import { VisaAcquisitionSchedule } from "./ScheduleTimeline";
+import { CONTACT_EMAIL_DISPLAY, contactMailto } from "../lib/contact-email";
 import ZoneShowcase, { ZoneLogo } from "./ZoneShowcase";
 
 const BRAND = "#bc002d";
@@ -424,7 +425,7 @@ function buildMailto(
     .filter(Boolean)
     .join("\n");
 
-  return `mailto:contact@hinodeya.ae?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+  return contactMailto(`?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`);
 }
 
 export default function SimulatorPage() {
@@ -628,7 +629,7 @@ export default function SimulatorPage() {
                   </label>
                   <label className="block">
                     <span className="text-xs font-semibold uppercase tracking-[0.16em] text-slate-500">{t.labels.email}</span>
-                    <input type="email" className={inputClass} value={customer.email} onChange={(e) => setCustomer((p) => ({ ...p, email: e.target.value }))} placeholder="contact@hinodeya.ae" />
+                    <input type="email" className={inputClass} value={customer.email} onChange={(e) => setCustomer((p) => ({ ...p, email: e.target.value }))} placeholder={CONTACT_EMAIL_DISPLAY} />
                   </label>
                   <label className="block">
                     <span className="text-xs font-semibold uppercase tracking-[0.16em] text-slate-500">{t.labels.country}</span>

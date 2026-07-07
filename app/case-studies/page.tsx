@@ -3,6 +3,7 @@
 import React from "react";
 import { useLang } from "../lang-context";
 import { LangSwitch } from "../components/LangSwitch";
+import { contactMailto } from "../lib/contact-email";
 import type { Lang } from "../i18n";
 
 const content: Record<
@@ -152,7 +153,7 @@ export default function CaseStudiesPage() {
                 {t.ctaBody}
               </p>
               <a
-                href="mailto:contact@hinodeya.ae"
+                href={contactMailto()}
                 className="mt-2 inline-flex items-center justify-center rounded-full bg-brand px-10 py-3 text-xs font-semibold uppercase tracking-[0.2em] text-white shadow-[0_18px_45px_rgba(15,23,42,0.18)] transition-colors hover:bg-brand-hover"
               >
                 {t.ctaLabel}

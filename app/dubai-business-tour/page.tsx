@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { contactMailto } from "../lib/contact-email";
 import { type ReactNode } from "react";
 import { useLang } from "../lang-context";
 import { LangSwitch } from "../components/LangSwitch";
@@ -203,7 +204,7 @@ export default function DubaiBusinessTourPage() {
             </p>
             <div className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row">
               <a
-                href="mailto:contact@hinodeya.ae"
+                href={contactMailto()}
                 className="inline-flex items-center justify-center rounded-full bg-brand px-10 py-3.5 text-xs font-semibold uppercase tracking-[0.2em] text-white shadow-[0_18px_45px_rgba(15,23,42,0.18)] transition-colors hover:bg-brand-hover"
               >
                 {t.primaryCta}
@@ -334,7 +335,7 @@ export default function DubaiBusinessTourPage() {
             </p>
             <div className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row">
               <a
-                href="mailto:contact@hinodeya.ae"
+                href={contactMailto()}
                 className="inline-flex items-center justify-center rounded-full bg-brand px-10 py-3.5 text-xs font-semibold uppercase tracking-[0.2em] text-white shadow-[0_18px_45px_rgba(15,23,42,0.18)] transition-colors hover:bg-brand-hover"
               >
                 {t.contactButton}
