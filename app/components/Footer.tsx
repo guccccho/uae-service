@@ -57,11 +57,15 @@ export function SiteFooter() {
           <p className="text-slate-600">{pickLang(footerCopy.tagline, lang)}</p>
           <div className="text-slate-400 space-y-1">
             <div>
-              IFZA Business Park
+              CWEP3637
               <br />
-              Dubai Silicon Oasis
+              Compass Building,
               <br />
-              Dubai, United Arab Emirates
+              Al Shohada Road,
+              <br />
+              AL Hamra Industrial Zone-FZ,
+              <br />
+              Ras Al Khaimah, United Arab Emirates
             </div>
             <div>
               <a
