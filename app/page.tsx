@@ -136,7 +136,7 @@ const content = {
     },
     footer: {
       name: "UAE Business Consulting",
-      location: "IFZA Business Park, Dubai Silicon Oasis, Dubai, United Arab Emirates",
+      location: "CWEP3637, Compass Building, Al Shohada Road, AL Hamra Industrial Zone-FZ, Ras Al Khaimah, United Arab Emirates",
       email: "contact@hinodeya.ae",
     },
   },
@@ -265,7 +265,7 @@ const content = {
     },
     footer: {
       name: "UAE Business Consulting",
-      location: "IFZA Business Park, Dubai Silicon Oasis, Dubai, United Arab Emirates",
+      location: "CWEP3637, Compass Building, Al Shohada Road, AL Hamra Industrial Zone-FZ, Ras Al Khaimah, United Arab Emirates",
       email: "contact@hinodeya.ae",
     },
   },
@@ -394,7 +394,7 @@ const content = {
     },
     footer: {
       name: "UAE Business Consulting",
-      location: "IFZA Business Park, Dubai Silicon Oasis, Dubai, United Arab Emirates",
+      location: "CWEP3637, Compass Building, Al Shohada Road, AL Hamra Industrial Zone-FZ, Ras Al Khaimah, United Arab Emirates",
       email: "contact@hinodeya.ae",
     },
   },
