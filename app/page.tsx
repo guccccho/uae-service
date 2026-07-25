@@ -424,7 +424,7 @@ export default function Home() {
             <img
               src="/hinodeya-logo.png"
               alt="HINODEYA"
-              className="h-10 w-auto sm:h-12"
+              className="h-11 w-11 object-contain sm:h-12 sm:w-12"
             />
             <div className="leading-none">
               <div className="text-xs font-semibold uppercase tracking-[0.26em] text-slate-900">
