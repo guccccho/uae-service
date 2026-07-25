@@ -8,7 +8,7 @@ import { mediaItems } from "./media/data";
 import { TRUSTED_PARTNERS } from "./trusted-partners";
 import { GovernmentPortalsSection } from "./components/GovernmentPortalsSection";
 import { MediaCardPreview } from "./components/MediaCardPreview";
-import { HinomaruMark, HinomaruMotif } from "./components/HinomaruMotif";
+import { HinomaruMotif } from "./components/HinomaruMotif";
 
 const content = {
   jp: {
@@ -420,8 +420,12 @@ export default function Home() {
       <header className="relative border-b border-[#f0e4e6] bg-gradient-to-r from-white via-brand-light/40 to-white">
         <HinomaruMotif variant="section" className="inset-0 opacity-70" />
         <div className="relative mx-auto flex max-w-6xl items-center justify-between px-6 py-6 sm:px-10 lg:px-12">
-          <div className="flex items-center gap-4 sm:gap-5">
-            <HinomaruMark className="h-9 w-9 sm:h-10 sm:w-10" />
+          <div className="flex items-center gap-3 sm:gap-4">
+            <img
+              src="/hinodeya-logo.png"
+              alt="HINODEYA"
+              className="h-10 w-auto sm:h-12"
+            />
             <div className="leading-none">
               <div className="text-xs font-semibold uppercase tracking-[0.26em] text-slate-900">
                 {t.logo}
