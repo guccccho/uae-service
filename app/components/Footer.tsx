@@ -35,11 +35,6 @@ const footerCopy = {
     en: "Contact",
     ar: "اتصل بنا",
   },
-  disclaimer: {
-    jp: "本ページの内容は一般的な情報提供を目的としたものであり、個別の法的・税務アドバイスではありません。",
-    en: "This website provides general information only and does not constitute specific legal or tax advice.",
-    ar: "يوفر هذا الموقع معلومات عامة فقط ولا يُعد استشارة قانونية أو ضريبية محددة.",
-  },
 } satisfies Record<string, LangCopy>;
 
 export function SiteFooter() {
@@ -101,7 +96,6 @@ export function SiteFooter() {
 
           <div className={`text-[11px] text-slate-400 ${align}`}>
             <div>© {new Date().getFullYear()} HINODEYA</div>
-            <div className="mt-1">{pickLang(footerCopy.disclaimer, lang)}</div>
           </div>
         </div>
       </div>
