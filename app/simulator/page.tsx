@@ -86,7 +86,7 @@ const TEXT = {
     resultTitle: "推定設立費用",
     breakdown: {
       license: "ライセンス / パッケージ",
-      visaPackageSurcharge: "ビザパッケージ上乗せ",
+      visaPackageSurcharge: "ビザ年間維持コスト含む",
       packageMarkup: "パッケージ手数料（概算）",
       registration: "登録・定款費用",
       establishment: "エスタブリッシュメントカード",
@@ -147,7 +147,7 @@ const TEXT = {
     resultTitle: "Estimated setup cost",
     breakdown: {
       license: "Licence / package",
-      visaPackageSurcharge: "Visa package surcharge",
+      visaPackageSurcharge: "Includes annual visa maintenance cost",
       packageMarkup: "Package markup (estimate)",
       registration: "Registration & MOA",
       establishment: "Establishment card",
@@ -208,7 +208,7 @@ const TEXT = {
     resultTitle: "تكلفة التأسيس المقدرة",
     breakdown: {
       license: "الترخيص / الحزمة",
-      visaPackageSurcharge: "رسوم إضافية على حزمة التأشيرة",
+      visaPackageSurcharge: "يشمل تكلفة صيانة التأشيرة السنوية",
       packageMarkup: "رسوم الحزمة (تقديرية)",
       registration: "التسجيل وعقد التأسيس",
       establishment: "بطاقة التأسيس",
