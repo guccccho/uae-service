@@ -65,9 +65,9 @@ const content: Record<
     day2Items: ["不動産視察", "居住エリア", "商業物件"],
     day3Title: "Day 3",
     day3Items: ["銀行口座説明", "現地企業ミーティング", "JV相談"],
-    pricingTitle: "Pricing",
+    pricingTitle: "料金",
     pricingCards: [
-      { title: "オンライン事前相談", price: "¥50,000〜" },
+      { title: "相談のみ", price: "¥50,000〜" },
       { title: "現地同行プログラム", price: "¥500,000〜" },
       { title: "プレミアム視察", price: "¥800,000〜¥1,200,000" },
     ],
@@ -111,7 +111,7 @@ const content: Record<
     day3Items: ["Banking overview", "Local company meetings", "JV discussion"],
     pricingTitle: "Pricing",
     pricingCards: [
-      { title: "Online Strategic Session", price: "From ¥50,000" },
+      { title: "Consultation only", price: "From ¥50,000" },
       { title: "On-site Advisory Program", price: "From ¥500,000" },
       { title: "Premium Exploration", price: "¥800,000–¥1,200,000" },
     ],
@@ -155,7 +155,7 @@ const content: Record<
     day3Items: ["نظرة عامة على الخدمات المصرفية", "اجتماعات مع شركات محلية", "مناقشة المشاريع المشتركة"],
     pricingTitle: "الأسعار",
     pricingCards: [
-      { title: "جلسة استراتيجية عبر الإنترنت", price: "من ¥50,000" },
+      { title: "استشارة فقط", price: "من ¥50,000" },
       { title: "برنامج استشاري ميداني", price: "من ¥500,000" },
       { title: "استكشاف متميز", price: "¥800,000–¥1,200,000" },
     ],
